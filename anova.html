@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+<br>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+  
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">
+        Biometrics (Biol 340)
+      </a>
+    </div>
+
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="weekly_labs.html">Weekly Labs</a></li>
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Intro to R
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="intro_R.html">Intro to R</a></li>
+            <li><a href="data_types.html">Data Types</a></li>
+            <li><a href="input_R.html">Inputting Data</a></li>
+            <li><a href="packages.html">Packages</a></li>
+            <li><a href="R_websites.html">Helpful Websites</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Basic Skills
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="des_stats.html">Descriptive Stats</a></li>
+            <li><a href="plyr.html">Plyr Package</a></li>
+            <li><a href="basic_prob.html">Basic Proability</a></li>
+            <li><a href="prob_dist.html">Probability Distributions</a></li>
+          </ul>
+        </li>
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Statistical Tests
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="chi_good_test.html">Chi-squared Goodness-of-fit Test</a></li>
+            <li><a href="chi_conti_test.html">Chi-squared Contingency Test</a></li>
+            <li><a href="t_test.html">t-Test</a></li>
+            <li><a href="anova.html">ANOVA</a></li>
+            <li><a href="reg_corr_test.html">Regression and Correlation</a></li>
+            <li><a href="logistic_test.html">Logistic Regression</a></li>
+          </ul>
+        </li>
+          
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Graphing
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="basic_graphing.html">Basic Graphing</a></li>
+            <li><a href="adv_graphing.html">Advanced Graphing</a></li>
+            <li><a href="ggplots.html">GGplot2</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+ 
+  </div>
+</nav>
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<h1>
+ANOVA
+</h1>
+<p>Analysis of variance (ANOVA) is a specific type of linear model in which the predictor variable is a character and the response variable is numeric. Linear models are a large group of statistical models that are very common in biological sciences. The test statistic for linear models is the F-ratio. The distribution of the F-ratio (also called the F value) when the null hypothesis is true is described by the F distribution, and thus the P-value of a F-ratio is calculated from the F distribution. Many other common statistical tests used by biologists are direct extensions of ANOVA (e.g., 2-factor ANOVA, and ANCOVA (analysis of covariance)).</p>
+<h3>
+Null and alternative hypotheses
+</h3>
+<p>You are only able to answer two-sided hypotheses with ANOVA–ANOVA is always a one-tailed test (the right, positive tail). The null and alternative are always the following.</p>
+<ul>
+<li>
+Null hypothesis: true population means are equal, or <span class="math inline">\(\mu_1 = \mu_2 \ldots \mu_k\)</span>
+<li>
+Alternative hypothesis: not the null hypothesis
+</ul>
+<div class="alert alert-warning">
+<p>Remember that only two groups need to differ to reject the null.</p>
+</div>
+<h3>
+Data format
+</h3>
+<p>It is best to format your data with two columns, one for the predictor and one for response variable, with each row representing an independent replicate (or observation). This is one of the common formats for a two-sample t-test. Researchers typically enter their data into Excel and then import into R a csv or Excel file.</p>
+<h3>
+Flower morphology example
+</h3>
+<p>Let’s analyze the data from the <samp>iris</samp> dataset that is included in R. Because the data is already in R (it is loaded with the base packages), and we do not need to import these data. This dataset includes 4 numeric metrics of flower morphology for three species. An ANOVA is an appropriate test if we are interested in how the average of one of these metrics differs among the three species. Let’s first look at the structure of the dataset.</p>
+<pre class="r"><code>str(iris)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    150 obs. of  5 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+<p>Let’s say that we want to test whether there are any differences in the mean length of flowers among the three species. It is appropriate to analyze these data with an ANOVA because the predictor variable, species, is categorical, and the response variable, flower length, is numeric.</p>
+<ul>
+<li>
+<span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu_{setosa}=\mu_{versicolor}=\mu_{virginica}\)</span>
+</li>
+<li>
+<span class="math inline">\(H_A\)</span>: Not <span class="math inline">\(H_0\)</span>
+</li>
+</ul>
+<h3>
+By hand
+</h3>
+<h4>
+Test statistic
+</h4>
+<p>Below are the equations to calculate the sum of squares, mean squares, and degrees of freedom for within and among the groups for the above data. In the textbook, the authors use the term groups to represent the among group error, and the term error to describe the within group error. Below, I use the terms among and within, instead of groups and error. Both are common, so you need to practice thinking about both sets of terms. Recall the following equations from lecture? Hopefully you do because they are important.</p>
+<p><span class="math display">\[
+{SS}_{among}=\Sigma_{j=1}^{a}\Sigma_{i=1}^{n} (\bar{Y}_{j}-\bar{Y})^2
+\]</span></p>
+<p><span class="math display">\[
+{SS}_{within}=\Sigma_{j=1}^{a}\Sigma_{i=1}^{n} (Y_{j,i}-\bar{Y}_{j})^2
+\]</span></p>
+<p><span class="math display">\[
+{df}_{among}=a-1
+\]</span></p>
+<p><span class="math display">\[
+{df}_{within}=a\times(n-1) = N - a
+\]</span></p>
+<div class="alert alert-warning">
+<p>An ANOVA should be balanced, and have the same number of replicates per treatment. However, if the design is slightly unbalanced, you can still use an ANOVA, but should use the <span class="math inline">\(N - a\)</span> equation to determine the correct degrees of freedom for the within group error.</p>
+</div>
+<p><span class="math display">\[{MS}_{among}=\frac{{SS}_{among}}{{df}_{among}}\]</span></p>
+<p><span class="math display">\[{MS}_{within}=\frac{{SS}_{within}}{{df}_{within}}\]</span></p>
+<p>where <span class="math inline">\(a\)</span> represents the number of groups (the book uses <span class="math inline">\(k\)</span> instead of <span class="math inline">\(a\)</span>) and <span class="math inline">\(n\)</span> represents the number of replicates (or observations) in each treatment. The total number of observations is often represented by <span class="math inline">\(N\)</span>.</p>
+<div class="alert alert-warning">
+<p>You will find different forms for the equations above. For example, the book has different equations to calculate the mean squares. All these forms are the same equation just rearranged. I prefer the above equations because they represent the logic of the calculation. However, they tend to inflate rounding errors if you use a calculator. You are welcome to use which ever equation that make the most sense to you.</p>
+</div>
+<p>You will want to calculate the means for each group and the grand mean, so you can use the above equations. If you recall, this is easily accomplished with the function <samp>tapply()</samp>.</p>
+<pre class="r"><code>(means &lt;- tapply(iris$Petal.Length, iris$Species, mean))</code></pre>
+<pre><code>##     setosa versicolor  virginica 
+##      1.462      4.260      5.552</code></pre>
+<pre class="r"><code>#Or you can use the function with() so you don&#39;t have to write iris so often
+(means &lt;- with(iris, tapply(Petal.Width, Species, mean)))</code></pre>
+<pre><code>##     setosa versicolor  virginica 
+##      0.246      1.326      2.026</code></pre>
+<p>Recall that hard brackets [ ] allow you to pull data from a vector or data.frame.</p>
+<pre class="r"><code>#A data.frame with only the rows for the setosa
+setosa &lt;- iris[iris$Species == &quot;setosa&quot;, ]  #Notice I need two arguments (first for rows and second for columns)
+head(setosa)</code></pre>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
+<pre class="r"><code>#A vector with the petal lengths only for setosa
+(setosa_lengths &lt;- iris$Petal.Length[iris$Species == &quot;setosa&quot;])</code></pre>
+<pre><code>##  [1] 1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 1.5 1.6 1.4 1.1 1.2 1.5 1.3
+## [18] 1.4 1.7 1.5 1.7 1.5 1.0 1.7 1.9 1.6 1.6 1.5 1.4 1.6 1.6 1.5 1.5 1.4
+## [35] 1.5 1.2 1.3 1.4 1.3 1.5 1.3 1.3 1.3 1.6 1.9 1.4 1.6 1.4 1.5 1.4</code></pre>
+<p>You should use these functions to calculate the sum of squares, mean squares, and F-ratio for these data. I did not provide the code, so you can practice thinking about how to develop the code yourself, but make sure to ask if you are confused or get stuck!</p>
+<p>Let’s now look at the F distribution, so we can convert a F-ratio to a P value.</p>
+<h4>
+F distribution and P values
+</h4>
+<p>The distribution of F values when the null hypothesis is true is given by the F distribution. We use the F distribution to convert a F value to a P value. Like the Chi-squared distribution, we are only interested in the right-hand (or positive) tail of the distribution, and thus an ANOVA is a one-tailed test (which can only test two-sided hypotheses).</p>
+<p>Let’s first explore the F distribution. Plot the F distribution and change the two parameters needed to describe its shape (the degrees of freedom for the numerator (among group df) and the degrees of freedom for the denominator (within group df)). You have already done this in past labs for other distributions. Here I show you how to specify the size of a new window to view our graph with the function <samp>windows()</samp> for PCs, and the function <samp>quartz()</samp> for Macs. I set the width of the window to 4 inches and the height to 8 inches. Recall that <samp>par()</samp> allows the user to change the graphic parameters. In this case, I use the argument <samp>mfrow</samp> to split the graphing window into two panels (2 rows and 1 column). I also use the argument <samp>mar</samp> to set the figure margins in terms of number of lines. You start with the bottom and work clockwise. So, with the code below, I set the bottow margin to 4.5 lines, the left margin to 4.5 lines, the top margin to 0.5 lines, and the right margin to 0.5 lines.</p>
+<pre class="r"><code>## #Open a window so two graphs fit one above the other
+## windows(width=4, height=8) #For PCs
+## qartz(width = 4, height = 8) #For Macs
+
+#Split the window to plot two graphs and adjust the figure margins
+par(mfrow=c(2, 1), mar=c(4,4,0,0)+0.5)
+#PDF of the F distribution with 2, 9 degrees of freedom
+curve(df(x, 2, 9), 0, 10, ylim=c(0, 1), xlab = &quot;F&quot;, ylab=&quot;Density&quot;)
+#CDF of the F distribution with 2, 9 degrees of freedom
+curve(pf(x, 2, 9), 0, 10, ylim=c(0, 1), xlab = &quot;F&quot;, ylab=&quot;Prob&quot;)</code></pre>
+<p><img src="anova_files/figure-html/unnamed-chunk-4-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p>Here is a more advanced example of how to visualize what happens to the F distribution when you change the degrees of freedom. We already learned about almost all these functions in previous labs. This might require a little time to think through the code (and might be something better done later), but you should understand it. Remember that just copying what I have done will not help you in the future when you need to figure out what to do on your own.</p>
+<pre class="r"><code>## windows(width = 4, height = 8)
+## quartz(width = 4, height = 8)
+
+par(mfrow = c(2, 1), mar = c(4,4,0,0) + 0.5)
+
+#Adjust the degrees of freedom for the within group error (i.e., denominator)
+df.num &lt;- 10
+n &lt;- 8
+(df.den &lt;- cumprod(1:n) )</code></pre>
+<pre><code>## [1]     1     2     6    24   120   720  5040 40320</code></pre>
+<pre class="r"><code>(my.colors &lt;- rainbow(n) )</code></pre>
+<pre><code>## [1] &quot;#FF0000FF&quot; &quot;#FFBF00FF&quot; &quot;#80FF00FF&quot; &quot;#00FF40FF&quot; &quot;#00FFFFFF&quot; &quot;#0040FFFF&quot;
+## [7] &quot;#8000FFFF&quot; &quot;#FF00BFFF&quot;</code></pre>
+<pre class="r"><code>curve(df(x, df.num, 1), 0, 6, ylab=&quot;Density&quot;, xlab = &quot;F&quot;, ylim = c(0, 1))
+for(i in 1:n) curve(df(x, df.num, df.den[i]), col=my.colors[i], add=TRUE)
+legend(3, 1, df.den[1:n], lty = rep(1, n), col = my.colors, title = &quot;within error df&quot;, bty = &quot;n&quot;)
+
+curve(pf(x, df.num, 1), 0, 6, ylab = &quot;Probability&quot;, xlab = &quot;F&quot;, ylim = c(0, 1))
+for(i in 1:n) curve(pf(x, df.num, df.den[i]), col = my.colors[i], add = TRUE)</code></pre>
+<p><img src="anova_files/figure-html/unnamed-chunk-5-1.png" width="384" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#Adjust the degrees of freedom for the among group error (i.e., numerator)
+df.den &lt;- 10
+n &lt;- 8
+(df.num &lt;- cumprod(1:n) )</code></pre>
+<pre><code>## [1]     1     2     6    24   120   720  5040 40320</code></pre>
+<pre class="r"><code>(my.colors &lt;- rainbow(n) )</code></pre>
+<pre><code>## [1] &quot;#FF0000FF&quot; &quot;#FFBF00FF&quot; &quot;#80FF00FF&quot; &quot;#00FF40FF&quot; &quot;#00FFFFFF&quot; &quot;#0040FFFF&quot;
+## [7] &quot;#8000FFFF&quot; &quot;#FF00BFFF&quot;</code></pre>
+<pre class="r"><code>curve(df(x, 1, df.den), 0, 6, ylab = &quot;Density&quot;, xlab = &quot;F&quot;, ylim = c(0, 1))
+for(i in 1:n) curve(df(x, df.num[i], df.den), col = my.colors[i], add = TRUE)
+legend(3, 1, df.num[1:n], lty = rep(1, n), col = my.colors, title = &quot;among group df&quot;, bty = &quot;n&quot;)
+
+curve(pf(x, 1, df.den), 0, 6, ylab=&quot;Probability&quot;, xlab = &quot;F&quot;, ylim = c(0, 1))
+for(i in 1:n) curve(pf(x, df.num[i], df.den), col = my.colors[i], add = TRUE)</code></pre>
+<p><img src="anova_files/figure-html/unnamed-chunk-5-2.png" width="384" style="display: block; margin: auto;" /></p>
+<p>Now you can use the F distribution to calculate a P-value, or a critical value. Let’s assume that you caclulated an F-ratio of 5.6 (this is not the correct answer though, just made it up). The among group degrees of freedom are 2 (3 groups minus 1), and within degrees of freedom are 147 (n is 50 and we have 3 groups, 3*(50 - 1)).</p>
+<pre class="r"><code>1 - pf(5.6, 2, 147)</code></pre>
+<pre><code>## [1] 0.004530518</code></pre>
+<pre class="r"><code>#Or we can use the lower.tail argument, same as above
+pf(5.6, 2, 147, lower.tail = FALSE)</code></pre>
+<pre><code>## [1] 0.004530518</code></pre>
+<p>We only need to worry about the right, positive tail when calculating the critical value for an ANOVA. So, we are after 5% of the area under the right tail, or 95% of the area under the left tail.</p>
+<pre class="r"><code>qf(0.95, 2, 147)</code></pre>
+<pre><code>## [1] 3.057621</code></pre>
+<h3>
+<samp>lm()</samp> and <samp>aov()</samp>
+</h3>
+<p>Now let’s get serious. We first fit a linear model to the data and ask for R to produce the ANOVA table. There are two functions that we can use to fit a linear model, <samp>lm()</samp> and <samp>aov()</samp>. Both are commonly used, but <samp>aov()</samp> has a few benefits, like you can easily caculate run a Tukey-Kramer test after using <samp>aov()</samp>–<samp>aov()</samp> is a wrapper for <samp>lm()</samp>, which means that it actually uses <samp>lm()</samp> to calculate the linear model fit.</p>
+<p>Both functions require the same two arguments, a formula and the data.frame from which to pull the data. The formula (or model) tells R which variable is the response variable (first in the formula) and which variable is the predictor (second in the formula). The response and predictor variables are separated with <samp>~</samp> (upper, left side of your keyboard). The <samp>~</samp> sign is equivalent to the “=” sign for models in R. Formulas are heavily used in most statistical functions in R (and other programs).</p>
+<p>After we use <samp>lm()</samp> or <samp>aov()</samp>, we want to see the ANOVA table to determine whether to reject or fail to reject the null hypothesis. We use either the function <samp>anova()</samp> or <samp>summary()</samp>, depending on which function we used to create the fit. If we first fit with <samp>lm()</samp>, then we use <samp>anova()</samp>. If we first fit with <samp>aov()</samp>, then we use <samp>summary()</samp>. Here we go! First with <samp>lm()</samp> and then <samp>aov()</samp>.</p>
+<pre class="r"><code>fit_lm &lt;- lm(Petal.Length ~ Species, iris)
+anova(fit_lm)</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: Petal.Length
+##            Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+## Species     2 437.10 218.551  1180.2 &lt; 2.2e-16 ***
+## Residuals 147  27.22   0.185                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre class="r"><code>fit_aov &lt;- aov(Petal.Length ~ Species, iris)
+summary(fit_aov)</code></pre>
+<pre><code>##              Df Sum Sq Mean Sq F value Pr(&gt;F)    
+## Species       2  437.1  218.55    1180 &lt;2e-16 ***
+## Residuals   147   27.2    0.19                   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>You will notice they are produce the same output (an ANOVA table).</p>
+<p>You can check your calculations by hand against the values from the ANOVA table. Do the values you calculated by hand match the results above? They should (or be very close).</p>
+<p>And that is all there is to it!</p>
+<h3>
+Displaying data
+</h3>
+<p>Just like for a two-sample t test, barplots (with error bars) and boxplots are the most common way to display data analyzed with an ANOVA. Below I review how to make graphs with the base functions and ggplot2 functions.</p>
+<p>Making a boxplot is especially easy because R knows that a boxplot is an excellent graph when the predictor variable is categorical and the response is numeric. We therefore just need to ask R to plot the data using the function <samp>plot()</samp>, which calls the <samp>boxplot()</samp> function when the predict is categorical and the response is numeric. The two arguments that are needed for <samp>plot()</samp> (or the function <samp>boxplot()</samp>) are the same two arguments that we used for <samp>lm()</samp> and <samp>aov()</samp>, which are the formula and the data.frame. So, easy, which I love!!!</p>
+<pre class="r"><code>plot(Sepal.Length ~ Species, iris)</code></pre>
+<p><img src="anova_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>We could also use <samp>boxplot()</samp>, which will give us the same graph.</p>
+<pre class="r"><code>plot(Sepal.Length ~ Species, iris)</code></pre>
+<p><img src="anova_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>To make a barplot with error bars, we use the function <samp>barplot()</samp> and <samp>arrows()</samp>. The function <samp>barplot()</samp> requires a vector with the heights of the bars. In our case that is the mean of each group. We can name the barplot object, which will provide us with the x coorinates for the center of each bar in the graph. The function <samp>arrows()</samp> requires the x and y coordinates for each error bar. So, we need to also calculate whatever measure of spread we want to plot. I will plot standard error in the example below.</p>
+<pre class="r"><code>iris_means &lt;- with(iris, tapply(Sepal.Length, Species, mean))
+iris_se &lt;- with(iris, tapply(Sepal.Length, Species, function(x) sd(x)/sqrt(length(x))))
+
+#You often need to adjust the y axis to include the tops of the error bars
+x_vals &lt;- barplot(iris_means,
+    ylim = c(0, 8),
+    ylab = &quot;Sepal Length (units)&quot;
+)
+arrows(x_vals, iris_means + iris_se, x_vals, iris_means - iris_se, angle = 90, code = 3)
+#If I want to put a box around it
+box()</code></pre>
+<p><img src="anova_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>Now let’s make similar graphs using the package <samp>ggplot2</samp>. If you use haven’t practiced using this package, then please look at the <samp>ggplot2</samp> link under Graphing at the top of this page. Making a boxplot is also very easily with <samp>ggplot2</samp></p>
+<pre class="r"><code>library(ggplot2)
+ggplot(iris, aes(x = Species, y = Sepal.Length)) +
+  geom_boxplot()</code></pre>
+<p><img src="anova_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>Make a barplot with error bars is also easy in <samp>ggplot2</samp>. The advantage of using <samp>ggplot2</samp> is that we don’t need to calculate the means or measures of spread–we have the plotting function do it for us.</p>
+<pre class="r"><code>ggplot(iris, aes(x = Species, y = Sepal.Length)) +
+  geom_bar(stat = &quot;summary&quot;, fun.y = &quot;mean&quot;) +
+  geom_errorbar(stat = &quot;summary&quot;, fun.data = &quot;mean_se&quot;, width = 0.2) +
+  ylab(&quot;Sepal length (units)&quot;)</code></pre>
+<p><img src="anova_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>You can also make the same plot, but using the <samp>stat_summary()</samp> function. In this case, you give the geom as an argument. Either using <samp>stat_summary()</samp> or <samp>geom_bar()</samp> and <samp>geom_errorbar()</samp> produce exactly the same graph, and I only provide both examples to illustrate that <samp>ggplot2</samp> is very flexible.</p>
+<pre class="r"><code>ggplot(iris, aes(x = Species, y = Sepal.Length)) +
+  stat_summary(geom = &quot;bar&quot;, fun.y = &quot;mean&quot;) +
+  stat_summary(geom = &quot;errorbar&quot;, fun.data = &quot;mean_se&quot;, width = 0.2) +
+  ylab(&quot;Sepal length (units)&quot;)</code></pre>
+<p><img src="anova_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p>If you install and load the <samp>Hmisc</samp> package, then you can use <samp>stat_summary</samp> to calculate the error bars that represent standard deviation, confidence intervals, and min-max (as well as others). You only have to switch the function for the argument <samp>fun.data</samp>. Use <samp>mean_sdl</samp> to calculate and plot the standard deviation, and use <samp>mean_cl_normal</samp> to calculate and plot the 95% confidence interval.</p>
+<pre class="r"><code>#Requires the Hmisc package
+#Plot standard deviation
+ggplot(iris, aes(x = Species, y = Sepal.Length)) +
+  stat_summary(geom = &quot;bar&quot;, fun.y = &quot;mean&quot;) +
+  stat_summary(geom = &quot;errorbar&quot;, fun.data = &quot;mean_sdl&quot;, width = 0.2) +
+  ylab(&quot;Sepal length (units)&quot;)</code></pre>
+<p><img src="anova_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<pre class="r"><code>#Plot 95% confidence intervals
+ggplot(iris, aes(x = Species, y = Sepal.Length)) +
+  stat_summary(geom = &quot;bar&quot;, fun.y = &quot;mean&quot;) +
+  stat_summary(geom = &quot;errorbar&quot;, fun.data = &quot;mean_cl_normal&quot;, width = 0.2) +
+  ylab(&quot;Sepal length (units)&quot;)</code></pre>
+<p><img src="anova_files/figure-html/unnamed-chunk-16-2.png" width="672" /></p>
+<h3>
+Assumptions
+</h3>
+<p>There are the following assumptions for an ANOVA.</p>
+<ul>
+<li>
+Each replicate sample or observation is independent and a random sample from the population of interest.
+<li>
+All samples or observations are correctly categorized.
+<li>
+The residuals are normal distributed.
+<li>
+The variances are equal among groups.<br />
+
+</ul>
+<p>The first assumption is only assessed by carefully thinking about the methods. The second assumptions is almost always true unless the researcher was careless. The third and fourth assumptions are assessed by looking at aspects of the data. Below I demonstrate how to visually inspect these assumptions.</p>
+<p>Let’s start with the assumption that the residuals are normally distributed. The good news is that ANOVA is robust to this assumption. In other words, we can still use an ANOVA when the residuals don’t appear very normal. You can easily check this assumption with a Q-Q plot. A Q-Q plot is a graph in which the observed residuals are plotted against the predicted residuals is the data are normal. So, the residuals are normal when the Q-Q plot is a straight line. Hang on for just a second and I will show you how to easily create this plot.<br />
+The assumption of equal variances among the groups is important, and ANOVA is not robust to this assumption. This one is easy because you just need to compare the variances among the groups. Of course they will not be perfectly equal, so we are really looking for cases in which the variance is one group is 3 or 4 times larger or smaller than another group.</p>
+<p>Again, R is going to really help us out because it will create the plot that we need to assess these two assumptions. We just plot the fit from the <samp>lm()</samp> or <samp>aov()</samp> functions. R will prompt you to hit ENTER to advance through the graphs. Yes, it is really that easy!</p>
+<p>We really care about the second and third graph. The second graph is the Q-Q plot. So, look for a straigt line (it will have a positive slope). The third graph is a plot of the square root of the standardized residuals and fitted values, but what you care about is that the line is relatively straight with a slope of zero.</p>
+<pre class="r"><code>plot(fit_lm)</code></pre>
+<p><img src="anova_files/figure-html/unnamed-chunk-17-1.png" width="672" /><img src="anova_files/figure-html/unnamed-chunk-17-2.png" width="672" /><img src="anova_files/figure-html/unnamed-chunk-17-3.png" width="672" /><img src="anova_files/figure-html/unnamed-chunk-17-4.png" width="672" /></p>
+<p>Both plots look good, and we can draw conclusion from our ANOVA with confidence. You will notice that the first group does have a smaller variance than the other two groups, but it is not so great to be of a concern.</p>
+<h3>
+Unplanned comparisons
+</h3>
+<p>If you have more than 2 groups and you reject the null hypothesis with an ANOVA, then you might want to know which groups differ from each other. The Tukey-Kramer test is an excellent way to for unplanned comparisons of all group combinations.</p>
+<div class="alert alert-warning">
+<p>Unlike ANOVA, the Tukey-Kramer test is not robust to the assumption of normality. So, make sure to assess this assumption with a Q-Q plot!</p>
+</div>
+<p>We use the function <samp>TukeyHSD()</samp> to run a Tukey-Kramer test in R. However, it will only work if we use the aov fitted object (it doesn’ work with the lm fitted object). Again, it is that simple!</p>
+<pre class="r"><code>TukeyHSD(fit_aov)</code></pre>
+<pre><code>##   Tukey multiple comparisons of means
+##     95% family-wise confidence level
+## 
+## Fit: aov(formula = Petal.Length ~ Species, data = iris)
+## 
+## $Species
+##                       diff     lwr     upr p adj
+## versicolor-setosa    2.798 2.59422 3.00178     0
+## virginica-setosa     4.090 3.88622 4.29378     0
+## virginica-versicolor 1.292 1.08822 1.49578     0</code></pre>
+<h3>
+More Complex Linear Models
+</h3>
+<p>You are now all set to analyze a wide range of more complex linear models. You only need to modify the formula in the function <samp>lm()</samp> or <samp>aov()</samp>. For example, let’s say I have two categorical variables called <samp>f1</samp> and <samp>f2</samp> and a response variable called <samp>g</samp>, then I would use the formula, <samp>g ~ f1 * f2</samp> to run a two-factor ANOVA. The “*&quot; tells R that you want to test the main effects of <samp>f1</samp> and <samp>f2</samp>, and the interaction between <samp>f1</samp> and <samp>f2</samp>.</p>
+<!-- <h1>Stuff from lab before I revised it</h1> -->
+<!-- Just in case you what the info from lab on Friday, I have retained most of that info below.  If something is missing, then it is above in the revised lab.   -->
+<!-- <h3>ANOVA by hand</h3> -->
+<!-- So, let's try an example.  Make the following -->
+<!-- <samp>data.frame()</samp> and give it a name.  I will call mine <samp>data</samp>. -->
+<!-- <table class="table table-striped" style="width:15%"> -->
+<!-- <tr> -->
+<!--   <th>f</th> -->
+<!--   <th>g</th> -->
+<!-- </tr> -->
+<!-- <tr> -->
+<!--   <td>a</td> -->
+<!--   <td>6.9</td> -->
+<!-- </tr> -->
+<!-- <tr> -->
+<!--   <td>b</td> -->
+<!--   <td>8.3</td> -->
+<!-- </tr> -->
+<!-- <tr> -->
+<!--   <td>a</td> -->
+<!--   <td>7.3</td> -->
+<!-- </tr> -->
+<!-- <tr> -->
+<!--   <td>b</td> -->
+<!--   <td>6.3</td> -->
+<!-- </tr> -->
+<!-- <tr> -->
+<!--   <td>a</td> -->
+<!--   <td>11.2</td> -->
+<!-- </tr> -->
+<!-- <tr> -->
+<!--   <td>b</td> -->
+<!--   <td>8.1</td> -->
+<!-- </tr> -->
+<!-- <tr> -->
+<!--   <td>a</td> -->
+<!--   <td>13.6</td> -->
+<!-- </tr> -->
+<!-- <tr> -->
+<!--   <td>b</td> -->
+<!--   <td>5.7</td> -->
+<!-- </tr> -->
+<!-- <tr> -->
+<!--   <td>a</td> -->
+<!--   <td>8.0</td> -->
+<!-- </tr> -->
+<!-- <tr> -->
+<!--   <td>b</td> -->
+<!--   <td>13.8</td> -->
+<!-- </tr> -->
+<!-- <tr> -->
+<!--   <td>a</td> -->
+<!--   <td>3.3</td> -->
+<!-- </tr> -->
+<!-- <tr> -->
+<!--   <td>b</td> -->
+<!--   <td>12.8</td> -->
+<!-- </tr> -->
+<!-- </table> -->
+<!-- Make a vector with the values from column f using the function <samp>c()</samp>, and name it <samp>f</samp>.  Now, make a vector with the values from column g1 using the function <samp>c()</samp>, and name it <samp>g1</samp>. You can then create your <samp>data.frame()</samp> with the following code.  All of this is review from the Data laboratory.   -->
+<!-- ```{r} -->
+<!-- f <- rep(c("a", "b"), 6) -->
+<!-- g1 <- c(6.9, 8.3, 7.3, 6.3, 11.2, 8.1, 13.6, 5.7, 8, 13.8, 3.3, 12.8) -->
+<!-- data<-data.frame(f, g1) -->
+<!-- rm(f, g1) #Removes the objects f and g1 from memory -->
+<!-- ``` -->
+<!-- Make sure that <samp>f</samp> is a factor.  This is important because we will shortly learn how to run a linear model in R.  R will only know to perform an ANOVA if the predictor variable is a <samp>factor</samp> and the response variable is <samp>numeric</samp> or <samp>integer</samp>.   -->
+<!-- You use the function <samp>sapply()</samp> to ask R about information for each column.  For example, <samp>sapply(data, class)</samp> will return the type of variable (i.e., the class) R has assigned each column, and <samp>class(data)</samp> returns the type of variable that R has assigned to <samp>data</samp>. The function <samp>summary()</samp> and <samp>str()</samp> are also useful for getting summary information about each column in a <samp>data.frame</samp>.  Try <samp>summary(data)</samp> and <samp>str(data)</samp>.   -->
+<!-- ```{r} -->
+<!-- class(data) -->
+<!-- sapply(data, class) -->
+<!-- summary(data) -->
+<!-- str(data) -->
+<!-- ``` -->
+<!-- If you need to covert a variable to a factor in R, use the function <samp>factor()</samp>.  For example, let's just pretend like our <samp>f</samp> is not a factor.  We can use the code below to change it to a factor.   -->
+<!-- ```{r} -->
+<!-- data$f <- factor(data$f) #Be careful when you change an existing variable -->
+<!-- ``` -->
+<!-- Now let's use R as a calculator to compute the sum of squares, -->
+<!-- mean squares, and degrees of freedom for within and among the groups -->
+<!-- for the above data. Recall the following equations. -->
+<!-- $$ -->
+<!-- ss_{among}=\Sigma_{j=1}^{a}\Sigma_{i=1}^{n} (\bar{Y}_{j}-\bar{Y})^2 -->
+<!-- $$ -->
+<!-- $$ -->
+<!-- ss_{within}=\Sigma_{j=1}^{a}\Sigma_{i=1}^{n} (Y_{j,i}-\bar{Y}_{j})^2 -->
+<!-- $$ -->
+<!-- $$ -->
+<!-- ss_{total}=\Sigma_{j=1}^{a}\Sigma_{i=1}^{n} (Y_{j,i}-\bar{Y})^2 -->
+<!-- $$ -->
+<!-- $$ -->
+<!-- df_{among}=a-1 -->
+<!-- $$ -->
+<!-- $$ -->
+<!-- df_{within}=a\times(n-1) -->
+<!-- $$ -->
+<!-- $$ -->
+<!-- df_{total}= a\times n-1 -->
+<!-- $$ -->
+<!-- where a is the number of groups, and n is the sample for each group.  -->
+<!-- You can use the function <samp>tapply()</samp> to calculate the mean of <samp>g1</samp> for each level of <samp>f</samp> in your <samp>data.frame</samp>.  The function <samp>tapply</samp> take a numeric variable and then applies a function to each level of a factor.  Our numeric variable is <samp>g1</samp>, our factor is <samp>f</samp>, and the function is <samp>mean</samp>.  But of course you could change the function to calculate the standard deviation or some other value.   -->
+<!-- ```{r} -->
+<!-- #Both give same answer -->
+<!-- (group.means <- tapply(data$g1, data$f, mean)) #Or -->
+<!-- (group.means <- with(data, tapply(g1, f, mean)))  -->
+<!-- ``` -->
+<!-- Now convert the sum of squares to mean squares.  Think about what these numbers tell you about the relative variation associated with differences between the treatments and variation within the treatments.   -->
+<!-- Calculate the F ratio, and then calculate the P-value for this F-ratio. Remember that, like the Chi-squared and G tests, the an ANOVA tests only two-sided hypotheses and is a one-tailed test (and you are interested in the right-hand, positive tail). -->
+<!-- <h3>ANOVA with R</h3> -->
+<!-- There are several ways to perform an ANOVA in R.  However, all these functions use the function <samp>lm()</samp> as the base function to perform the calculations for the test.  So, we will just use the linear model function <samp>lm()</samp>.  This function -->
+<!-- fits a linear model, and we can use several other functions to provide use with information about the fit of the linear model.  The function <samp>anova()</samp> displays all the ANOVA values you learned in class.  Type in the following. -->
+<!-- ```{r} -->
+<!-- lm.results <- lm(g1 ~ f, data=data) -->
+<!-- anova(lm.results) -->
+<!-- ``` -->
+<!-- Now run a two-sample t-test -->
+<!-- with 2-tails and compare the P-value with the ANOVA from -->
+<!-- the linear model. Yes, a two-tailed two-sample t-test and a one-way -->
+<!-- ANOVA give exactly the same result (that is to say the P-values of both tests are the same). -->
+<!-- ANOVAs are useful because they allow you to test whether more -->
+<!-- than two groups are different.  Add another factor to <samp>f</samp>, -->
+<!-- say "c", and add some corresponding data to <samp>g1</samp>.  Remember you -->
+<!-- can use the function <samp>edit()</samp> to quickly do this.  Don't forget -->
+<!-- to name your edited data. -->
+<!-- ```{r, eval=F} -->
+<!-- new.data <- edit(data) -->
+<!-- ``` -->
+<!-- Now run an ANOVA on these data.  Think about carefully about the results.  Now change the data in a systematic -->
+<!-- way, like making the means more different between the groups, but -->
+<!-- keeping the variability the same, or vice versa.  What happens -->
+<!-- to the F value?  What happens to the P-value? -->
+<!-- There is one more thing I would like you to understand before we make graphs.  You can use the function <samp>plot()</samp> to graphically explore whether the data meet some of the assumptions of ANOVA. R will create diagnostic plots when you give the function <samp>plot()</samp> an object of class "lm", which is what is returned when you use the function <samp>lm()</samp>.  R will prompt you to click through four graphs.   -->
+<!-- ```{r, fig.align='center'} -->
+<!-- par(mfrow = c(2,2), mar = c(4,4,2,2)+0.5) #You don't need to run this line -->
+<!-- plot(lm.results) -->
+<!-- ``` -->
+<!-- The first and third plot that are displayed (or the plots in the left-hand column) provide information about how the variance changes across the predictor variable (and is relatively unimportant for an ANOVA).  The second plot (or upper, right-hand plot) is called a Q-Q plot and provides information about whether the data are normally distributed.  If the data are normal, then the plot will show a straight line.  The last plot (or lower, right-hand plot) provides information about whether particular data points strongly influencing the results.   -->
+<!-- You can also get a lot more information from the <samp>lm</samp> object.  Use the function <samp>names</samp> to see what information is stored in the object. -->
+<!-- ```{r} -->
+<!-- names(lm.results) -->
+<!-- ``` -->
+<!-- You can ask for this information using the object name, the dollar sign, and the name of the stored information.  For example, I can type the following to see the residuals. -->
+<!-- ```{r} -->
+<!-- lm.results$residuals -->
+<!-- ``` -->
+<!-- <h3>Displaying Data</h3> -->
+<!-- Like two-sample t-tests, barplots and boxplots are the two common ways that investigators display the data analyzed with an ANOVA.  Remember that R determines an appropriate graph based on the type of data you supply.  So, when you call the function <samp>plot()</samp> with a categorical predictor variable and a continuous response variable, R will produce a boxplot. You can use the same formula for <samp>plot()</samp> and for <samp>lm()</samp>. -->
+<!-- ```{r, fig.align='center'} -->
+<!-- plot(g1~f, data = data) -->
+<!-- ``` -->
+<!-- You can also use the functions <samp>barplot()</samp> and <samp>arrows()</samp>, which you have already learned.  Try and recall how to make a barplot with error bars.  Also, try and use the function <samp>ddply</samp> from the plyr package to summarize the data and calculate the means and standard error for each treatment (look at the plyr package lab for guidance).  You can then use these data to make barplots with error bars.   -->
+<!-- You can also install and then load the gplots package, and use the function <samp>barplot2()</samp>, which will allow you to put error bars on your bargraph.   -->
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

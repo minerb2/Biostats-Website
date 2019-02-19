@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+<br>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+  
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">
+        Biometrics (Biol 340)
+      </a>
+    </div>
+
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="weekly_labs.html">Weekly Labs</a></li>
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Intro to R
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="intro_R.html">Intro to R</a></li>
+            <li><a href="data_types.html">Data Types</a></li>
+            <li><a href="input_R.html">Inputting Data</a></li>
+            <li><a href="packages.html">Packages</a></li>
+            <li><a href="R_websites.html">Helpful Websites</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Basic Skills
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="des_stats.html">Descriptive Stats</a></li>
+            <li><a href="plyr.html">Plyr Package</a></li>
+            <li><a href="basic_prob.html">Basic Proability</a></li>
+            <li><a href="prob_dist.html">Probability Distributions</a></li>
+          </ul>
+        </li>
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Statistical Tests
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="chi_good_test.html">Chi-squared Goodness-of-fit Test</a></li>
+            <li><a href="chi_conti_test.html">Chi-squared Contingency Test</a></li>
+            <li><a href="t_test.html">t-Test</a></li>
+            <li><a href="anova.html">ANOVA</a></li>
+            <li><a href="reg_corr_test.html">Regression and Correlation</a></li>
+            <li><a href="logistic_test.html">Logistic Regression</a></li>
+          </ul>
+        </li>
+          
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Graphing
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="basic_graphing.html">Basic Graphing</a></li>
+            <li><a href="adv_graphing.html">Advanced Graphing</a></li>
+            <li><a href="ggplots.html">GGplot2</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+ 
+  </div>
+</nav>
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<h1>
+Graphing packages
+</h1>
+<p>There are many additional packages to help you visualize data. However, there are two that are widely used. The package <samp>lattice</samp> comes with the base distribution and has been around for a while. The package <samp>ggplot2</samp> is a newer package, and most people that are learning R find it easier to use. Both are very powerful, but we will focus on <samp>ggplot2</samp> today.</p>
+<h3>
+<samp>ggplot2</samp>
+</h3>
+<p>The <samp>ggplot2</samp> package has a bunch of functions that allow you to create just about any type of graph, and quickly create complex graphs. Today we will go over some of the basics with a few more advanced examples to illustrate what is possible with the package.</p>
+<p>You need to install and load <samp>ggplot2</samp>. If you don’t remember how to do this, you can look at the lab about installing and loading packages.</p>
+<pre class="r"><code>## install.packages(ggplot2)
+require(ggplot2)</code></pre>
+<pre><code>## Loading required package: ggplot2</code></pre>
+<p>The way we create plots is a little different than what you have learned for the low- and high-level plotting functions in the base package. Below is a table with some general definitions of important terminology.</p>
+<dl class="dl-horizontal">
+<dt>
+Aesthetics
+</dt>
+<dd>
+These are the data associated with the plot. For example, what data.frame do you want to use, what variable do you want plotted on the x and y axis, what variable to want to represent some other aspect of the graph, like size or color of points.
+</dd>
+<dt>
+Geoms
+</dt>
+<dd>
+Specifies what you want to plot. There are geoms for just about anything you would likely plot. For example, there is a geom for points, another for lines, another for bars, etc.
+</dd>
+<dt>
+Statistics
+</dt>
+<dd>
+Specifies how the data should be summarized before they are plotted. For example, for a histogram the default statistic is to bin the data; for points the default statistic is identity, which means to just plot the raw data.
+</dd>
+<dt>
+Scales
+</dt>
+<dd>
+Specifies how to scale the data. For example, you can make the points on a graph differ in color or in size, and the colors or sizes are set by scales.
+</dd>
+<dt>
+Coordinate systems
+</dt>
+<dd>
+Specifies the numbers represented on the axes. You probably won’t need to change the cooridinate system. However, if you need to, then you can.
+</dd>
+<dt>
+Facets
+</dt>
+<dd>
+Specifies how to create multiple graphs from a dataset. For example, if you have many sites and want to create a graph of each site, then you can use facets.
+</dd>
+<dt>
+Themes
+</dt>
+<dd>
+Specifies the formating of a plot. For example, if you want to change the background color, the font, the size of the axis label, etc.
+</dd>
+</dl>
+<p><br /></p>
+<p>Now to create a plot with the function <samp>ggplot2()</samp>, R need to know the aesthetic, geom, statistic, scale, facet, and theme to use. However, there are excellent defaults so you typically need to specify only a few of these. At a minimum you need to give the aesthetic (aes), but often you will also specify a geom.</p>
+<p>I recommend that you quickly look at the <a href="http://docs.ggplot2.org/current/">ggplot2 webpage</a> to see some of the different options for each of these general groups.</p>
+<h3>
+Basic plot
+</h3>
+<p>Let’s start with a basic graph. The next few examples will introduce you to the basics of building plots with ggplot2. Basics plots are easy to create, and the code will look a lot like what you have learned to date. We will start with the function <samp>qplot()</samp>, which is short for quick plot. This function creates a plot that is a very similar to the function <samp>plot()</samp>.</p>
+<p>We will use the data found in the <samp>movies</samp> dataset that is the package <samp>ggplot2movies</samp>.</p>
+<pre class="r"><code>## install.packages(ggplot2movies)
+require(ggplot2movies) #Don&#39;t forget that you have to install the package!</code></pre>
+<pre><code>## Loading required package: ggplot2movies</code></pre>
+<pre class="r"><code>data(movies)
+str(movies)</code></pre>
+<pre><code>## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    58788 obs. of  24 variables:
+##  $ title      : chr  &quot;$&quot; &quot;$1000 a Touchdown&quot; &quot;$21 a Day Once a Month&quot; &quot;$40,000&quot; ...
+##  $ year       : int  1971 1939 1941 1996 1975 2000 2002 2002 1987 1917 ...
+##  $ length     : int  121 71 7 70 71 91 93 25 97 61 ...
+##  $ budget     : int  NA NA NA NA NA NA NA NA NA NA ...
+##  $ rating     : num  6.4 6 8.2 8.2 3.4 4.3 5.3 6.7 6.6 6 ...
+##  $ votes      : int  348 20 5 6 17 45 200 24 18 51 ...
+##  $ r1         : num  4.5 0 0 14.5 24.5 4.5 4.5 4.5 4.5 4.5 ...
+##  $ r2         : num  4.5 14.5 0 0 4.5 4.5 0 4.5 4.5 0 ...
+##  $ r3         : num  4.5 4.5 0 0 0 4.5 4.5 4.5 4.5 4.5 ...
+##  $ r4         : num  4.5 24.5 0 0 14.5 14.5 4.5 4.5 0 4.5 ...
+##  $ r5         : num  14.5 14.5 0 0 14.5 14.5 24.5 4.5 0 4.5 ...
+##  $ r6         : num  24.5 14.5 24.5 0 4.5 14.5 24.5 14.5 0 44.5 ...
+##  $ r7         : num  24.5 14.5 0 0 0 4.5 14.5 14.5 34.5 14.5 ...
+##  $ r8         : num  14.5 4.5 44.5 0 0 4.5 4.5 14.5 14.5 4.5 ...
+##  $ r9         : num  4.5 4.5 24.5 34.5 0 14.5 4.5 4.5 4.5 4.5 ...
+##  $ r10        : num  4.5 14.5 24.5 45.5 24.5 14.5 14.5 14.5 24.5 4.5 ...
+##  $ mpaa       : chr  &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; ...
+##  $ Action     : int  0 0 0 0 0 0 1 0 0 0 ...
+##  $ Animation  : int  0 0 1 0 0 0 0 0 0 0 ...
+##  $ Comedy     : int  1 1 0 1 0 0 0 0 0 0 ...
+##  $ Drama      : int  1 0 0 0 0 1 1 0 1 0 ...
+##  $ Documentary: int  0 0 0 0 0 0 0 1 0 0 ...
+##  $ Romance    : int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Short      : int  0 0 1 0 0 0 0 1 0 0 ...</code></pre>
+<p>Let’s make a plot to see if there is a relationship between the length of a movie and its rating.</p>
+<pre class="r"><code>qplot(x = budget, y = rating, data = movies)</code></pre>
+<pre><code>## Warning: Removed 53573 rows containing missing values (geom_point).</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Notice the warnings. The programmers were nice enough to tell us that points were removed and why. I have supressed the warnings for the the rest of the lab.</p>
+<p>How about the relationship between budget and year?</p>
+<pre class="r"><code>qplot(year, budget, data = movies)</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>As you can see, it is easy to make basic plots. Now let’s see how to spruce up our graph. Good news, most of the arguments are ones you have learned.</p>
+<pre class="r"><code>qplot(year, budget, data = movies, 
+    ylim = c(0, 100000000), #Set upper limit at 100 million dollars
+    main = &quot;Movies are now expensive!&quot;,
+    xlab = &quot;Year movie was released&quot;,
+    ylab = &quot;Total budget (US dollars)&quot;
+)</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>If you only give the function <samp>qplot()</samp> one variable, then it will create a histogram.</p>
+<pre class="r"><code>qplot(year, data = movies)</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Look at the help file of the function <samp>qplot()</samp> to see some of the other arguments that you can set.</p>
+<p>Now let’s get serious, because you can do all of this with the functions in the base packages. The function <samp>ggplot()</samp> is what really creates a graph, and <samp>qplot()</samp> is just a wrapper to quickly create simple graphs. In other words, <samp>qplot()</samp> just passes the arguments to <samp>ggplot()</samp>, which really creates the graph.</p>
+<p>So, let start to use the function <samp>ggplot()</samp>. Now we will see how the definitions we first went over come into play. So, let’s create the same graph as above but with <samp>ggplot()</samp>.</p>
+<pre class="r"><code>ggplot(movies, aes(x = year, y = budget)) + geom_point()</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Notice that we first specified the data, which is the first argument in <samp>ggplot()</samp>, and then the aesthetics (aes). We then added (+) the geom <samp>geo_point()</samp>. We can now easily ask ggplot to make a more complex graph. For example, let’s make the color of each point correspond to the mpaa rating.</p>
+<pre class="r"><code>ggplot(movies, aes(x = year, y = budget, colour = mpaa)) + geom_point()</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Let’s change the color scale of mpaa.</p>
+<pre class="r"><code>ggplot(movies, aes(x = year, y = budget, colour = mpaa)) + 
+  geom_point() + 
+  scale_colour_brewer()</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We can also change the size of each point, and let’s make this represent average viewers’ rating.</p>
+<pre class="r"><code>ggplot(movies, aes(x = year, y = budget, colour = mpaa, size = rating)) + 
+  geom_point() + 
+  scale_colour_brewer()</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We have alot of data and the plot is very busy. So, let’s create facets for mpaa, so that we see a graph for each mpaa. In addition, let’s indicate the different rating with color (and we will use the default scale), and not size.</p>
+<pre class="r"><code>ggplot(movies, aes(x = year, y = budget, color = rating)) + 
+  geom_point() + 
+  facet_wrap(~ mpaa)</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Now let’s change the theme of the plot. There are several “pre-defined” themes that you can use. The default is <samp>theme_grey()</samp>. You can find lots of information about themes at the <a href="http://docs.ggplot2.org/dev/vignettes/themes.html">ggplot2 website</a>. Below I just the predefined theme <samp>theme_miminal()</samp> and the argument 16 specifies the font size.</p>
+<pre class="r"><code>ggplot(movies, aes(x = year, y = budget, color = rating)) + 
+  geom_point() + 
+  facet_wrap(~ mpaa) +
+  theme_minimal(16)</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>You can change just about anything on the graph with the function <samp>theme()</samp>. Below is an example of customizing the background and grid lines.</p>
+<pre class="r"><code>ggplot(movies, aes(x = year, y = budget, color = rating)) + 
+  geom_point() + 
+  facet_wrap(~ mpaa) +
+  theme(
+    panel.background = element_rect(fill = &quot;white&quot;), 
+    panel.grid.major = element_line(colour = &quot;lightgrey&quot;)
+  )</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Look at the <a href="http://docs.ggplot2.org/current/theme.html"><samp>theme</samp> webpage</a> to see all the things you can change about the appearance of the graph.</p>
+<p>You can create custom themes and then use these themes later. Here is just a short example of a theme.</p>
+<pre class="r"><code>myTheme &lt;- theme(
+    panel.background = element_rect(fill = &quot;white&quot;), 
+    panel.grid.major = element_line(colour = &quot;lightgrey&quot;),
+    strip.background = element_rect(fill = &quot;steelblue&quot;),
+    strip.text = element_text(color = &quot;white&quot;),
+    axis.text = element_text(color = &quot;black&quot;)
+)
+
+ggplot(movies, aes(x = year, y = budget, color = rating)) + 
+  geom_point() + 
+  facet_wrap(~ mpaa) +
+  myTheme</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>There is a package <samp>ggthemes</samp> that has some pre-defined themes. Look at the <a href="https://github.com/jrnold/ggthemes">ggthemes webpage</a> for more information. Below are a couple examples.</p>
+<pre class="r"><code>## #install.packages(ggthemes)
+require(ggthemes)</code></pre>
+<pre><code>## Loading required package: ggthemes</code></pre>
+<pre class="r"><code>ggplot(movies, aes(x = year, y = budget, color = rating)) + 
+  geom_point() + 
+  facet_wrap(~ mpaa) +
+  theme_tufte()</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(movies, aes(x = year, y = budget, color = rating)) + 
+  geom_point() + 
+  facet_wrap(~ mpaa) +
+  theme_few()</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-15-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#This one is ugly!!
+ggplot(movies, aes(x = year, y = budget, color = rating)) + 
+  geom_point() + 
+  facet_wrap(~ mpaa) +
+  theme_excel()</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-15-3.png" width="672" style="display: block; margin: auto;" /></p>
+<h3>
+Geoms
+</h3>
+<p>Let’s look at some of the other geoms. I am going to use the <samp>iris</samp> dataset because it has fewer data without missing values.</p>
+<pre class="r"><code>data(iris)</code></pre>
+<h4>
+<samp>geom_boxplot</samp>
+</h4>
+<pre class="r"><code>ggplot(iris, aes(x = Species, y = Sepal.Length)) +
+  geom_boxplot()</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<h4>
+<samp>geom_bar</samp>
+</h4>
+<p>I change the default stat so that it calculates the mean for each species.</p>
+<pre class="r"><code>ggplot(iris, aes(x = Species, y = Sepal.Length)) +
+  geom_bar(stat = &quot;summary&quot;, fun.y = &quot;mean&quot;)</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<h4>
+<samp>geom_bar</samp>
+</h4>
+<p>Now I add error bars to the graph showing the min and max, and make the bars orange.</p>
+<pre class="r"><code>ggplot(iris, aes(x = Species, y = Sepal.Length)) +
+  geom_bar(stat = &quot;summary&quot;, fun.y = mean, fill = &quot;orange&quot;) +
+  geom_errorbar(stat = &quot;summary&quot;, fun.ymin = min, fun.ymax = max)</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<h4>
+<samp>geom_crossbar</samp>
+</h4>
+<pre class="r"><code>ggplot(iris, aes(x = Species, y = Sepal.Length)) +
+  geom_crossbar(stat = &quot;summary&quot;, fun.y = mean, fun.ymin = min, fun.ymax = max, fill = &quot;pink&quot;) </code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<h4>
+<samp>geom_violin</samp>
+</h4>
+<pre class="r"><code>ggplot(iris, aes(x = Species, y = Sepal.Length)) +
+  geom_violin(fill = &quot;seagreen&quot;) </code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<h4>
+<samp>geom_text</samp>
+</h4>
+<pre class="r"><code>ggplot(iris, aes(x = Species, y = Sepal.Length)) +
+  geom_violin(fill = &quot;seagreen&quot;) +
+  geom_text(x = 1, y = 7.5, label = &quot;Testing 1, 2, 3...&quot;)</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#Use it to label each point
+ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length, label = Species)) +
+  geom_text() </code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-22-2.png" width="672" style="display: block; margin: auto;" /></p>
+<h3>
+Stats
+</h3>
+<p>We just saw several examples were the stats were either implicitly set because we used the default settings or explicitly set by an argument within a geom. We can also do the opposite. That is, call a stat and either use the default geom or set one explicitly. Of course we always have to included the aesthetics.</p>
+<h4>
+<samp>stat_summary</samp>
+</h4>
+<p>This is a very useful stat because you can use lots of different functions to plot data. Below are a few examples. First, I use the argument <samp>fun.data</samp> when the function computes multiple values (e.g., the mean and standard error).</p>
+<pre class="r"><code>ggplot(iris, aes(x = Species, y = Sepal.Width)) +
+  stat_summary(fun.data = &quot;mean_se&quot;)</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(iris, aes(x = Species, y = Sepal.Width)) +
+  geom_point(colour = &quot;lightgrey&quot;) +
+  stat_summary(fun.y = &quot;median&quot;, colour = &quot;orange&quot;, geom = &quot;point&quot;) +
+  stat_summary(fun.y = &quot;mean&quot;, colour = &quot;springgreen4&quot;, geom = &quot;point&quot;)</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<h4>
+<samp>stat_smooth</samp>
+</h4>
+<p>There are other stats also. For example, add line of best fit and the standard error for the slope.</p>
+<pre class="r"><code>ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length)) +
+  geom_point() +
+  stat_smooth(method=&quot;lm&quot;)</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<h3>
+Scales
+</h3>
+<p>Scales affect how the data are presented. For example, you use scales to specify the colors, size, or line type associated with a particular variable. Below are a few examples.</p>
+<pre class="r"><code>ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length, color = Species)) +
+  geom_point() +
+  scale_color_brewer(palette = 10)</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length, color = Petal.Length)) +
+  geom_point() +
+  scale_colour_gradient(low = &quot;pink&quot;, high = &quot;darkorchid4&quot;)</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length, size = Petal.Length)) +
+  geom_point() +
+  scale_size_area(max_size = 4)</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Below we use the default scales for shape, to specify the shape of the symbols, and linetype, to specify the style of lines.</p>
+<pre class="r"><code>ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length, shape = Species, linetype = Species)) +
+  geom_point() +
+  stat_smooth(method = &quot;lm&quot;, se = F)</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+<h3>
+Coordinates
+</h3>
+<p>Coordinates change the plotting coordinates on a graph. Typically you will not need to change the coordinate system, but the different scales provide ways to change the look of a graph or create different types of graphs. You will typically just use Cartesian coordinates when making graphs. However there are a few coords, like <samp>coord_flip()</samp>, <samp>coord_fixed()</samp>, and <samp>coord_trans()</samp>, that you can use to easily modify Cartesian coordinates.</p>
+<h4>
+coord_flip
+</h4>
+<p>I am sure you guessed that <samp>coord_flip()<samp> just flips the x and y axis of a plot. It is most commonly used to create a horizontal barplot.</p>
+<pre class="r"><code>ggplot(iris, aes(x = Species, y = Petal.Length)) +
+  geom_bar(stat = &quot;summary&quot;, fun.y = mean, fill = &quot;bisque&quot;, col = &quot;orange&quot;)</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(iris, aes(x = Species, y = Petal.Length)) +
+  geom_bar(stat = &quot;summary&quot;, fun.y = mean, fill = &quot;bisque&quot;, col = &quot;orange&quot;) +
+  coord_flip()</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>You are probably asking, why not just create the plot with x and y switched. Well, that is a great question. The answer is because <samp>geom_bar</samp> assumes vertical bars, and doesn’t work if you try and switch x and y.</p>
+<pre class="r"><code>ggplot(iris, aes(y = Species, x = Petal.Length)) +
+  geom_bar(stat = &quot;summary&quot;, fun.y = mean, fill = &quot;bisque&quot;, col = &quot;orange&quot;)</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Not very informative.</p>
+<h4>
+coord_fixed
+</h4>
+<p>By default, and thankfully, ggplots are created with limits that are appropriate for x and y variables. But what if you want both axis to represent the same magnitude (e.g., a given distance equal 1 unit for both axes). Yes you guessed it, <samp>coord_fixed()</samp> does this for you.</p>
+<pre class="r"><code>ggplot(iris, aes(x = Petal.Width, y = Petal.Length)) +
+  geom_point(col = &quot;orange&quot;) +
+  theme_minimal() + 
+  coord_fixed() </code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<h4>
+coord_trans
+</h4>
+<p>You can easily transform the axes with <samp>coord_trans()</samp>. It is important to note that <samp>coord_trans()</samp> applies the transformation after any scales or stats. Below illustrates a log tranformation of the x and y axis.</p>
+<pre class="r"><code>ggplot(iris, aes(x = Petal.Width, y = Petal.Length)) +
+  geom_point(col = &quot;darkorchid4&quot;) +
+  coord_trans(x = &quot;log10&quot;, y = &quot;log10&quot;)</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<h4>
+coord_polar
+</h4>
+<p>You can also make plots on with polar coordinates. Here is just an example of a bar plot on a polar coordinate system.</p>
+<pre class="r"><code>ggplot(iris, aes(x = Species, y = Petal.Width)) +
+  geom_bar(stat = &quot;summary&quot;, fun.y = mean, fill = &quot;steelblue&quot;, alpha = 0.5) +
+  coord_polar()</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
+<h3>
+Formatting legends
+</h3>
+<p>You can format the legend in several ways. You can provide information inside a geom or stat, you can use the function <samp>guides()</samp>, and you can modify the theme. Below are several examples using these different ways.</p>
+<h4>
+Supressing legends
+</h4>
+<p>Here is graph with the default setting.</p>
+<pre class="r"><code>ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length, colour = Species, size = Petal.Length/Petal.Width)) +
+geom_point()</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>You can supress individual legends by using the function <samp>guides()</samp>. Below the Petal.Length/Petal.Width legend is supress.</p>
+<pre class="r"><code>ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length, colour = Species, size = Petal.Length/Petal.Width)) +
+geom_point() +
+guides(size = FALSE)</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>You can supress all the legends using the function <samp>theme()</samp>.</p>
+<pre class="r"><code>ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length, colour = Species, size = Petal.Length/Petal.Width)) +
+geom_point() +
+theme(legend.position = &quot;none&quot;)</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
+<h3>
+Mixing it up
+</h3>
+<p>ggplot2 is very flexible. For practiced users, this is often very useful. For new users this can be fustrating. So, it is important to understand that you can specify the same plot in many different ways. This is because you can specify the stat or geom with a function and then call the stat or geom with an argument of the function. The example below illustrates the point. Notice that both of the following plots are the same, but I called them two different ways.</p>
+<pre class="r"><code>ggplot(iris, aes(x = Species, y = Sepal.Width)) +
+  geom_crossbar(stat = &quot;summary&quot;, fun.data = &quot;mean_se&quot;, fill = &quot;orange&quot;)</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(iris, aes(x = Species, y = Sepal.Width)) +
+  stat_summary(fun.data = mean_se, geom = &quot;crossbar&quot;, fill = &quot;orange&quot;)</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
+<h3>
+Customizing plots
+</h3>
+<p>Now let’s go over some of the finer points about customizing points. Typically, users will create a theme that they like, which will create graphs that appeal to the user. However, there are some aspects about customizing a graph that typically need customization for each plot you create.</p>
+<h4>
+Positioning legends
+</h4>
+<p>The position of the legend or legends is controlled by the argument <samp>legend.position</samp> in the function <samp>theme()</samp>. You can put the legend at the “top”, “left”, “right”, or “bottom”, or you can give the coordinates of where you want the legend. Currently it is difficult, but possible to specific different locations of more than one legend (this is outside the scope of this lab and you will need to look on the web if you want to learn how to do it).</p>
+<pre class="r"><code>ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length, colour = Species, size = Petal.Length/Petal.Width)) +
+geom_point() +
+theme(legend.position = &quot;top&quot;)</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-41-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length, colour = Species, size = Petal.Length/Petal.Width)) +
+geom_point() +
+theme(legend.position = c(0.2, 0.5))</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;" /></p>
+<h3>
+ggmap
+</h3>
+<p>There is another great package called ggmap, which allows you to pull maps for different sources, like Google, and is based on ggplot2. So, you can plot a map and then add different geoms to create almost any type of map with data. It is pretty amazing.</p>
+<p>Similar to ggplot2, there is a function called <samp>qmap()</samp> (remember in ggplot2 the function is <samp>qplot()</samp>) that allows you to quickly create a map.</p>
+<pre class="r"><code>## install.packages(ggmap)
+require(ggmap)</code></pre>
+<pre><code>## Loading required package: ggmap</code></pre>
+<pre><code>## Google Maps API Terms of Service: http://developers.google.com/maps/terms.</code></pre>
+<pre><code>## Please cite ggmap if you use it: see citation(&quot;ggmap&quot;) for details.</code></pre>
+<pre class="r"><code>qmap(location = &quot;Bellingham, WA&quot;)</code></pre>
+<pre><code>## Source : https://maps.googleapis.com/maps/api/staticmap?center=Bellingham,+WA&amp;zoom=10&amp;size=640x640&amp;scale=2&amp;maptype=terrain&amp;language=en-EN</code></pre>
+<pre><code>## Source : https://maps.googleapis.com/maps/api/geocode/json?address=Bellingham%2C%20WA</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-43-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Pretty cool.</p>
+<h3>
+Map sources
+</h3>
+<p>You can pull maps from different sources, and the different sources provide different options about how to customize the look of the map. There are 4 sources of maps: Google Maps (“google”), OpenStreetMap (“osm”), Stamen Maps (“stamen”), and CloudMade maps (“cloudmade”). However, you can no longer get CloudMade maps, unless you have an enterprise account with them. You specify the source with the argument <samp>source</source>.</p>
+<pre class="r"><code>qmap(location = &quot;Bellingham, WA&quot;, source = &quot;google&quot;)</code></pre>
+<pre><code>## Source : https://maps.googleapis.com/maps/api/staticmap?center=Bellingham,+WA&amp;zoom=10&amp;size=640x640&amp;scale=2&amp;maptype=terrain&amp;language=en-EN</code></pre>
+<pre><code>## Source : https://maps.googleapis.com/maps/api/geocode/json?address=Bellingham%2C%20WA</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#qmap(location = &quot;Bellingham, WA&quot;, source = &quot;osm&quot;)
+qmap(location = &quot;Bellingham, WA&quot;, source = &quot;stamen&quot;)</code></pre>
+<pre><code>## Source : https://maps.googleapis.com/maps/api/staticmap?center=Bellingham,+WA&amp;zoom=10&amp;size=640x640&amp;scale=2&amp;maptype=terrain
+## Source : https://maps.googleapis.com/maps/api/geocode/json?address=Bellingham%2C%20WA</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain/10/162/351.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain/10/163/351.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain/10/164/351.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain/10/162/352.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain/10/163/352.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain/10/164/352.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain/10/162/353.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain/10/163/353.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain/10/164/353.png</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-44-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="alert alert-danger">
+<p>The Openstreet maps website gets overloaded and you might not be able to produce a map during peak hours.</p>
+</div>
+<h4>
+Map types
+</h4>
+<p>For Google and Stamen maps, you can get different types of maps with the <samp>maptype</samp> argument.</p>
+<p>For Google maps, your options are “terrain”, “terrain-background”, “satellite”, “roadmap”, and “hybrid”.</p>
+<pre class="r"><code>qmap(location = &quot;Bellingham, WA&quot;, source = &quot;google&quot;, maptype = &quot;terrain&quot;)</code></pre>
+<pre><code>## Source : https://maps.googleapis.com/maps/api/staticmap?center=Bellingham,+WA&amp;zoom=10&amp;size=640x640&amp;scale=2&amp;maptype=terrain&amp;language=en-EN</code></pre>
+<pre><code>## Source : https://maps.googleapis.com/maps/api/geocode/json?address=Bellingham%2C%20WA</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>qmap(location = &quot;Bellingham, WA&quot;, source = &quot;google&quot;, maptype = &quot;terrain-background&quot;)</code></pre>
+<pre><code>## maptype = &quot;terrain-background&quot; is only available with source = &quot;stamen&quot;.</code></pre>
+<pre><code>## resetting to source = &quot;stamen&quot;...</code></pre>
+<pre><code>## Source : https://maps.googleapis.com/maps/api/staticmap?center=Bellingham,+WA&amp;zoom=10&amp;size=640x640&amp;scale=2&amp;maptype=terrain</code></pre>
+<pre><code>## Source : https://maps.googleapis.com/maps/api/geocode/json?address=Bellingham%2C%20WA</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain-background/10/162/351.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain-background/10/163/351.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain-background/10/164/351.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain-background/10/162/352.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain-background/10/163/352.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain-background/10/164/352.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain-background/10/162/353.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain-background/10/163/353.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/terrain-background/10/164/353.png</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-45-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>qmap(location = &quot;Bellingham, WA&quot;, source = &quot;google&quot;, maptype = &quot;satellite&quot;)</code></pre>
+<pre><code>## Source : https://maps.googleapis.com/maps/api/staticmap?center=Bellingham,+WA&amp;zoom=10&amp;size=640x640&amp;scale=2&amp;maptype=satellite&amp;language=en-EN</code></pre>
+<pre><code>## Source : https://maps.googleapis.com/maps/api/geocode/json?address=Bellingham%2C%20WA</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-45-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>qmap(location = &quot;Bellingham, WA&quot;, source = &quot;google&quot;, maptype = &quot;roadmap&quot;)</code></pre>
+<pre><code>## Source : https://maps.googleapis.com/maps/api/staticmap?center=Bellingham,+WA&amp;zoom=10&amp;size=640x640&amp;scale=2&amp;maptype=roadmap&amp;language=en-EN
+## Source : https://maps.googleapis.com/maps/api/geocode/json?address=Bellingham%2C%20WA</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-45-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>qmap(location = &quot;Bellingham, WA&quot;, source = &quot;google&quot;, maptype = &quot;hybrid&quot;)</code></pre>
+<pre><code>## Source : https://maps.googleapis.com/maps/api/staticmap?center=Bellingham,+WA&amp;zoom=10&amp;size=640x640&amp;scale=2&amp;maptype=hybrid&amp;language=en-EN
+## Source : https://maps.googleapis.com/maps/api/geocode/json?address=Bellingham%2C%20WA</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-45-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p>For Stamen maps, your options are “terrain”, “watercolor”, and “toner”.</p>
+<pre class="r"><code>qmap(location = &quot;Bellingham, WA&quot;, source = &quot;stamen&quot;, maptype = &quot;terrain&quot;)</code></pre>
+<pre><code>## Source : https://maps.googleapis.com/maps/api/staticmap?center=Bellingham,+WA&amp;zoom=10&amp;size=640x640&amp;scale=2&amp;maptype=terrain</code></pre>
+<pre><code>## Source : https://maps.googleapis.com/maps/api/geocode/json?address=Bellingham%2C%20WA</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>qmap(location = &quot;Bellingham, WA&quot;, source = &quot;stamen&quot;, maptype = &quot;watercolor&quot;)</code></pre>
+<pre><code>## Source : https://maps.googleapis.com/maps/api/staticmap?center=Bellingham,+WA&amp;zoom=10&amp;size=640x640&amp;scale=2&amp;maptype=terrain
+## Source : https://maps.googleapis.com/maps/api/geocode/json?address=Bellingham%2C%20WA</code></pre>
+<pre><code>## Source : http://tile.stamen.com/watercolor/10/162/351.jpg</code></pre>
+<pre><code>## Source : http://tile.stamen.com/watercolor/10/163/351.jpg</code></pre>
+<pre><code>## Source : http://tile.stamen.com/watercolor/10/164/351.jpg</code></pre>
+<pre><code>## Source : http://tile.stamen.com/watercolor/10/162/352.jpg</code></pre>
+<pre><code>## Source : http://tile.stamen.com/watercolor/10/163/352.jpg</code></pre>
+<pre><code>## Source : http://tile.stamen.com/watercolor/10/164/352.jpg</code></pre>
+<pre><code>## Source : http://tile.stamen.com/watercolor/10/162/353.jpg</code></pre>
+<pre><code>## Source : http://tile.stamen.com/watercolor/10/163/353.jpg</code></pre>
+<pre><code>## Source : http://tile.stamen.com/watercolor/10/164/353.jpg</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-46-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>qmap(location = &quot;Bellingham, WA&quot;, source = &quot;stamen&quot;, maptype = &quot;toner&quot;)</code></pre>
+<pre><code>## Source : https://maps.googleapis.com/maps/api/staticmap?center=Bellingham,+WA&amp;zoom=10&amp;size=640x640&amp;scale=2&amp;maptype=terrain</code></pre>
+<pre><code>## Source : https://maps.googleapis.com/maps/api/geocode/json?address=Bellingham%2C%20WA</code></pre>
+<pre><code>## Source : http://tile.stamen.com/toner/10/162/351.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/toner/10/163/351.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/toner/10/164/351.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/toner/10/162/352.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/toner/10/163/352.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/toner/10/164/352.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/toner/10/162/353.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/toner/10/163/353.png</code></pre>
+<pre><code>## Source : http://tile.stamen.com/toner/10/164/353.png</code></pre>
+<p><img src="ggplots_files/figure-html/unnamed-chunk-46-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>In the example below, I also use the function <samp>geocode()</samp>, which returns the longitude and latitude for a location.</p>
+<p>Check out this tutorial <a href="http://journal.r-project.org/archive/2013-1/kahle-wickham.pdf">here</a>.</p>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

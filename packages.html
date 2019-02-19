@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+<br>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+  
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">
+        Biometrics (Biol 340)
+      </a>
+    </div>
+
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="weekly_labs.html">Weekly Labs</a></li>
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Intro to R
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="intro_R.html">Intro to R</a></li>
+            <li><a href="data_types.html">Data Types</a></li>
+            <li><a href="input_R.html">Inputting Data</a></li>
+            <li><a href="packages.html">Packages</a></li>
+            <li><a href="R_websites.html">Helpful Websites</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Basic Skills
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="des_stats.html">Descriptive Stats</a></li>
+            <li><a href="plyr.html">Plyr Package</a></li>
+            <li><a href="basic_prob.html">Basic Proability</a></li>
+            <li><a href="prob_dist.html">Probability Distributions</a></li>
+          </ul>
+        </li>
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Statistical Tests
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="chi_good_test.html">Chi-squared Goodness-of-fit Test</a></li>
+            <li><a href="chi_conti_test.html">Chi-squared Contingency Test</a></li>
+            <li><a href="t_test.html">t-Test</a></li>
+            <li><a href="anova.html">ANOVA</a></li>
+            <li><a href="reg_corr_test.html">Regression and Correlation</a></li>
+            <li><a href="logistic_test.html">Logistic Regression</a></li>
+          </ul>
+        </li>
+          
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Graphing
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="basic_graphing.html">Basic Graphing</a></li>
+            <li><a href="adv_graphing.html">Advanced Graphing</a></li>
+            <li><a href="ggplots.html">GGplot2</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+ 
+  </div>
+</nav>
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<h1>
+Installing and Loading Packages
+</h1>
+<p>In R, you can load additional packages. These packages include functions that allow you to do all kinds of amazing things. You can use the function <samp>library()</samp> without any arguments to see what packages are currently installed on your computer. Some of these packages will already be loaded, but some are not. In RStudio, you can also just click on the Packages tab in the lower-right window to see which packages are install on your computer, and which are loaded. Loaded packages have a check to the left of the name of the package. Below I will guide you through installing and loading packages in R.</p>
+<div class="alert alert-info" role="alert">
+<p>If a package is not installed on your computer, then you first need to <b>install</b> it. You only need to install a package once. You need to <b>load</b> a package each time you start R.</p>
+</div>
+<h3>
+Installing Packages
+</h3>
+<p>If a package is not installed on your computer, then you need to install it. This means downloading the package and copying files to a folder on your computer where R can access them. R makes this very easy.</p>
+<p>If you own your computer or have administration access, then it is a piece of cake. Just use the function <samp>install.packages()</samp> to install the package. Of course you need to know the name of package. Below is the code to install the <samp>ggplot2</samp>, which includes a bunch of functions to create all kinds of graphs. I have included a second argument called <samp>dependencies=T</samp> because I want R to also download and install any packages needed to run the ggplot2 package.</p>
+<pre class="r"><code>  install.packages(&quot;ggplot2&quot;, dependencies=T)</code></pre>
+<p>If you don’t have administration access, for example you are using a school computer, then you need to also tell R where to copy the files for the package. This too is easy. The example below copies the files to your u drive, and should work on any school computer.</p>
+<pre class="r"><code>install.packages(&quot;ggplot2&quot;, lib=&quot;u:/&quot;, dependencies=T)</code></pre>
+<p>In RStudio, you can just go to the Packages tab in the lower-right window and click the Install button on the left side just below the tabs. You can then provide the information in the form that pops up. Don’t forget to check the Install dependencies checkbox. If you are on a school computer, then make sure to set the path to your u drive in the Install to Library dropdown box.</p>
+<h3>
+Loading Packages
+</h3>
+<p>Now that your package is installed, you can load it and access the functions and help files in that package. There are two functions <samp>library()</samp> and <samp>require()</samp> that load a package into a session of R. If you have administration access then you just need to provide either <samp>library()</samp> or <samp>require()</samp> with the name of the package. If you don’t have adminstration access then you need to provide a second argument with the location so that R can find the package.</p>
+<div class="alert alert-info" role="alert">
+<p>You need to <b>load</b> a package each time you start R.</p>
+</div>
+<pre class="r"><code>#If you have admin access
+library(&quot;ggplot2&quot;)
+require(&quot;ggplot2&quot;)
+
+#If you don&#39;t have admin access
+#And install the package to your u drive
+library(&quot;ggplot2&quot;, lib.loc=&quot;u:/&quot;)
+require(&quot;ggplot2&quot;, lib.loc=&quot;u:/&quot;)</code></pre>
+<p>That is it. You can now use the ggplot2 package. There are thousands of packages that you can install and load (all free!). I will try and add a list of some useful packages soon.</p>
+<h2>
+Some useful packages
+</h2>
+<p>Below is a short list of packages that I use often.</p>
+<dl class="dl-horizontal">
+<dt>
+plyr, dplyr, and tidyr
+</dt>
+<dd>
+Helps store and manipulate data.frames.
+</dd>
+<dt>
+readxl
+</dt>
+<dd>
+Imports Excel files into R.
+</dd>
+<dt>
+ggplot2
+</dt>
+<dd>
+Creates graphs.
+</dd>
+<dt>
+ggmap
+</dt>
+<dd>
+Creates maps that display data.
+</dd>
+<dt>
+RColorBrewer
+</dt>
+<dd>
+Color palettes created by color scientists.
+</dd>
+<dt>
+Cairo
+</dt>
+<dd>
+Saves graphs as high-quality image or pdf files.
+</dd>
+<dt>
+stringr
+</dt>
+<dd>
+Manipulates strings.
+</dd>
+<dt>
+rmarkdown
+</dt>
+<dd>
+Creates documents that includes r code and graphics.
+</dd>
+<dt>
+shiny
+</dt>
+<dd>
+Creates interactive webpages.
+</dd>
+</dl>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

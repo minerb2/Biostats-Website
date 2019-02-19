@@ -1,0 +1,4 @@
+<h1>The package dplyr</h1>
+
+<h3>General info</h3>
+The package dplyr has functions to help you work with data stored in a data.frame.  Many of the things that are challenging to do with the built-in functions are easy to do with functions from dplyr.  For example, you easily select certain rows, or summarize data.  Below are examples of the common functions that you will likely use most often.    

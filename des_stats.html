@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+<br>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+  
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">
+        Biometrics (Biol 340)
+      </a>
+    </div>
+
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="weekly_labs.html">Weekly Labs</a></li>
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Intro to R
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="intro_R.html">Intro to R</a></li>
+            <li><a href="data_types.html">Data Types</a></li>
+            <li><a href="input_R.html">Inputting Data</a></li>
+            <li><a href="packages.html">Packages</a></li>
+            <li><a href="R_websites.html">Helpful Websites</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Basic Skills
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="des_stats.html">Descriptive Stats</a></li>
+            <li><a href="plyr.html">Plyr Package</a></li>
+            <li><a href="basic_prob.html">Basic Proability</a></li>
+            <li><a href="prob_dist.html">Probability Distributions</a></li>
+          </ul>
+        </li>
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Statistical Tests
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="chi_good_test.html">Chi-squared Goodness-of-fit Test</a></li>
+            <li><a href="chi_conti_test.html">Chi-squared Contingency Test</a></li>
+            <li><a href="t_test.html">t-Test</a></li>
+            <li><a href="anova.html">ANOVA</a></li>
+            <li><a href="reg_corr_test.html">Regression and Correlation</a></li>
+            <li><a href="logistic_test.html">Logistic Regression</a></li>
+          </ul>
+        </li>
+          
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Graphing
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="basic_graphing.html">Basic Graphing</a></li>
+            <li><a href="adv_graphing.html">Advanced Graphing</a></li>
+            <li><a href="ggplots.html">GGplot2</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+ 
+  </div>
+</nav>
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<h1>
+Describing Data
+</h1>
+<p>Although it is great to have data in R, we really want to do cool stuff with the data. So, let’s go over some of the basic descriptive statistics that we discussed in class.</p>
+<h3>
+Measures of location
+</h3>
+<h4>
+Arthimetic Mean
+</h4>
+<p>Use the function <samp>mean()</samp> to calculate the mean of the data.</p>
+<pre class="r"><code>ben.data &lt;- read.csv(&quot;lengthdata.csv&quot;)
+mean(ben.data$Length)</code></pre>
+<pre><code>## [1] 4.75</code></pre>
+<h4>
+Geometric Mean
+</h4>
+<p>There is not a function in the base package to calculate the geometric mean. Below are two functions to calculate the geometric mean.</p>
+<pre class="r"><code>geo.mean1 &lt;- function(x){
+  prod(x)^(1/length(x))
+}
+geo.mean2 &lt;- function(x){
+  exp(mean(log(x)))
+}
+
+geo.mean1(ben.data$Length)</code></pre>
+<pre><code>## [1] 4.187251</code></pre>
+<pre class="r"><code>geo.mean2(ben.data$Length)</code></pre>
+<pre><code>## [1] 4.187251</code></pre>
+<h4>
+Harmonic Mean
+</h4>
+<p>There is also not a function in the base package to calculate the harmonic mean. Below is a functions to calculate the harmonic mean.</p>
+<pre class="r"><code>har.mean &lt;- function(x){
+  length(x)/sum(1/x)
+}
+
+har.mean(ben.data$Length)</code></pre>
+<pre><code>## [1] 3.733333</code></pre>
+<h4>
+Median
+</h4>
+<p>Use the function <samp>median()</samp> to calculate the mean of the data.</p>
+<pre class="r"><code>median(ben.data$Length)</code></pre>
+<pre><code>## [1] 4</code></pre>
+<h4>
+Mode
+</h4>
+<p>There is not a function in the base packages to calculate the mode. There is a function <samp>mode()</samp>, but it does something else. There are different home-made functions you can find on the web. Some are more complex than others and depend on extactly what you want to calculate. The reason for this is that the mode often depends on how you bin your data. Think about the widths of the bars on a histogram and recall that you can make many narrow bars or a few wider bars, which will affect the mode.</p>
+<p>Typically people will just determine the mode visually with a histogram.</p>
+<pre class="r"><code>hist(ben.data$Length, col = &quot;darkorchid4&quot;) #The mode is 3 for this histogram</code></pre>
+<p><img src="des_stats_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>However, if you are really just want to know the most common number in vector then you can use the following function.</p>
+<pre class="r"><code>mode &lt;- function(x){
+  as.numeric(names(sort(table(x),decreasing = T))[1])
+}</code></pre>
+<h3>
+Measures of spread
+</h3>
+<h4>
+Variance
+</h4>
+<p>Use the function <samp>var()</samp> to calculate the variance of the data.</p>
+<pre class="r"><code>var(ben.data$Length)</code></pre>
+<pre><code>## [1] 7.071429</code></pre>
+<h4>
+Standard Deviation
+</h4>
+<p>Use the function <samp>sd()</samp> to calculate the standard deviation of the data.</p>
+<pre class="r"><code>sd(ben.data$Length)</code></pre>
+<pre><code>## [1] 2.659216</code></pre>
+<h4>
+Standard Error
+</h4>
+<p>There is not a function in the base packages to calculate the stanard error, but we can create a function to calculate the stardard error. This is because standard error is really a standard deviation (of the distribution of means).</p>
+<pre class="r"><code>se &lt;- function(x) sd(x)/sqrt(length(x))
+se(ben.data$Length)</code></pre>
+<pre><code>## [1] 0.9401748</code></pre>
+<h4>
+Coefficient of variation
+</h4>
+<p>There is also no function for the cv. No problem, we can create our own function, just like we did for some of the means and standard error.</p>
+<pre class="r"><code>cv &lt;- function(x) 100*(sd(x)/mean(x))
+cv(ben.data$Length)</code></pre>
+<pre><code>## [1] 55.98349</code></pre>
+<h4>
+Quantiles or percentiles
+</h4>
+<p>The function <samp>quantile()</samp> will calculate any quantile for you. By default the function calculates the min, lower quartile, median, upper quartile, and max values.</p>
+<pre class="r"><code>quantile(ben.data$Length)</code></pre>
+<pre><code>##   0%  25%  50%  75% 100% 
+##  2.0  3.0  4.0  5.5 10.0</code></pre>
+<p>You can also change the default values to calculate other quantiles.</p>
+<pre class="r"><code>quantile(ben.data$Length, probs = c(0.1, 0.25, 0.33, 0.66, 0.75, 0.9))</code></pre>
+<pre><code>## 10% 25% 33% 66% 75% 90% 
+## 2.7 3.0 3.0 5.0 5.5 7.9</code></pre>
+<h3>
+Some Other Useful Functions
+</h3>
+<p>There are a few more functions that can help you summarize data quickly in R. The <samp>summary()</samp> function will summarize the data for an entire data.frame.</p>
+<pre class="r"><code>summary(ben.data)</code></pre>
+<pre><code>##  Salinity     Length     
+##  High:4   Min.   : 2.00  
+##  Low :4   1st Qu.: 3.00  
+##           Median : 4.00  
+##           Mean   : 4.75  
+##           3rd Qu.: 5.50  
+##           Max.   :10.00</code></pre>
+<p>The function <samp>boxplot()</samp> is a quick way to visual your data. By default, the box represent the upper and lower quartiles (0.75 and 0.25 quantiles), and the line inside the box represents the median (0.5 quantile). Now let me explain the whiskers–hold on to your pants. Let’s consider the upper whisker first. The upper whisker is determined by calculating the difference between the upper and lower quartiles (i.e., the height of the box, also called the interquartile range). Now if the max value is less than the interquartile range multiplied by 1.5 and added to the upper quartile, then the upper whisker represents the max value (and you will not see any additional data points). If the max value is greater than the interquartile range multiplied by 1.5 and added to the upper quartile, then the upper whisker represents the interquartile range multiplied by 1.5 and added to the upper quartile, and you will see the data that exceed the upper whisker. The lower whisker is plotted the same way but in reverse.</p>
+<pre class="r"><code>boxplot(ben.data$Length, col=&quot;orange&quot;)</code></pre>
+<p><img src="des_stats_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>Here is an example where the maximum and minimum values are more extreme than 1.5 the interquartile range. Notice you see data points above and below the whiskers.</p>
+<pre class="r"><code>boxplot(rnorm(1000), col = &quot;seagreen&quot;)</code></pre>
+<p><img src="des_stats_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

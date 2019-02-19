@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+<br>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+  
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">
+        Biometrics (Biol 340)
+      </a>
+    </div>
+
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="weekly_labs.html">Weekly Labs</a></li>
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Intro to R
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="intro_R.html">Intro to R</a></li>
+            <li><a href="data_types.html">Data Types</a></li>
+            <li><a href="input_R.html">Inputting Data</a></li>
+            <li><a href="packages.html">Packages</a></li>
+            <li><a href="R_websites.html">Helpful Websites</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Basic Skills
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="des_stats.html">Descriptive Stats</a></li>
+            <li><a href="plyr.html">Plyr Package</a></li>
+            <li><a href="basic_prob.html">Basic Proability</a></li>
+            <li><a href="prob_dist.html">Probability Distributions</a></li>
+          </ul>
+        </li>
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Statistical Tests
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="chi_good_test.html">Chi-squared Goodness-of-fit Test</a></li>
+            <li><a href="chi_conti_test.html">Chi-squared Contingency Test</a></li>
+            <li><a href="t_test.html">t-Test</a></li>
+            <li><a href="anova.html">ANOVA</a></li>
+            <li><a href="reg_corr_test.html">Regression and Correlation</a></li>
+            <li><a href="logistic_test.html">Logistic Regression</a></li>
+          </ul>
+        </li>
+          
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Graphing
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="basic_graphing.html">Basic Graphing</a></li>
+            <li><a href="adv_graphing.html">Advanced Graphing</a></li>
+            <li><a href="ggplots.html">GGplot2</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+ 
+  </div>
+</nav>
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<h1>
+t-tests
+</h1>
+<p>There are 3 types of t-tests that are commonly used in biology: one-sample t-test, two-sample t-test, and paired t-test. They are all very similar, so we will start with a one-sample t-test in detail and contrast the other two t-tests with the one-sample t-test.</p>
+<h3>
+Null and alternative hypotheses
+</h3>
+<p>Researchers have the ability to test one- or two-sided hypotheses with t-tests because the null t distribution has two tails. This means that the null and alternative statistical hypotheses will depend on the biological hypotheses. For two sided-biological hypotheses (i.e., you only care whether the means are different), you will want to use a two-tailed t-test. The null and alternative statistical hypotheses for a two-tail test are always as follows.</p>
+<ul>
+<li>
+Null hypothesis: true population means are equal, or <span class="math inline">\(\mu_1 = \mu_2\)</span>
+<li>
+Alternative hypothesis: true popoulation means are not equal, or <span class="math inline">\(\mu_1 \neq \mu_2\)</span>
+</ul>
+<p>If your hypotheses are one-sided, then you will want to use a one-tailed t-test. There are two options for the statistical hypotheses of a one-tailed t-test.</p>
+<ul>
+<li>
+Null hypothesis: true population mean of group 1 is equal or less than the true population mean of group 2, or <span class="math inline">\(\mu_1 \leq \mu_2\)</span>
+<li>
+Alternative hypothesis: true population mean of group 1 is greater than the true population mean of group 2, or <span class="math inline">\(\mu_1 &gt; \mu_2\)</span>
+</ul>
+<p>In this case, you are only interested in the right-hand tail (also referred to as the positive tail) of the t distribution.</p>
+<p>The second option is just the opposite of first option.</p>
+<ul>
+<li>
+Null hypothesis: true population mean of group 1 is equal or greater than the true population mean of group 2, or <span class="math inline">\(\mu_1 \geq \mu_2\)</span>
+<li>
+Alternative hypothesis: true population mean of group 1 is less than the true population mean of group 2, or <span class="math inline">\(\mu_1 &lt; \mu_2\)</span>
+</ul>
+<p>In this case, you are only interested in the left-hand tail (also referred to as the negative tail) of the t distribution.</p>
+<div class="alert alert-warning">
+<p>It is important that you logically match you biological and statistical hypotheses.</p>
+</div>
+<h2>
+One-sample t-test example
+</h2>
+<p>You use the one-sample t-test when you have one continuous variable (your sample), and you want to test whether the mean of your sample differs (or is similar) to another mean. This other mean, referred to as μ, can be any number from - infinity to infinity, though it is often zero because of the common questions asked by researchers.</p>
+<h3>
+Data format
+</h3>
+<p>The data for a one-sample t-test can be entered into Excel as a single column, and read into R with the function <samp>read.csv()</samp>. The function <samp>file.choose()</samp> opens a window so you can select the file you want to read in. Of course you can also set the working directory and provide the file name. Alternatively, you can just enter the data into R directly by creating a vector. Below are the two ways. <a href= "tTestData.csv" target="_blank">Download an Excel file that you can save and then read into R. </a></p>
+<pre class="r"><code>tData1 &lt;- read.csv(file.choose())  
+#Remember this reads in a data.frame, so use the $ with the name of the column to extract the data</code></pre>
+<pre class="r"><code>tData2 &lt;- c(18.2, 23.3, 19.0, 45.4, 12.6, 23.8, 34.0, 29.6)  #This is a vector</code></pre>
+<h3>
+Range shifts due to climate change
+</h3>
+<p>Chen et al. (2011) published an article in Science in which they tested whether species ranges have changed due to climate change. They looked through the published literature for papers that measured the changes in species ranges. They then analyzed this collection of data, which is called a meta analysis. They used a one-sample t-test to determine whether the average shift in ranges was greater or less than predicted from a previous analysis. We are going to analyze a subset of the data for insects. The data are the latitudinal shifts in kilometers, and positive values indicate a shift away from the equator.</p>
+<p>Here are the data: 72.9, 40.9, 36.7, 64.2, 104.2, 33.6, 55.1, 44.3, 40.0, 91.1, 78.8</p>
+<p>Notice that all species shifted their range torward the poles.</p>
+<p>Enter the data into R (any method is fine).</p>
+<p>We will test whether there is evidence for a poleward shift in the range of of species. This is a one-sided hypothesis because we only care about whether the average increased (i.e., is greater than zero). We use a mu of zero because we would expect an average shift of zero if insects have not shifted their distributions. t-tests allow us to directly test one-sided hypotheses with a one-tail test.</p>
+<ul>
+<li>
+Null hypothesis: true population mean is equal or less than 0, or <span class="math inline">\(\mu_1 \leq 0\)</span>
+<li>
+Alternative hypothesis: true population mean is greater than 0, or <span class="math inline">\(\mu_1 &gt; 0\)</span>
+</ul>
+<h3>
+By hand
+</h3>
+<h4>
+Test statistic
+</h4>
+<p>The test statistic for all t-tests is the t-value. However, we calculate the t-value slightly different for one-sample, two-sample, and two-sample, paired t-tests. For a one-sampled t-test, you subtract the mean you are comparing your sample to (i.e., μ) from the mean of your sample. You then divide by the standard error of your sample. This standardizes the data to a mean of zero and a standard deviation of 1 (remember that standard error is the standard deviation of the distribution of means). You can think of the t-value as the distance of your sample mean from μ standardized to one standard deviation. Below is the equation of the the t value for a one-sample t-test.</p>
+<p><span class="math display">\[t = \frac{\bar{X} - \mu}{s_\bar{X}}\]</span></p>
+<p>So, let’s calculate the mean and standard error for the data, and then calculate the t-value.</p>
+<pre class="r"><code>rangeData &lt;- c(72.9, 40.9, 36.7, 64.2, 104.2, 33.6, 55.1, 44.3, 40.0, 91.1, 78.8)
+meanRangeData &lt;- mean(rangeData)
+seRangeData &lt;- sd(rangeData)/sqrt(length(rangeData))
+(tRangeData &lt;- (meanRangeData - 0)/seRangeData)</code></pre>
+<pre><code>## [1] 8.333581</code></pre>
+<h4>
+t distribution and P-values
+</h4>
+<p>You use the t distribution to convert the t-value to a P-value. The t-distribution, looks a lot like a normal distribution but is leptokurtic, which means that the tails are a bit fatter and the peak is a bit lower than the standard normal distribution. This is because the standard error is a poor estimate of the standard deviation of the distribution of means when the sample size is small. Both distributions, t and standard normal, have a mean of zero and a standard deviation of one.</p>
+<p>The shape of the t distribution (i.e., how leptokurtic) is determined by the degrees of freedom. As the degrees of freedom increase, the distribution becomes less leptokurtic and more similar to the standard normal distribution. Below is the code you can compare the t distribution to a standard normal distribution and explore what happens when you change the degrees of freedom.</p>
+<pre class="r"><code>curve(dnorm(x), -10, 10, ylab = &quot;Density&quot;)
+curve(dt(x, 1), add = T, col = &quot;palegreen4&quot;)
+curve(dt(x, 5), add = T, col = &quot;palegreen3&quot;)
+curve(dt(x, 10), add = T, col = &quot;palegreen2&quot;)</code></pre>
+<p><img src="t_test_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<!--
+You can also do the follow to see how the t-distribution is generated.  Let's assume a population is described by normal distribution with a mean of 12.6 and standard deviation of 2.3.  What is the estimate of the mean if we sample only 5 individuals from the population?  We can answer this question by sampling 5 individuals and calculate the mean for these five samples.  We will repeat this thousands.  Now let's subtract the true mean of the population, and divide by the standard deviations of the data (we can compare the standard deviation calculated from the generated data to our esimate of the standard deviation of the distribution of means (i.e., standard error).  We can now plot the data with a histogram and compare it to the t-distribution.  
+
+
+```r
+sampleSize <- 5
+iterations <- 100000 #number of time we want to sample the population
+estimatedMeans <- numeric(iterations) #create a variable to hold the estimated means
+for(i in 1:iterations){
+  estimatedMeans[i] <- mean(rnorm(5, 12.6, 2.3))
+}
+adjustEstimatedMeans <- estimatedMeans - 12.6 #Shift all points 12.6 units to the left.  This centers the data on zero.
+#Calculate the standard deviation of these data
+sdAdjustEstimatedMeans <- sd(adjustEstimatedMeans)
+adjustEstimatedMeans <- adjustEstimatedMeans/(2.3/sqrt(5))
+#Compare the calculated standard deviation to the standard error
+sdAdjustEstimatedMeans; 2.3/sqrt(5)
+```
+
+```
+## [1] 1.023135
+```
+
+```
+## [1] 1.028591
+```
+
+```r
+#Create a histogram
+hist(adjustEstimatedMeans, freq = F, col = "darkseagreen4", main = "", breaks = 100)
+curve(dt(x, 4), add = T, col = "firebrick4")
+curve(dnorm(x), add = T, col = "firebrick4")
+```
+
+<img src="t_test_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+
+```r
+sd(adjustEstimatedMeans)
+```
+
+```
+## [1] 0.9946955
+```
+-->
+<p>All t-tests can be 1- or 2-tails, which correspond with a 1- or 2-sided hypotheses, respectively. For a 2-tailed test, you need to determine the probability of getting a value more extreme than your test statistic. For example, if your t-value was 3, then you need to calculate the probability of getting a value of 3 or greater or a value of -3 or less (i.e., more extreme). If you had a test statistic that was -2.1, then you need to calculated the probability of getting value of -2.1 or less or 2.1 or greater. Because the distribution is symetrical, the probability of getting a value of -2.1 or less is the same as getting a value of 2.1 or greater. So, most people just determine the probability of getting a negative t-value, and then multiplying it by 2. Below is some code to illustrate this point.</p>
+<pre class="r"><code>#Prob 1.4 or greater (i.e., the right tail) with 10 degrees of freedom
+1-pt(1.4, 10)</code></pre>
+<pre><code>## [1] 0.09588268</code></pre>
+<pre class="r"><code>#Prob for -1.4 or less (i.e., the left tail)
+#See how they are the same!
+pt(-1.4, 10)</code></pre>
+<pre><code>## [1] 0.09588268</code></pre>
+<pre class="r"><code>#Calculate the P-value for a 2-tailed test
+pt(-1.4, 10) + (1 - pt(1.4, 10))</code></pre>
+<pre><code>## [1] 0.1917654</code></pre>
+<pre class="r"><code>#Or
+2*pt(-1.4, 10)</code></pre>
+<pre><code>## [1] 0.1917654</code></pre>
+<pre class="r"><code>curve(dt(x, 10), -10, 10, ylab = &quot;Density&quot;)
+abline(v = c(-1.4, 1.4), col = &quot;palegreen2&quot;)
+text(c(-1.4, 1.4), 0.3, c(&quot;-1.4&quot;, &quot;1.4&quot;), pos = c(2,4), col = &quot;palegreen2&quot;)</code></pre>
+<p><img src="t_test_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>For a one-tailed t-test, it is important to know which tail you want. To do this, you need to think about the statistical and biological hypotheses. I find it easiest to look at the alternative hypothesis. If it states that the mean of the sample should be greater than μ, then you look up the right-hand (or positive) tail. If it states that the mean of the sample should be less than μ, then you look up the left-hand (or negative) tail. As you might have guessed, you calculate the P-value from only one tail.</p>
+<pre class="r"><code>#Assume our t value is 2.9 with 35 degrees of freedom, and we expect our the mean of our sample to be greater than mu
+1-pt(2.9, 35)</code></pre>
+<pre><code>## [1] 0.003203703</code></pre>
+<p>Students get confused when they do not carefully think about which tail to use. Remember it doesn’t depend on the t-value at all, it depends on the alternative hypothesis. So, let’s say you have a t-value of -3.6 with 5 degrees of freedom, and your alternative hypothesis is that the mean of your sample is greater than μ. Therefore you are after the right-hand tail. The P-value will be large (&gt; 0.5) because the value is negative but we are after the right-hand tail.</p>
+<pre class="r"><code>#Assume our t value is -3.6 with 5 degrees of freedom, and you are after the right-hand tail.
+1-pt(-3.6, 5)</code></pre>
+<pre><code>## [1] 0.9922284</code></pre>
+<pre class="r"><code>curve(dt(x, 5), -10, 10)
+abline(v = -3.6)
+text(-3.6, 0.2, &quot;t value&quot;, pos = 2)
+#Don&#39;t worry about the polygon function
+polygon(c(seq(-3.6, 10), seq(10, -3.6, by = -0.1)), c(rep(0, length.out = 14), dt(seq(10, -3.6, by = -0.1), 5)), col = &quot;steelblue&quot;)</code></pre>
+<p><img src="t_test_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>Now let’s determine the P-value for our example of range shifts in insects. Recall that we expected to see a positive shift in the range, which means that ranges shifted torwards the poles. We set μ equal to zero, because we want to determine whether the mean of the sample is greater than μ, and thus we are after the right-hand (or positive) tail.</p>
+<pre class="r"><code>1-pt(tRangeData, length(rangeData)-1)</code></pre>
+<pre><code>## [1] 4.109268e-06</code></pre>
+<p>Is this value greater or less than alpha? What do you conclude?</p>
+<h3>
+<samp>t.test()</samp>
+</h3>
+<p>We can use the function <samp>t.test()</samp> to analyze data with t-test. This function will perform the three types of t-test. A one-sample, two-tailed t-test requires a vector of numbers. There is an argument called <samp>mu</samp> in which you can change μ, the default is 0. There is also an argument <samp>alternative</samp>, which always you to specific a two-tail, or one-tail test. There are three options for this argument: <samp>two.sided</samp>, which is the default, <samp>“less”</samp>, for the left-hand tail, and <samp>“greater”</samp>, for the right-hand tail.</p>
+<pre class="r"><code>t.test(rangeData, alternative = &quot;greater&quot;)</code></pre>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  rangeData
+## t = 8.3336, df = 10, p-value = 4.109e-06
+## alternative hypothesis: true mean is greater than 0
+## 95 percent confidence interval:
+##  47.07872      Inf
+## sample estimates:
+## mean of x 
+##  60.16364</code></pre>
+<h3>
+Displaying data
+</h3>
+<p>Rarely do researchers make a graph for a one-sample test. More commonly authors will just report the mean of the sample and the standard error. However, if you really wanted to graph it, you would use a barplot with just one bar or a boxplot with just one box. You might also display μ with a horizontal line dotted line. You can add an error bar with the function <samp>arrows()</samp>.</p>
+<pre class="r"><code>#Barplot
+mean &lt;- mean(rangeData)
+se &lt;- sd(rangeData)/sqrt(length(rangeData))
+#Create bargraph and adjust the ylim so the error bars will fit
+barVals &lt;- barplot(mean, ylim = c(0, 70), ylab = &quot;Range shift (km)&quot;)
+#Add error bars
+arrows(barVals, mean - se, barVals, mean + se, angle = 90, code = 3)</code></pre>
+<p><img src="t_test_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#Boxplot
+boxplot(rangeData, ylab = &quot;Range shift (km)&quot;)</code></pre>
+<p><img src="t_test_files/figure-html/unnamed-chunk-11-2.png" width="672" style="display: block; margin: auto;" /></p>
+<h2>
+Two-sample t-test
+</h2>
+<p>The two-sample t-test compares the means between two samples.</p>
+<h3>
+Data format
+</h3>
+<p>There are two ways to enter and store the data for two-sample t-test. The first is very similar to one-sample t-tests, except you have two columns instead of one. One column of each sample. This first method is simplier to use with the function <samp>t.test()</samp>. However, it often confuses students when they think about whether the predictor and response variables are continuous or categorical. The second is more typical of how researchers store data. There are also two columns, but one column specifies the sample (e.g., group 1 or group 2) and the other specifies the data you will analyze. This format makes it clear that we have two variables, one is categorical and the other is continuous. However, it requires a little more effort to pull out the data for each group. Below are examples of both.</p>
+<p>You can enter your data directly into R or enter into Excel and use the function <samp>read.csv</samp> to get it into R. Below I have entered the data directly into R with the function <samp>c()</samp> and then used the function <samp>data.frame()</samp> to create a data.frame. I named the columns of the data <samp>Sample1</samp> and <samp>Sample2</samp>.</p>
+<pre class="r"><code>#First format
+s1 &lt;- c(23, 45, 34, 37, 29, 44, 40, 34)
+s2 &lt;- c(12, 20, 19, 18, 22, 14, 17, 17)
+(twoSampleData &lt;- data.frame(Sample1 = s1, Sample2 = s2))</code></pre>
+<pre><code>##   Sample1 Sample2
+## 1      23      12
+## 2      45      20
+## 3      34      19
+## 4      37      18
+## 5      29      22
+## 6      44      14
+## 7      40      17
+## 8      34      17</code></pre>
+<pre class="r"><code>#Second format
+sample &lt;- rep(c(&quot;s1&quot;, &quot;s2&quot;), each = 8)
+data &lt;- c(23, 45, 34, 37, 29, 44, 40, 34, 12, 20, 19, 18, 22, 14, 17, 17)
+(twoSampleData2 &lt;- data.frame(Sample = sample, Data = data))</code></pre>
+<pre><code>##    Sample Data
+## 1      s1   23
+## 2      s1   45
+## 3      s1   34
+## 4      s1   37
+## 5      s1   29
+## 6      s1   44
+## 7      s1   40
+## 8      s1   34
+## 9      s2   12
+## 10     s2   20
+## 11     s2   19
+## 12     s2   18
+## 13     s2   22
+## 14     s2   14
+## 15     s2   17
+## 16     s2   17</code></pre>
+<p>Both formats have exactly the same data, and you can convert one to the other.</p>
+<p>Below is how to pull data from each format.</p>
+<pre class="r"><code>#Pull data from the first format
+twoSampleData$Sample1</code></pre>
+<pre><code>## [1] 23 45 34 37 29 44 40 34</code></pre>
+<pre class="r"><code>twoSampleData$Sample2</code></pre>
+<pre><code>## [1] 12 20 19 18 22 14 17 17</code></pre>
+<pre class="r"><code>#Pull data from the second format
+twoSampleData2$Data[twoSampleData2$Sample == &quot;s1&quot;]</code></pre>
+<pre><code>## [1] 23 45 34 37 29 44 40 34</code></pre>
+<pre class="r"><code>twoSampleData2$Data[twoSampleData2$Sample == &quot;s2&quot;]</code></pre>
+<pre><code>## [1] 12 20 19 18 22 14 17 17</code></pre>
+<h3>
+By hand
+</h3>
+<h4>
+Test statistic
+</h4>
+<p>Because there are two variables for a two-sample t-test, we need a slightly different test statistic. The only difference between the test statistic of the one- and two-sample t-test is that the two-sample t-test uses a pooled standard error. You can think of it as the averaged standard error for the two variables. This is the reason for the assumption that the variances are equal for the two variables.</p>
+<p><span class="math display">\[t = \frac{\bar{X_1} - \bar{X_2}}{s_{\bar{X_1}-\bar{X_2}}}\]</span></p>
+<p><span class="math display">\[s_{\bar{X_1}-\bar{X_2}} = \sqrt{\frac{s^2_{pooled}}{n_1} + \frac{s^2_{pooled}}{n_2}}\]</span></p>
+<p><span class="math display">\[s^2_{pooled} = \frac{\sum^{n_1}_{i=1} (x_{1i} - \bar{X_1})^2 + \sum^{n_1}_{i=1} (x_{2i} - \bar{X_2})^2}{v_1 + v_2}\]</span></p>
+<p>Let’s calculate the mean for each group, the pooled variance, the average standard error, and lastly the t-value.</p>
+<pre class="r"><code>mean1 &lt;- mean(twoSampleData$Sample1)
+mean2 &lt;- mean(twoSampleData$Sample2)
+pooledVar &lt;- (sum((twoSampleData$Sample1-mean1)^2) + sum((twoSampleData$Sample2-mean2)^2))/(length(twoSampleData$Sample1) + length(twoSampleData$Sample2) - 2)
+pooledSE &lt;- sqrt(pooledVar/length(twoSampleData$Sample1) + pooledVar/length(twoSampleData$Sample2))
+(tTwoSample &lt;- (mean1 - mean2)/pooledSE)</code></pre>
+<pre><code>## [1] 6.415606</code></pre>
+<h4>
+t-distribution and P-values
+</h4>
+<p>We look up the P-value exactly the same way as for the one-sample t-test. We need to know whether the test is a 1- or 2-tailed test. Then we can calculate the probability of getting our t-value or something more extreme for the appropriate degrees of freedom. Let us assume that we are interested in just a difference between our samples or groups, and thus the test should be 2-tailed (because the biological hypotheses are two-sided).</p>
+<pre class="r"><code>2*pt(-tTwoSample, length(twoSampleData$Sample1) + length(twoSampleData$Sample2) - 2)</code></pre>
+<pre><code>## [1] 1.612091e-05</code></pre>
+<h3>
+<samp>t.test()</samp>
+</h3>
+<p>We can use the function <samp>t.test()</samp> for a two-sample t-test. For a two-sample t-test, we have the added issue of equal variances for the two groups. The argument <samp>var.equal</samp> toggle between the regular t-test and the Welch’s t-test. When <samp>FALSE</samp>, which is the default, R uses a Welch’s t-test, and when <samp>TRUE</samp> R uses a regular t-test. The Welch’s t-test corrects for the problem of inequal variances by calculating the difference between the variances and then reducing the degrees of freedom. You already know that this fattens up the tails and thus increases the P-value. So, a Welch’s t-test is more conservative than the regular t-test. Thus, we try not to use the Welch’s t-test unless there is good evidence that the variances are not equal.</p>
+<pre class="r"><code>t.test(twoSampleData$Sample1, twoSampleData$Sample2, var.equal = T)</code></pre>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  twoSampleData$Sample1 and twoSampleData$Sample2
+## t = 6.4156, df = 14, p-value = 1.612e-05
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  12.2321 24.5179
+## sample estimates:
+## mean of x mean of y 
+##    35.750    17.375</code></pre>
+<p>Now compare the output above with the one below, a Welch’s t-test. Notice that the t-value is the same, but the degrees of freedom and the P-value are different.</p>
+<pre class="r"><code>t.test(twoSampleData$Sample1, twoSampleData$Sample2, var.equal = F)</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  twoSampleData$Sample1 and twoSampleData$Sample2
+## t = 6.4156, df = 9.5104, p-value = 9.622e-05
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  11.94855 24.80145
+## sample estimates:
+## mean of x mean of y 
+##    35.750    17.375</code></pre>
+<h3>
+Displaying data
+</h3>
+<p>Typically researchers display data that were analyzed with a two-sample t-test with a barplot or boxplot. The code if very similar to the graphs we created for a one-sample t-test, but we now have two bars or boxes. For barplots, authors typically report standard error. However, look carefully at the size of the error bars because many authors will plot the pooled standard error, and not the standard error for each group. I argue that it is much better to provide the standard error calculated from each group because the reader will see whether the variance differs between the two groups.</p>
+<pre class="r"><code>se1 &lt;- sd(twoSampleData$Sample1)/sqrt(length(twoSampleData$Sample1))
+se2 &lt;- sd(twoSampleData$Sample2)/sqrt(length(twoSampleData$Sample2))
+barVals2 &lt;- barplot(c(mean1, mean2), 
+  ylim = c(0, 50), 
+  ylab = &quot;Label (units)&quot;,
+  names.arg = c(&quot;Sample 1&quot;, &quot;Sample 2&quot;))
+arrows(barVals2, c(mean1+se1, mean2+se2), barVals2, c(mean1-se1, mean2-se2), angle = 90, code = 3)</code></pre>
+<p><img src="t_test_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p>It is much easier to make boxplots when the data are in the second format.</p>
+<pre class="r"><code>#Notice that I am using the second format
+boxplot(Data ~ Sample, data = twoSampleData2,
+  ylim = c(0, 50), 
+  ylab = &quot;Label (units)&quot;,
+  names = c(&quot;Sample 1&quot;, &quot;Sample 2&quot;))</code></pre>
+<p><img src="t_test_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<h2>
+Two-sample, paired t-test
+</h2>
+<p>The two-sample, paired t-test is very similar to the one-sample t-test because you analyze the difference between each pair and thus have just one variable (the difference between your two variables for each pair). After you calculate the different for each pair, everything is the same as the one-sample t-test.</p>
+<p>Let us assume that the data we just analyzed is paired and appropriate for a two-sample, paired t-test. Also let’s assume that we expect sample 1 will be less than sample 2. Therefore we expect the difference will be negative and less than μ. So, we are interested in the left (negative) tail and should perform a one-tailed test. First calculate the difference for each pair and then calculate the t-value with the calculation for a one-sample t-test.</p>
+<pre class="r"><code>dif &lt;- twoSampleData$Sample1 - twoSampleData$Sample2
+meanDif &lt;- mean(dif)
+seDif &lt;- sd(dif)/sqrt(length(dif))
+(tDif &lt;- (meanDif - 0)/seDif)</code></pre>
+<pre><code>## [1] 6.893631</code></pre>
+<p>Now we need to calculate the P-value. Remember we want the left-hand tail because we expected a negative difference between Sample 1 and Sample 2 (i.e., Sample 1 - Sample 2 &lt; 0).</p>
+<pre class="r"><code>pt(tDif, length(dif)-1)</code></pre>
+<pre><code>## [1] 0.9998837</code></pre>
+<p>Do we reject or fail to reject the null hypothesis? Remember the null hypothesis is that the difference between the samples is equal to or greater than zero. The alternative is the difference is less than zero.</p>
+<p>Now let’s use the function <samp>t.test()</samp>. There is an argument <samp>paired</samp>, and as you might have guessed toggles between a paired and unpaired t-test. When the argument is set to <samp>TRUE</samp> then the test is paired, and when it is <samp>FALSE</samp> the test is unpaired. The default value is false.</p>
+<pre class="r"><code>t.test(twoSampleData$Sample1, twoSampleData$Sample2, paired = T, alternative = &quot;less&quot;)</code></pre>
+<pre><code>## 
+##  Paired t-test
+## 
+## data:  twoSampleData$Sample1 and twoSampleData$Sample2
+## t = 6.8936, df = 7, p-value = 0.9999
+## alternative hypothesis: true difference in means is less than 0
+## 95 percent confidence interval:
+##      -Inf 23.42501
+## sample estimates:
+## mean of the differences 
+##                  18.375</code></pre>
+<p>We didn’t need to worry about the argument <samp>var.equal</samp> because the test is really a one-sample test there is really only one variable (the difference).</p>
+<p>We could also analyze the difference with a one-sample t-test, which will give us the same answer as above.</p>
+<pre class="r"><code>t.test(dif, alternative = &quot;less&quot;)</code></pre>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  dif
+## t = 6.8936, df = 7, p-value = 0.9999
+## alternative hypothesis: true mean is less than 0
+## 95 percent confidence interval:
+##      -Inf 23.42501
+## sample estimates:
+## mean of x 
+##    18.375</code></pre>
+<p>The P-value is very large because it is calculated from the left-hand (negative) tail, but the t-value is positive.</p>
+<p>Can you create a plot to illustrate the calculation of the P-value?</p>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

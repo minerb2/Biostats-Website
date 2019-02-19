@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+<br>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+  
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">
+        Biometrics (Biol 340)
+      </a>
+    </div>
+
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="weekly_labs.html">Weekly Labs</a></li>
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Intro to R
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="intro_R.html">Intro to R</a></li>
+            <li><a href="data_types.html">Data Types</a></li>
+            <li><a href="input_R.html">Inputting Data</a></li>
+            <li><a href="packages.html">Packages</a></li>
+            <li><a href="R_websites.html">Helpful Websites</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Basic Skills
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="des_stats.html">Descriptive Stats</a></li>
+            <li><a href="plyr.html">Plyr Package</a></li>
+            <li><a href="basic_prob.html">Basic Proability</a></li>
+            <li><a href="prob_dist.html">Probability Distributions</a></li>
+          </ul>
+        </li>
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Statistical Tests
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="chi_good_test.html">Chi-squared Goodness-of-fit Test</a></li>
+            <li><a href="chi_conti_test.html">Chi-squared Contingency Test</a></li>
+            <li><a href="t_test.html">t-Test</a></li>
+            <li><a href="anova.html">ANOVA</a></li>
+            <li><a href="reg_corr_test.html">Regression and Correlation</a></li>
+            <li><a href="logistic_test.html">Logistic Regression</a></li>
+          </ul>
+        </li>
+          
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Graphing
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="basic_graphing.html">Basic Graphing</a></li>
+            <li><a href="adv_graphing.html">Advanced Graphing</a></li>
+            <li><a href="ggplots.html">GGplot2</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+ 
+  </div>
+</nav>
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<h1>
+Basic graphing
+</h1>
+<p>To give you an idea of what you can do in R, let’s make some graphs. Basic graphing in R is very simple. Here are a couple of functions to easily generate simple graphs in R.</p>
+<dl class="dl-horizontal">
+<dt>
+plot
+</dt>
+<dd>
+Creates a scatterplot between two continuous variables, or a boxplot between a categorical x variable and continuous y variable.
+</dd>
+<dt>
+boxplot
+</dt>
+<dd>
+Creates a boxplot.
+</dd>
+<dt>
+barplot
+</dt>
+<dd>
+Creates a barplot.
+</dd>
+<dt>
+pie
+</dt>
+<dd>
+Creates a pie chart.
+</dd>
+<dt>
+hist
+</dt>
+<dd>
+Creates a histogram of a numerical vector.
+</dd>
+</dl>
+<h2>
+Create graphs
+</h2>
+<p>Let’s open up a new script file and create a few graphs. We will create three variables: pops, height, and weight so we have something to graph. For fun, let’s assume the fake data we make up in a minute are from two populations of the species <italic>Aha ha</italic>, which is an Australian wasp (and yes that is the correct species name for this species).</p>
+<pre class="r"><code>#the function rep repeats a vector
+#below we repeat the vector c(&quot;Pop 1&quot;, &quot;Pop 2&quot;) 25 times
+pops &lt;- rep(c(&quot;Pop 1&quot;, &quot;Pop 2&quot;), 25)
+
+#converts the data to a categorical variable
+pops.fac &lt;- factor(pops) 
+
+#view the data
+pops</code></pre>
+<pre><code>##  [1] &quot;Pop 1&quot; &quot;Pop 2&quot; &quot;Pop 1&quot; &quot;Pop 2&quot; &quot;Pop 1&quot; &quot;Pop 2&quot; &quot;Pop 1&quot; &quot;Pop 2&quot;
+##  [9] &quot;Pop 1&quot; &quot;Pop 2&quot; &quot;Pop 1&quot; &quot;Pop 2&quot; &quot;Pop 1&quot; &quot;Pop 2&quot; &quot;Pop 1&quot; &quot;Pop 2&quot;
+## [17] &quot;Pop 1&quot; &quot;Pop 2&quot; &quot;Pop 1&quot; &quot;Pop 2&quot; &quot;Pop 1&quot; &quot;Pop 2&quot; &quot;Pop 1&quot; &quot;Pop 2&quot;
+## [25] &quot;Pop 1&quot; &quot;Pop 2&quot; &quot;Pop 1&quot; &quot;Pop 2&quot; &quot;Pop 1&quot; &quot;Pop 2&quot; &quot;Pop 1&quot; &quot;Pop 2&quot;
+## [33] &quot;Pop 1&quot; &quot;Pop 2&quot; &quot;Pop 1&quot; &quot;Pop 2&quot; &quot;Pop 1&quot; &quot;Pop 2&quot; &quot;Pop 1&quot; &quot;Pop 2&quot;
+## [41] &quot;Pop 1&quot; &quot;Pop 2&quot; &quot;Pop 1&quot; &quot;Pop 2&quot; &quot;Pop 1&quot; &quot;Pop 2&quot; &quot;Pop 1&quot; &quot;Pop 2&quot;
+## [49] &quot;Pop 1&quot; &quot;Pop 2&quot;</code></pre>
+<pre class="r"><code>pops.fac #compare the output from pops</code></pre>
+<pre><code>##  [1] Pop 1 Pop 2 Pop 1 Pop 2 Pop 1 Pop 2 Pop 1 Pop 2 Pop 1 Pop 2 Pop 1
+## [12] Pop 2 Pop 1 Pop 2 Pop 1 Pop 2 Pop 1 Pop 2 Pop 1 Pop 2 Pop 1 Pop 2
+## [23] Pop 1 Pop 2 Pop 1 Pop 2 Pop 1 Pop 2 Pop 1 Pop 2 Pop 1 Pop 2 Pop 1
+## [34] Pop 2 Pop 1 Pop 2 Pop 1 Pop 2 Pop 1 Pop 2 Pop 1 Pop 2 Pop 1 Pop 2
+## [45] Pop 1 Pop 2 Pop 1 Pop 2 Pop 1 Pop 2
+## Levels: Pop 1 Pop 2</code></pre>
+<pre class="r"><code>#set the random number generator value so we all generate the same &quot;random&quot;&quot; numbers
+set.seed(340)  
+#create some fake data
+#the function rnorm returns 50 random values from
+#a normal distribution with a mean of 66 and 
+#standard deviation of 10
+height &lt;- rnorm(50, 66, 10)
+height</code></pre>
+<pre><code>##  [1] 64.42627 54.01142 57.10795 76.09061 72.13041 76.07151 70.14432
+##  [8] 47.42090 52.51271 71.18858 64.25402 67.98799 66.56160 53.52329
+## [15] 68.31766 68.20342 61.10326 74.14436 49.74779 57.74989 76.61589
+## [22] 65.88765 58.68682 67.60547 80.25601 63.95558 77.90892 80.03427
+## [29] 72.12747 75.30074 58.85061 67.57077 74.72140 79.25436 75.26808
+## [36] 66.88326 49.52440 59.57881 67.91653 71.75655 73.77299 70.00641
+## [43] 56.17083 65.19871 54.28446 72.92145 56.23643 65.35393 49.24887
+## [50] 84.95153</code></pre>
+<pre class="r"><code>#create 50 values for a normal distribution with
+#a mean of 150 and standard deviation of 30
+weight &lt;- rnorm(50, 150, 30)
+weight</code></pre>
+<pre><code>##  [1] 108.60529 196.31624  94.02019 160.88119 146.64691 157.46697 152.04334
+##  [8] 165.75198 129.70893 168.98670 145.37322 139.83507 153.86344 145.42175
+## [15]  94.54780 215.38553 164.84327 166.03424 128.26357 189.63380 106.48963
+## [22] 146.55196 146.99079 105.38672 167.37810 200.27634 153.32093 170.04754
+## [29] 148.12770 205.46059 146.90167 192.54807 164.42083 163.26025 166.71892
+## [36]  89.80435 137.71173 118.36248 129.63432  97.31389 113.28371 141.13142
+## [43]  98.10233  90.89994 187.47154  66.12106 124.68121 129.82921 124.67514
+## [50] 156.02163</code></pre>
+<p>Now let’s make some graphs.</p>
+<h3>
+The function <samp>plot()</samp>
+</h3>
+<pre class="r"><code>plot(height~weight) </code></pre>
+<p><img src="basic_graphing_files/figure-html/unnamed-chunk-2-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p>The first argument in many plotting functions can be given as a formula. In R, a formula is similar to the how statistical models are written. The response variable is always on the left side of the equation and is plotted on the y-axis. The predictor variable is always on the right side of the equation and is plotted on the x-axis. The tilde “~”, which is in the upper left corner of your keyboard represents the equals sign in the equation. R will make decisions about what type of plot to create, based on the type of the data. For example, above the response and predictor variables are both continuous, so R plots the data as a scatterplot. Below I use the function <samp>plot</samp> again, but provide a continuous response variable and a categorical variable in the formula. R now plots a box plot. Of course you can also use the function <samp>boxplot()</samp> instead of the function <samp>plot()</samp>.</p>
+<pre class="r"><code>plot(height~pops.fac) </code></pre>
+<p><img src="basic_graphing_files/figure-html/unnamed-chunk-3-1.png" width="384" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>boxplot(height~pops.fac) #same as the above plot</code></pre>
+<p><img src="basic_graphing_files/figure-html/unnamed-chunk-3-2.png" width="384" style="display: block; margin: auto;" /></p>
+<h3>
+The function <samp>barplot()</samp>
+</h3>
+<p>For some plots, like barplots and pie charts, you need to provide just one value of each group. In in the case of our fake data, we have two groups, female and male. However, we have lots of numbers for each group. So, we can use the function <samp>tapply()</samp> to quickly calculate the mean (or another metric) for each group. In the example below, we first calculate the mean heights for each group. Then we plot the means.</p>
+<pre class="r"><code>#Calculate the means
+pop.mean.heights &lt;- tapply(height, pops.fac, mean)
+pop.mean.heights</code></pre>
+<pre><code>##    Pop 1    Pop 2 
+## 64.31583 68.10606</code></pre>
+<pre class="r"><code>#Plot the means
+barplot(pop.mean.heights)</code></pre>
+<p><img src="basic_graphing_files/figure-html/unnamed-chunk-4-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p>The function to calculate the standard deviation is <samp>sd()</samp>. Try to modify the code in the first line above to calculate the standard deviation for populations 1 and 2. You can check you answer against the code below.</p>
+<pre class="r"><code>#Calculate the sd
+pop.sd.heights &lt;- tapply(height, pops.fac, sd)
+pop.sd.heights</code></pre>
+<pre><code>##    Pop 1    Pop 2 
+## 9.685328 8.838307</code></pre>
+<p>In the function <samp>barplot()</samp>, the argument to change the labels is <samp>names.arg</samp> and it takes a vector of strings. Make sure to put the labels in the correct order. In the example, above “Pop 1” is the first value in <samp>pop.mean.heights</samp>.</p>
+<pre class="r"><code>barplot(pop.mean.heights, names.arg = c(&quot;Population 1&quot;, &quot;Population 2&quot;))</code></pre>
+<p><img src="basic_graphing_files/figure-html/unnamed-chunk-6-1.png" width="384" style="display: block; margin: auto;" /></p>
+<h3>
+The function <samp>pie()</samp>
+</h3>
+<pre class="r"><code>pop.mean.weights &lt;- tapply(weight, pops.fac, mean)
+pie(pop.mean.weights)</code></pre>
+<p><img src="basic_graphing_files/figure-html/unnamed-chunk-7-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p>In the function <samp>pie()</samp>, the argument to change the labels is <samp>label</samp> and it takes a vector of strings. Make sure to put the labels in the correct order. In the example, above “Pop 1” is the first value in <samp>pop.mean.heights</samp>.</p>
+<pre class="r"><code>pie(pop.mean.weights, label = c(&quot;Population 1&quot;, &quot;Populations 2&quot;))</code></pre>
+<p><img src="basic_graphing_files/figure-html/unnamed-chunk-8-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p>You might be wondering how to add error bars. Check out the Advance Graphing lab for information about error bars.</p>
+<h3>
+The function <samp>hist()</samp>
+</h3>
+<p>In the function <samp>hist()</samp>, only one argument is required to create a histogram–a numerical vector. There are optional arguments to change to the breaks and other aspects of the histogram.</p>
+<pre class="r"><code>hist(weight)</code></pre>
+<p><img src="basic_graphing_files/figure-html/unnamed-chunk-9-1.png" width="384" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>hist(weight, breaks = 4)</code></pre>
+<p><img src="basic_graphing_files/figure-html/unnamed-chunk-9-2.png" width="384" style="display: block; margin: auto;" /></p>
+<h2>
+Modify graphs
+</h2>
+<p>Now let’s spruce up the graphs a little. There are additional arguments to modify the graphs. Many of these arguments are general and can be used with any of the functions above.</p>
+<dl class="dl-horizontal">
+<dt>
+main
+</dt>
+<dd>
+Specifies the title of the graph.
+</dd>
+<dt>
+sub
+</dt>
+<dd>
+Specifies the subtitle of the graph.
+</dd>
+<dt>
+xlab ylab
+</dt>
+<dd>
+Specifies the axis labels.
+</dd>
+<dt>
+xlim ylim
+</dt>
+<dd>
+Specifies the axis limits.
+</dd>
+<dt>
+col
+</dt>
+<dd>
+Specifies the color of the graph.
+</dd>
+<dt>
+pch
+</dt>
+<dd>
+Specifies the symbol of the points on the graph.
+</dd>
+<dt>
+cex, cex.axis, cex.main
+</dt>
+<dd>
+Specifies the size of the points or text in the graph. A value of greater than 1 increases the size.
+</dd>
+<dt>
+asp
+</dt>
+<dd>
+Specifies the y/x aspect ratio of a plot.
+</dd>
+</dl>
+<p>Change the title and subtitle of a graph with the main and sub arguments.</p>
+<pre class="r"><code>plot(height~weight, main = &quot;My Sweet Graph&quot;, sub = &quot;Created by Ben&quot;)</code></pre>
+<p><img src="basic_graphing_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Change the axis labels with the xlab and ylab arguments.</p>
+<pre class="r"><code>plot(height~weight, 
+   main = &quot;My Sweet Graph&quot;, 
+   xlab = &quot;Weight (mg)&quot;, 
+   ylab = &quot;Height (mm)&quot;)</code></pre>
+<p><img src="basic_graphing_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Change the size of symbols, axes, and axis labels with the <samp>cex</samp>, <samp>cex.axis</samp>, <samp>cex.lab</samp>, and <samp>cex.main</samp> arguments.</p>
+<pre class="r"><code>plot(height~weight, 
+   main = &quot;My Sweet Graph&quot;, 
+   xlab = &quot;Weight (mg)&quot;,
+   ylab = &quot;Height (mm)&quot;,
+   cex = 1.5, cex.axis = 1.5, cex.lab = 1.5, cex.main = 1.5)</code></pre>
+<p><img src="basic_graphing_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Change the type and color of the symbols with the <samp>pch</samp> and <samp>col</samp> arguments.</p>
+<div class="alert alert-info" role="alert">
+<p>Use the function <samp>colors()</samp>, which requires no arguments, to see all the built-in colors in R.</p>
+</div>
+<pre class="r"><code>plot(height~weight, 
+   main = &quot;My Sweet Graph&quot;, 
+   xlab = &quot;Weight (mg)&quot;,
+   ylab = &quot;Height (mm)&quot;,
+   cex = 1.5, cex.axis = 1.5, cex.lab = 1.5, cex.main = 1.5,
+   pch = 15, col = &quot;goldenrod3&quot;)</code></pre>
+<p><img src="basic_graphing_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Change the scale of the axes with the <samp>xlim</samp> and <samp>ylim</samp> arguments.</p>
+<pre class="r"><code>plot(height~weight, 
+   main = &quot;My Sweet Graph&quot;, 
+   xlab = &quot;Weight (mg)&quot;,
+   ylab = &quot;Height (mm)&quot;,
+   cex = 1.5, cex.axis = 1.5, cex.lab = 1.5, cex.main = 1.5,
+   pch = 15, col = &quot;goldenrod3&quot;,
+   xlim = c(0,500), ylim = c(0,100))</code></pre>
+<p><img src="basic_graphing_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="alert alert-info" role="alert">
+<p>For more <em>arguments</em> that modify graphics, type in <code>?par</code>, which represents the parameters for graphics. There are a lot, and it is overwhelming at first, but you will start to become comfortable with many of these arguments.</p>
+</div>
+<h2>
+Save graphs
+</h2>
+<p>You might also want to save a graph for a class assignment, presentation, or publication. In R, there are <em>drivers</em> that create a file of your graph (e.g., jpg, bmp, pdf, or png file). There are two functions I commonly use to save graphs, <samp>pdf()</samp> and <samp>png()</samp>. Each driver function has slightly different parameters, so look at the help files to see what options are available.</p>
+<p>First, let’s tell R where to save the file, by setting the working directory with the function <samp>setwd()</samp>. Alternatively, in RStudio, you can go to Session &gt; Set Working Directory &gt; Choose File. Of course you welcome to set the working directory somewhere other than you u drive.</p>
+<pre class="r"><code>getwd()       #indicates where the file will be saved
+setwd(&quot;u:/&quot;)  #sets the working directory to your u drive   </code></pre>
+<p>Now let’s create a pdf. First, we turn on the pdf driver with the function <samp>pdf()</samp> and use the arguments <samp>paper</samp> to set the paper size and <samp>pointsize</samp> to set the font size. The first argument is the name you want to assign to the file, and it includes the extension and is surrounded by quotes. At the end we turn off the driver with <samp>dev.off()</samp>.</p>
+<pre class="r"><code>pdf(&quot;my first graph.pdf&quot;, paper = &quot;letter&quot;, pointsize = 12)
+plot(height~weight, 
+   main = &quot;My Sweet Graph&quot;, 
+   xlab = &quot;Weight (mg)&quot;,
+   ylab = &quot;Height (mm)&quot;,
+   cex = 1.5, cex.axis = 1.5, cex.lab = 1.5, cex.main = 1.5,
+   pch = 15, col = &quot;goldenrod3&quot;,
+   xlim = c(0,500), ylim = c(0,100))
+dev.off()</code></pre>
+<p>Look in the working directory and open your new graph. You are now officially a nerd!!</p>
+<p>So, that is it for the introduction. Check out the Advanced Graphing and GGPlots labs for more information about how to create graphs in R.</p>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

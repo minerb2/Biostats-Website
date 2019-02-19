@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+<br>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+  
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">
+        Biometrics (Biol 340)
+      </a>
+    </div>
+
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="weekly_labs.html">Weekly Labs</a></li>
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Intro to R
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="intro_R.html">Intro to R</a></li>
+            <li><a href="data_types.html">Data Types</a></li>
+            <li><a href="input_R.html">Inputting Data</a></li>
+            <li><a href="packages.html">Packages</a></li>
+            <li><a href="R_websites.html">Helpful Websites</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Basic Skills
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="des_stats.html">Descriptive Stats</a></li>
+            <li><a href="plyr.html">Plyr Package</a></li>
+            <li><a href="basic_prob.html">Basic Proability</a></li>
+            <li><a href="prob_dist.html">Probability Distributions</a></li>
+          </ul>
+        </li>
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Statistical Tests
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="chi_good_test.html">Chi-squared Goodness-of-fit Test</a></li>
+            <li><a href="chi_conti_test.html">Chi-squared Contingency Test</a></li>
+            <li><a href="t_test.html">t-Test</a></li>
+            <li><a href="anova.html">ANOVA</a></li>
+            <li><a href="reg_corr_test.html">Regression and Correlation</a></li>
+            <li><a href="logistic_test.html">Logistic Regression</a></li>
+          </ul>
+        </li>
+          
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Graphing
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="basic_graphing.html">Basic Graphing</a></li>
+            <li><a href="adv_graphing.html">Advanced Graphing</a></li>
+            <li><a href="ggplots.html">GGplot2</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+ 
+  </div>
+</nav>
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<h1>
+Inputting Data into R
+</h1>
+<p>There are many ways to input data into R. Below are examples of the most common ways.</p>
+<h3>
+By hand
+</h3>
+<p>This method is slow, and will only work for very small datasets. The functions, <samp>c()</samp>, <samp>factor()</samp>, <samp>gl()</samp>, and <samp>data.frame()</samp> are the most commonly used to enter data, and can be used in combination.</p>
+<pre class="r"><code>my.data &lt;- c(4.5, 56, 78, 34, 5, 7)
+my.fac &lt;- factor(rep(c(&quot;Low&quot;, &quot;High&quot;), each=3))
+my.fac2 &lt;- gl(2, 3, labels = c(&quot;Low&quot;, &quot;High&quot;)) #Same as my.fac
+(my.frame &lt;- data.frame(my.data, my.fac))</code></pre>
+<pre><code>##   my.data my.fac
+## 1     4.5    Low
+## 2    56.0    Low
+## 3    78.0    Low
+## 4    34.0   High
+## 5     5.0   High
+## 6     7.0   High</code></pre>
+<pre class="r"><code>#Enter data and create the data.frame at once by nesting functions
+#rnorm() and gl() are &quot;inside&quot; data.frame()
+(my.frame2 &lt;- data.frame(my.data = rnorm(6), my.factor = gl(2, 3))) </code></pre>
+<pre><code>##      my.data my.factor
+## 1  0.7772679         1
+## 2 -0.4066218         1
+## 3 -2.8143450         1
+## 4  0.6625548         2
+## 5 -1.3718411         2
+## 6  0.8533970         2</code></pre>
+<p>R does have some minimal user interface features. One is a spreadsheet-like interface to enter or modify data in data.frames. To bring up this interface use the function <samp>edit()</samp>, where the data.frame of interest is the argument. For example, let’s modify the data in <samp>my.frame</samp>.</p>
+<pre class="r"><code>(my.frame.v2 &lt;- edit(my.frame)) #Change the 1st value to 13</code></pre>
+<p>It is important to remember that you must assign a name to <samp>edit</samp>, or the changes are lost.</p>
+<p>If you want to enter your data from scratch with this interface, use the following code.</p>
+<pre class="r"><code>ben.frame.v3 &lt;- edit(data.frame())</code></pre>
+<div class="alert alert-warning">
+<p>If you have a Mac, the function <samp>edit()</samp> might not work because Apple got rid of X11 devices. You can download X11 at the following website, which should fix the problem.</p>
+</div>
+<p><a href="http://xquartz.macosforge.org/landing/">http://xquartz.macosforge.org/landing/</a></p>
+<h3>
+Import Data
+</h3>
+<h4>
+Copy and paste data with scan()
+</h4>
+<p>Typically we don’t want to enter data by hand, especially if it is already saved in Excel or another spreadsheet program. Below are a couple of common ways to import data.</p>
+<p>The function <samp>scan()</samp> is a quick way to import data as vectors. Copy a row or column of numbers from Excel. Then go to R and type the following.</p>
+<pre class="r"><code>my.import &lt;- scan()</code></pre>
+<p>Hit return, then “ctr v” to paste the values, and lastly hit return. Your data are now saved as <samp>my.import</samp>.</p>
+<h4>
+Auto import with read.csv()
+</h4>
+<p>The most common way people import data into R is with the functions <samp>read.table</samp> or <samp>read.csv</samp>. We will use the latter and import data that was entered into Excel, but saved as a csv. Create a data set in Excel. Save the file as a csv text file. Make sure to note where you saved the file. Set the working directory in R to where you just saved the file with the function <samp>setwd()</samp>, or by going to the “File” menu when the workspace is active and selecting “Change dir…”. If you use the function <samp>setwd()</samp>, then you need to change the “\” to “\\” or “/”. You can double check to see if the working directory is now set to the correct location with the function <samp>getwd()</samp>.</p>
+<p>Below I set the working directory, where R will look for a file in the folder minerb2 that is located in my user folder on the c drive.</p>
+<pre class="r"><code>setwd(&quot;c:/users/minerb2&quot;)  #or
+setwd(&quot;c:\\users\\minerb2&quot;)
+getwd()</code></pre>
+<p>Now that the working directory is set, you can read in the file. Use the function <samp>read.csv()</samp>. The only required argument is the file name with the extension surrounded with quotes. That is it! Below is an example of the file I read in. Notice the first and only argument is the complete file name surrounded by quotes. However, there are other arguments that allow more options when importing a file. See the help <samp>?read.csv</samp> for more information. Another helpful function is <samp>dir()</samp>, which will print out all the file names in the working directory. If you cannot remember the spelling of the name of your file, then you can use <samp>dir()</samp> to look it up.</p>
+<pre class="r"><code>#dir()
+(ben.data &lt;- read.csv(&quot;lengthdata.csv&quot;))</code></pre>
+<pre><code>##   Salinity Length
+## 1      Low      3
+## 2      Low      7
+## 3      Low      5
+## 4      Low      5
+## 5     High      2
+## 6     High     10
+## 7     High      3
+## 8     High      3</code></pre>
+<p>You can now check the structure of your data with the function <samp>str()</samp> or summarize your data with the function <samp>summary()</samp>. If you want to just see the first six or last six rows of data in your data.frame, then use the functions <samp>head()</samp> and <samp>tail()</samp></p>
+<pre class="r"><code>str(ben.data)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    8 obs. of  2 variables:
+##  $ Salinity: Factor w/ 2 levels &quot;High&quot;,&quot;Low&quot;: 2 2 2 2 1 1 1 1
+##  $ Length  : int  3 7 5 5 2 10 3 3</code></pre>
+<pre class="r"><code>summary(ben.data)</code></pre>
+<pre><code>##  Salinity     Length     
+##  High:4   Min.   : 2.00  
+##  Low :4   1st Qu.: 3.00  
+##           Median : 4.00  
+##           Mean   : 4.75  
+##           3rd Qu.: 5.50  
+##           Max.   :10.00</code></pre>
+<pre class="r"><code>head(ben.data)</code></pre>
+<pre><code>##   Salinity Length
+## 1      Low      3
+## 2      Low      7
+## 3      Low      5
+## 4      Low      5
+## 5     High      2
+## 6     High     10</code></pre>
+<pre class="r"><code>tail(ben.data)</code></pre>
+<pre><code>##   Salinity Length
+## 3      Low      5
+## 4      Low      5
+## 5     High      2
+## 6     High     10
+## 7     High      3
+## 8     High      3</code></pre>
+Look at the help file for <samp>read.csv</samp> for other built-in functions, like <samp>read.table</samp>.<br />
+
+<h4>
+Auto import Excel files
+</h4>
+<p>The new package <samp>readxl</samp> allows you to directly read in data from Excel. This package works great, but because it is new you rarely see examples using it. You will find lots of examples of users importing data with <samp>read.csv()</samp>. However, this is rapidly changing, and you will want to practice reading data directly from Excel. For example, I typically now just read in data directly from Excel–in the past I used the above methods and converted an Excel file to a csv file and imported the csv file. You will need to install and then load the package <samp>readxl</samp> before you can use the <samp>read_excel()</samp> or <samp>excel_sheets</samp> functions. See the page on installing packages for instructions (it is easy).</p>
+<pre class="r"><code>#install.packages(readxl) #Only needed if the package is not installed
+library(readxl)
+(ben.data2 &lt;- read_excel(&quot;lengthdata.xlsx&quot;)) #Same as ben.data</code></pre>
+<pre><code>## Warning in strptime(x, format, tz = tz): unknown timezone &#39;zone/tz/2017c.
+## 1.0/zoneinfo/America/Los_Angeles&#39;</code></pre>
+<pre><code>## # A tibble: 8 x 2
+##   Salinity Length
+##      &lt;chr&gt;  &lt;dbl&gt;
+## 1      Low      3
+## 2      Low      7
+## 3      Low      5
+## 4      Low      5
+## 5     High      2
+## 6     High     10
+## 7     High      3
+## 8     High      3</code></pre>
+<pre class="r"><code>#View the names of the sheets in an excel file
+excel_sheets(&quot;lengthdata.xlsx&quot;)</code></pre>
+<pre><code>## [1] &quot;Data&quot;</code></pre>
+<p>You can see that there is just one sheet, which is named “Data”, in the Excel file <samp>lengthdata.xlsx</samp>.</p>
+<h3>
+Retrieving Data
+</h3>
+<p>Now that we have imported data into R in the form of a data.frame, we can pull out specific data, like all the data in a column. There are two ways to do this. Use single hard brackets to tell R you want a part of the object and within the bracket type the number (or vector of numbers) for the rows or columns you want to retrieve or type the name of the column surrounded with quotes (assuming it has a name). Double hard brackets strips out just the data and removes the column name. For a data.frame, which has rows and columns, you need to provide information about which rows and columns you want. For example</p>
+<pre class="r"><code>ben.data[, 2] #No rows were requests so R returns all rows from column 2</code></pre>
+<pre><code>## [1]  3  7  5  5  2 10  3  3</code></pre>
+<pre class="r"><code>ben.data[, -2] #All columns except the second</code></pre>
+<pre><code>## [1] Low  Low  Low  Low  High High High High
+## Levels: High Low</code></pre>
+<pre class="r"><code>ben.data[1:3, 1] #Rows 1 through 3 in column 1</code></pre>
+<pre><code>## [1] Low Low Low
+## Levels: High Low</code></pre>
+<pre class="r"><code>ben.data[&quot;Salinity&quot;]</code></pre>
+<pre><code>##   Salinity
+## 1      Low
+## 2      Low
+## 3      Low
+## 4      Low
+## 5     High
+## 6     High
+## 7     High
+## 8     High</code></pre>
+<pre class="r"><code>ben.data[[&quot;Salinity&quot;]]</code></pre>
+<pre><code>## [1] Low  Low  Low  Low  High High High High
+## Levels: High Low</code></pre>
+<p>Alternatively you can use the name of the data.frame followed by a <samp>$</samp> and then the name of the column without quotes. For example</p>
+<pre class="r"><code>ben.data$Salinity</code></pre>
+<pre><code>## [1] Low  Low  Low  Low  High High High High
+## Levels: High Low</code></pre>
+<p>This second option is typically the clearest. I almost always use the dollar sign to pull data out of data.frames.</p>
+<p>Here are a few more advanced options for selecting data. Think about what the results should look like before you run the code (the results are below). Remember that my data.frame is called <samp>ben.data</samp> and the column names are “Length” and “Salinity”.</p>
+<pre class="r"><code>#Just to remind you of the data in ben.data
+ben.data</code></pre>
+<pre><code>##   Salinity Length
+## 1      Low      3
+## 2      Low      7
+## 3      Low      5
+## 4      Low      5
+## 5     High      2
+## 6     High     10
+## 7     High      3
+## 8     High      3</code></pre>
+<pre class="r"><code>ben.data$Length[4:7]
+ben.data$Length[ben.data$Length &gt; 5]
+ben.data$Salinity[ben.data$Length &gt; 5]
+ben.data$Length[ben.data$Salinity == &quot;High&quot;]
+ben.data$Length[ben.data$Salinity == &quot;Low&quot;]
+ben.data$Length[ben.data$Salinity != &quot;Low&quot;]</code></pre>
+<pre><code>## [1]  5  2 10  3</code></pre>
+<pre><code>## [1]  7 10</code></pre>
+<pre><code>## [1] Low  High
+## Levels: High Low</code></pre>
+<pre><code>## [1]  2 10  3  3</code></pre>
+<pre><code>## [1] 3 7 5 5</code></pre>
+<pre><code>## [1]  2 10  3  3</code></pre>
+<h3>
+Data already in R
+</h3>
+<p>There are lots of datasets already loaded in R. Use the function <samp>data()</samp>, which requires no arguments, to return a list and descriptions of the all the datasets available. If you want to use one of these datasets, then type in the name of the dataset. I will assign the preloaded datasets to a new object name, so I can modify the data if needed.</p>
+<pre class="r"><code>data() #Shows you all the pre-loaded datasets
+mtcars #Shows the data in the mtcars dataset</code></pre>
+<pre><code>##                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710          22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive      21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout   18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+## Valiant             18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+## Duster 360          14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+## Merc 240D           24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+## Merc 230            22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+## Merc 280            19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+## Merc 280C           17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+## Merc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
+## Merc 450SL          17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
+## Merc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
+## Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
+## Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
+## Chrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
+## Fiat 128            32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+## Honda Civic         30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+## Toyota Corolla      33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+## Toyota Corona       21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+## Dodge Challenger    15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
+## AMC Javelin         15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
+## Camaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
+## Pontiac Firebird    19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
+## Fiat X1-9           27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+## Porsche 914-2       26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+## Lotus Europa        30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+## Ford Pantera L      15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
+## Ferrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+## Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
+## Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
+<pre class="r"><code>carData &lt;- mtcars #Assigns the mtcars dataset to the name carData
+head(carData)</code></pre>
+<pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

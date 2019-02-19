@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+<br>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+  
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">
+        Biometrics (Biol 340)
+      </a>
+    </div>
+
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="weekly_labs.html">Weekly Labs</a></li>
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Intro to R
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="intro_R.html">Intro to R</a></li>
+            <li><a href="data_types.html">Data Types</a></li>
+            <li><a href="input_R.html">Inputting Data</a></li>
+            <li><a href="packages.html">Packages</a></li>
+            <li><a href="R_websites.html">Helpful Websites</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Basic Skills
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="des_stats.html">Descriptive Stats</a></li>
+            <li><a href="plyr.html">Plyr Package</a></li>
+            <li><a href="basic_prob.html">Basic Proability</a></li>
+            <li><a href="prob_dist.html">Probability Distributions</a></li>
+          </ul>
+        </li>
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Statistical Tests
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="chi_good_test.html">Chi-squared Goodness-of-fit Test</a></li>
+            <li><a href="chi_conti_test.html">Chi-squared Contingency Test</a></li>
+            <li><a href="t_test.html">t-Test</a></li>
+            <li><a href="anova.html">ANOVA</a></li>
+            <li><a href="reg_corr_test.html">Regression and Correlation</a></li>
+            <li><a href="logistic_test.html">Logistic Regression</a></li>
+          </ul>
+        </li>
+          
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Graphing
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="basic_graphing.html">Basic Graphing</a></li>
+            <li><a href="adv_graphing.html">Advanced Graphing</a></li>
+            <li><a href="ggplots.html">GGplot2</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+ 
+  </div>
+</nav>
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<h1>
+Regression
+</h1>
+<p>A regression analysis is a statistical in which you find the best fit line to the data, and then test whether the slope and y-intercept are significantly difference from zero (or another value). To test whether the slope is difference from zero, you can use an analysis of variance or a t test. To test the intercept, you can use a t test. You already know how to do a t test and analysis of variance. So, really the only new information is how to find the line that best fits the data.</p>
+<h3>
+Null and alternative hypotheses
+</h3>
+<p>You can anwser one or two-sided hypotheses. You can use a two-tailed t test or an analysis of variance to answer two-sided questions. If you want to answer one-sided questions, then you must use a one-tail t test. Let’s start with a two-sided question.</p>
+<h4>
+Two-sided question
+</h4>
+<ul>
+<li>
+Null hypothesis: true population slope is equal to zero
+<li>
+Alternative hypothesis: true population slope is not equal to zero
+</ul>
+<h4>
+One-sided question
+</h4>
+Test whether a slope is greater than zero.
+<ul>
+<li>
+Null hypothesis: true population slope is equal to or less than zero
+<li>
+Alternative hypothesis: true population slope is greater than zero
+</ul>
+Test whether a slope is less than zero.
+<ul>
+<li>
+Null hypothesis: true population slope is equal to or greater than zero
+<li>
+Alternative hypothesis: true population slope is less than zero
+</ul>
+<div class="alert alert-warning">
+<p>You can also test whether a slope is different from value other than zero with t test.</p>
+</div>
+<h3>
+Data format
+</h3>
+<p>You use a regression analysis when both the response and predictor variables are numeric. Data are typically entered into Excel, similar to an ANOVA. Each column will represent a variable, and each row will represent an observation.</p>
+<p>For this lab, you will practice regression analysis. You explored the F distribution last week, and the t disribution several weeks ago. If you do not remember the F distribution, and how the parameters, degrees of freedom, affect the shape of the F distribution, then look over the ANOVA lab. If you do not remember the t distribution, and how the parameter, degrees of freedom, affects the shape of the t distribution, then look over the t-test lab.</p>
+<h3>
+Regression by hand
+</h3>
+<h4>
+Finding the line of best fit
+</h4>
+<p>The method you learned in class to find the line of best fit is called least squares—you find the smallest (<i>least</i>) value for the sum of the squared (<i>squares</i>) deviates. Remember that you can find the slope by calculating the sum of cross products, and dividing by the sum of squares for the predictor variable.</p>
+<div class="alert alert-warning">
+<p>Remember that both the response and predictor variables must be continuous.</p>
+</div>
+<p>The sum of the cross products is each value for the predictor variable subtracted from the mean of the predictor variable multipled by each value for the response variable subtracted from the mean of the response variable. You then sum all these values up.</p>
+<p><span class="math display">\[{SS}_{xy} = \Sigma_{i=1}^{n} (X_i - \bar{X}) \times (Y_i - \bar{Y})\]</span></p>
+<p>You already know how to caculate the sum of squares for the predictor.</p>
+<p><span class="math display">\[slope = b = \frac{{SS}_{xy}}{{SS}_x} = \frac{s_{xy}}{s^2_x}\]</span></p>
+<p><span class="math display">\[intercept = a = \bar{Y} - \bar{X} \times b\]</span></p>
+<div class="alert alert-warning">
+<p>Remember that <span class="math inline">\(a\)</span> is the estimate of the true intercept of the population <span class="math inline">\(\alpha\)</span>, and <span class="math inline">\(b\)</span> is the estimate of the true slope of the population <span class="math inline">\(\beta\)</span>.</p>
+</div>
+<p>So, let’s try it. Caculate the slope and intercept for the line of best fit. Use the data below.</p>
+<table class="table table-striped" style="width:15%">
+<tr>
+<td>
+Predictor
+</td>
+<td>
+Response
+</td>
+</tr>
+<tr>
+<td>
+4.2
+</td>
+<td>
+6.9
+</td>
+</tr>
+<tr>
+<td>
+5.6
+</td>
+<td>
+8.3
+</td>
+</tr>
+<tr>
+<td>
+5.1
+</td>
+<td>
+7.3
+</td>
+</tr>
+<tr>
+<td>
+4.6
+</td>
+<td>
+6.3
+</td>
+</tr>
+<tr>
+<td>
+9.2
+</td>
+<td>
+11.2
+</td>
+</tr>
+<tr>
+<td>
+6.9
+</td>
+<td>
+8.1
+</td>
+</tr>
+<tr>
+<td>
+10.0
+</td>
+<td>
+13.6
+</td>
+</tr>
+<tr>
+<td>
+3.4
+</td>
+<td>
+5.7
+</td>
+</tr>
+<tr>
+<td>
+7.0
+</td>
+<td>
+8.0
+</td>
+</tr>
+<tr>
+<td>
+11.2
+</td>
+<td>
+13.8
+</td>
+</tr>
+<tr>
+<td>
+1.2
+</td>
+<td>
+3.3
+</td>
+</tr>
+<tr>
+<td>
+8.7
+</td>
+<td>
+12.8
+</td>
+</tr>
+</table>
+<p>You can use the functions <samp>cov()</samp> and <samp>var()</samp> to find the covariance and the variances, respectively. Remember that the variances and covariance are just the sum of squares and the sum of the cross products divided by the degrees of freedom. Because you divide both by the degrees of freedom, dividing the sum of the cross products by the sum of squares of the predictor is the same thing as dividing the covariance by the variance of the predictor. In the example below, I entered the data into a <samp>data.frame()</samp> called <samp>reg.data</samp>. I named the first column “Predictor” and the second column “Response”. You should know how to do this, so I do not provide the code so you can practice.</p>
+<pre class="r"><code>var(reg.data$Predictor)</code></pre>
+<pre><code>## [1] 8.743864</code></pre>
+<p>R can make your life even easier, because R will calculate all the variances and covariances of all the variables in a data.frame. You just need to give function <samp>var()</samp> or <samp>cov()</samp> a <samp>data.frame</samp> as the argument. The matrix that is returned is called the variance-covariance matrix. Along the diagonal are the variances, and the off-diagonal values are the covariances (that is why it is called the variance-covariance matrix!).</p>
+<pre class="r"><code>#var and cov both give the same answer
+var(reg.data)</code></pre>
+<pre><code>##           Predictor  Response
+## Predictor  8.743864  9.573409
+## Response   9.573409 11.194773</code></pre>
+<pre class="r"><code>cov(reg.data)</code></pre>
+<pre><code>##           Predictor  Response
+## Predictor  8.743864  9.573409
+## Response   9.573409 11.194773</code></pre>
+<h4>
+Testing whether the slope is different from zero
+</h4>
+<p>Now that you have found the line of best fit, you can test whether the slope is significantly different from zero. Calculate by hand the sum of squares for the regression, sum of squares of the residuals, and the total sum of squares. Now calculate the degrees of freedom, mean squares, the F-ratio, and the P-value.</p>
+<p><span class="math display">\[
+{ss}_{regression}=\Sigma_{i=1}^{n} ((a + b \times X_{i})-\bar{Y})^{2}
+\]</span></p>
+<p><span class="math display">\[
+{ss}_{residuals}=\Sigma_{i=1}^{n} (Y_{i}-(a + b \times X_{i}))^{2}
+\]</span></p>
+<p><span class="math display">\[
+{ss}_{total}=\Sigma_{i=1}^{n} (Y_{i}-\bar{Y})^{2}
+\]</span></p>
+<p><span class="math display">\[{df}_{regression} = 1\]</span></p>
+<p><span class="math display">\[df_{residuals} = n - 2\]</span></p>
+<p><span class="math display">\[df_{total} = n -1\]</span></p>
+<p>You can now calculate the means squares for the regression and residuals, the F-value, and P-value. What do you conclude about the slope?</p>
+<h3>
+Regression in R
+</h3>
+<p>Of course R will do all these calculations for you. As you learned for ANOVA last week, you can use a linear model for regression analyses. We first save the linear model, and then use the function <samp>summary()</samp> or the function <samp>anova()</samp>.</p>
+<pre class="r"><code>fit&lt;-lm(Response~Predictor,data=reg.data)
+summary(fit)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = Response ~ Predictor, data = reg.data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -1.4045 -0.5110  0.1064  0.4615  1.5342 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  1.74045    0.63407   2.745   0.0207 *  
+## Predictor    1.09487    0.09031  12.124 2.65e-07 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.8857 on 10 degrees of freedom
+## Multiple R-squared:  0.9363, Adjusted R-squared:  0.9299 
+## F-statistic:   147 on 1 and 10 DF,  p-value: 2.653e-07</code></pre>
+<pre class="r"><code>anova(fit)</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: Response
+##           Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+## Predictor  1 115.298 115.298  146.98 2.653e-07 ***
+## Residuals 10   7.844   0.784                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>The model statement for <samp>lm()</samp> is <samp>Response ~ Predictor</samp>. Because both of the variables are numeric, R performs the correct analysis—a regression analysis. Piece of cake.</p>
+<p>So what does the output mean?</p>
+<p>You should understand the general output from both functions. For the output from <samp>summary()</samp> R gives you information about the residuals, and coefficients. The estimate of the coefficients are the intercept and the slope for the line of best fit. You can also get this information by typing the name you gave to the lm model. In the example above, I called it <samp>fit</samp>. The information to the right of the estimates is about the t-test. This information tells you whether the intercept or slope is significantly different from zero. The test is a two-tailed test. Because you understand the difference between a one- and two-tailed t-test, you can easily calculate the P-values for a left or right one-tailed one-sided test. The output from <samp>anova()</samp> is similar to what you saw last week. However, it only tells you whether the slope is significantly different from zero. It doesn’t give you the estimate for the slope, and no information about the intercept.</p>
+<p>With any linear model you fit in R, you can also ask for additional information from the model. Just like a <samp>data.frame</samp>, there are data assigned to different names of the linear model object. As with any object in R, you can ask for the names of data associated with an object by using the function <samp>names()</samp>.</p>
+<pre class="r"><code>names(fit) #Recall that &quot;fit&quot; is the name I gave the lm model</code></pre>
+<pre><code>##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         
+##  [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  
+##  [9] &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;         &quot;model&quot;</code></pre>
+<pre class="r"><code>fit$residuals #Gives the residuals</code></pre>
+<pre><code>##           1           2           3           4           5           6 
+##  0.56108960  0.42826918 -0.02429496 -0.47685910 -0.61326905 -1.19506407 
+##           7           8           9          10          11          12 
+##  0.91083357  0.23698698 -1.40455124 -0.20301250  0.24570478  1.53416682</code></pre>
+<pre class="r"><code>fit$coefficients #Gives the slope and intercept</code></pre>
+<pre><code>## (Intercept)   Predictor 
+##    1.740449    1.094872</code></pre>
+<h3>
+Correlation by hand
+</h3>
+<p>Because we are already familar with the <samp>reg.data</samp>, let’s just use it to practice correlations. Remember that the difference between correlation and regression is somewhat subjective. You should use a regression analysis if you think there is cause and effect relationship, or want an equation to predict the response variable from the predictor variable.</p>
+<p>You first need to calculate the correlation coefficient by dividing the covariance by the standard deviation of X and the standard deviation of Y.</p>
+<p><span class="math display">\[r = \frac{cov_{xy}}{s_x s_y}\]</span></p>
+<p>Remember that <span class="math inline">\(r\)</span> is the estimate of <span class="math inline">\(\rho\)</span> (rho). This calculation should be very easy for you because you know how to calculate the covariance and the standard deivation of a variable.</p>
+<p>You can now use a t-test to determine whether <span class="math inline">\(r\)</span> is significantly different from zero. The calculation for the t-value is below and the degrees of freedom are <span class="math inline">\(n - 2\)</span>.</p>
+<p><span class="math display">\[t = \frac{r}{ \sqrt{\frac{1-r^2}{n-2}} } \]</span></p>
+<p>Now that you have a t-value and the degrees of freedom, you can calculate the P-value for one- or two-tailed test. Make sure to calculate these values so that you can compare them to what R gives you.</p>
+<div class="alert alert-danger">
+<p>Test of the Pearson Moment Correlation Coefficient is sensitive to the assumption of normality and outliers.</p>
+</div>
+<h3>
+Correlation with R
+</h3>
+<p>The function <samp>cor.test()</samp> will perform a correlation analysis. The default is a Pearson moment correlation, two-sided t-test. However, you can change the arguments to perform one-tailed tests or non-parametric alternatives. Let’s start with the default test. Notice that unlike regression, it doesn’t matter which variable is the “response” and which is the “predictor” because you are just testing for an association (not the relationship).</p>
+<pre class="r"><code>cor.test(reg.data$Predictor, reg.data$Response)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
+## 
+## data:  reg.data$Predictor and reg.data$Response
+## t = 12.124, df = 10, p-value = 2.653e-07
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.8854130 0.9911306
+## sample estimates:
+##       cor 
+## 0.9676255</code></pre>
+<pre class="r"><code>#Same as above
+cor.test(reg.data$Response, reg.data$Predictor)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
+## 
+## data:  reg.data$Response and reg.data$Predictor
+## t = 12.124, df = 10, p-value = 2.653e-07
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.8854130 0.9911306
+## sample estimates:
+##       cor 
+## 0.9676255</code></pre>
+<p>Because we are using a t-test to determine whether the correlation coefficient is different from zero, you can test one-sided hypotheses. Below is an example of testing the alternative hypothesis that the correlation is negative. Given that we already know the correlation is positive because of the analyses above, you should expect to find a relatively large P-value. Of course, you choose a one- or two-tailed test before collecting the data and only analyze the data with the pre-determined test.</p>
+<pre class="r"><code>cor.test(reg.data$Predictor, reg.data$Response, alt = &quot;less&quot;)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
+## 
+## data:  reg.data$Predictor and reg.data$Response
+## t = 12.124, df = 10, p-value = 1
+## alternative hypothesis: true correlation is less than 0
+## 95 percent confidence interval:
+##  -1.0000000  0.9890686
+## sample estimates:
+##       cor 
+## 0.9676255</code></pre>
+<p>If we are concerned that our data do not meet the assumptions of the t-test (e.g., the data are non-normal), then we can use a Spearman’s rank test. Just change the argument <samp>method</samp> from the default “pearson” to “spearman”.</p>
+<pre class="r"><code>cor.test(reg.data$Predictor, reg.data$Response, method = &quot;spearman&quot;)</code></pre>
+<pre><code>## 
+##  Spearman&#39;s rank correlation rho
+## 
+## data:  reg.data$Predictor and reg.data$Response
+## S = 12, p-value &lt; 2.2e-16
+## alternative hypothesis: true rho is not equal to 0
+## sample estimates:
+##      rho 
+## 0.958042</code></pre>
+<h3>
+Displaying Data
+</h3>
+<p>The function <samp>plot()</samp> is very handy. You have seen that it already knows, based on the types of variables, which type of graph to produce. You can also use it on a data.frame to quickly inspect your data. To illustrate this, I am going to add a few variables to our data <samp>reg.data</samp>.</p>
+<pre class="r"><code>#Create some more fake data
+reg.data2 &lt;- data.frame(reg.data, Predictor2 = rpois(12, 3), Response2 = sort(rnorm(12, 23)), CatPredictor = gl(3, 4, labels = c(&quot;Low&quot;, &quot;Med&quot;, &quot;High&quot;)))
+#Plot the all the fake data
+plot(reg.data2)</code></pre>
+<p><img src="reg_corr_test_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>How awesome is that! I just watched the Lego movie with my children, Gavin and Gabriel, and they told me to sing the song “Everything is awesome”. So, I am doing that right now!</p>
+<p>The plot above is typically used to quickly check out the data, and not for publication. Below are types of graphs that researchers often publish with their regression or corelation analyses.</p>
+<h4>
+Regression
+</h4>
+<p>Data appropriate for a regression analysis are typically graphed with a scatterplot. If you are doing a regression analysis and the slope is significant, then you should plot the line of best fit. If the slope is not significant, then it is best to exclude the line of best fit from the graph. Use the function <samp>plot()</samp> to generate a scatterplot of these data.</p>
+<p>You can add the line of best fit with the function <samp>abline()</samp>. You have already used a linear model to calculate the line of best fit—recall that I named it “fit” up above.</p>
+<pre class="r"><code>plot(Response ~ Predictor, data = reg.data, pch = 16)
+abline(fit, col = &quot;grey&quot;)
+#I pull the values for the best fit line from fit to display on the graph
+i &lt;- round(fit$coef[[1]], 2) #i for the intercept
+s &lt;- round(fit$coef[[2]], 2) #s for the slope
+text(2, 13, paste(&quot;y=&quot;, i, &quot;+&quot;, s, &quot;*x&quot;), pos = 4)</code></pre>
+<p><img src="reg_corr_test_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<h4>
+Correlation
+</h3>
+<p>Data appropriate for a correlation analysis are also graphed with a scatterplot, but you never plot the line of best fit (because there isn’t one).</p>
+<pre class="r"><code>plot(Response ~ Predictor, data = reg.data, pch = 16)
+#I pull information out of cor.test to display on the graph
+corInfo &lt;- cor.test(reg.data$Predictor, reg.data$Response)
+text(2, 13, paste(&quot;r = &quot;, signif(corInfo[[&quot;estimate&quot;]], 3), &quot;\nP = &quot;, signif(corInfo[[&quot;p.value&quot;]], 3), sep = &quot;&quot;), pos = 4) #\n returns to next line</code></pre>
+<p><img src="reg_corr_test_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

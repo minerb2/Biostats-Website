@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+<br>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+  
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">
+        Biometrics (Biol 340)
+      </a>
+    </div>
+
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="weekly_labs.html">Weekly Labs</a></li>
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Intro to R
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="intro_R.html">Intro to R</a></li>
+            <li><a href="data_types.html">Data Types</a></li>
+            <li><a href="input_R.html">Inputting Data</a></li>
+            <li><a href="packages.html">Packages</a></li>
+            <li><a href="R_websites.html">Helpful Websites</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Basic Skills
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="des_stats.html">Descriptive Stats</a></li>
+            <li><a href="plyr.html">Plyr Package</a></li>
+            <li><a href="basic_prob.html">Basic Proability</a></li>
+            <li><a href="prob_dist.html">Probability Distributions</a></li>
+          </ul>
+        </li>
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Statistical Tests
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="chi_good_test.html">Chi-squared Goodness-of-fit Test</a></li>
+            <li><a href="chi_conti_test.html">Chi-squared Contingency Test</a></li>
+            <li><a href="t_test.html">t-Test</a></li>
+            <li><a href="anova.html">ANOVA</a></li>
+            <li><a href="reg_corr_test.html">Regression and Correlation</a></li>
+            <li><a href="logistic_test.html">Logistic Regression</a></li>
+          </ul>
+        </li>
+          
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Graphing
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="basic_graphing.html">Basic Graphing</a></li>
+            <li><a href="adv_graphing.html">Advanced Graphing</a></li>
+            <li><a href="ggplots.html">GGplot2</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+ 
+  </div>
+</nav>
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<h1>
+Creating your own functions
+</h1>
+<p>Although many programmers have created many thousands of functions for R users, it is sometimes useful to write your own. For example, you might want to calculate a specific value with an equation you found in a paper, or you might want to create a custom graph and use it to make many graphs. Regardless of the reason, below are the general steps you would take to create your own function.</p>
+<h3>
+Arguments
+</h3>
+<p>Funtions are code (or mathematical equations) that do something. A function might always do exactly the same things, in which it would not need additional information from the user. However, if the function is intended to provide a different answer in different situations, then we must include at least one argument (but we might want to include more than one). You can think of arguments as user inputs for the function.</p>
+<p>Let’s creat a simple function to illustrate these ideas. Below we create a function that adds 2 to the number that is provided by the user. So, we will need an argument in our function so we can get from the user the number to add two. We can create new functions with <code>function()</code>. The arguments (in this case just one argument) we want to create for our function go inside the parentheses. I can make up the name of arguments, but in this case I will use “x”. I will call the new function “add_two”, but I could use used another name. Here we go.</p>
+<pre class="r"><code>add_two &lt;- function(x) x + 2</code></pre>
+<p>Let’s see if it worked. If I provide a value of 4 to the argument “x”, then the function should add 2 and return the number 6. In other words, you can think of the value for the argument “x” is “passed onto” the code after or below the parentheses.</p>
+<pre class="r"><code>add_two(4)</code></pre>
+<pre><code>## [1] 6</code></pre>
+<p>Nice!</p>
+<p>Of course we can provide different numbers to our new function or even a vector of numbers.</p>
+<pre class="r"><code>add_two(10)</code></pre>
+<pre><code>## [1] 12</code></pre>
+<pre class="r"><code>add_two(1:10)</code></pre>
+<pre><code>##  [1]  3  4  5  6  7  8  9 10 11 12</code></pre>
+<p>I know, pretty cool.</p>
+<p>Let’s modify our function so the user can determine whether we should add or subtract the number two from “x”–I will call this function “add_sub_two” because the user can add or subtract 2. In this case, we need another argument. I will call it “add”. If the user gives the value TRUE for the argument “add” then we will add 2 and if the user provides the value FALSE then we will subtract two. Notice that I use the curly brackets because want to include code on the following lines for this function. To add the logic or determining whether to add or subtract, I use <code>if()</code>.</p>
+<pre class="r"><code>add_sub_two &lt;- function(x, add) {
+  if(add == TRUE) x + 2 else x - 2
+}</code></pre>
+<h3>
+Let’s make an easy button
+</h3>
+<p>Today a student asked me whether there was function that would calculate a bunch of descriptive stats for numerical data. I suggested <code>summary()</code>, but they countered with “but what about the measures of spread?”. So, let’s start with how you might create this function. I won’t create a function that will do it all for you, but I will provide you with the tools so you can create your own (you are welcome).</p>
+<h4>
+Use the function <code>function()</code>
+</h4>
+<p>Like always, we can create our own custom function with <code>function()</code>. We can create the function with any number of arguments, from zero to a lot, and default or user-required values for the those arguments. Let’s start with creating a function that will print something in the console.</p>
+<pre class="r"><code>desc_stats &lt;- function() {
+  cat(&quot;Mean =&quot;)
+}
+#The function has no arguments right now
+desc_stats()</code></pre>
+<pre><code>## Mean =</code></pre>
+<p>We can use <code>cat()</code> to print stuff out, without quotations marks, in the console. Of course, we now want to add the mean of data, because just printing “Mean =” is a pretty lame function. So, we need to add an argument to our new function so we can get the data from the user</p>
+<pre class="r"><code>desc_stats &lt;- function(x) {
+  cat(&quot;Mean =&quot;, mean(x))
+}
+#We now need to provide the function with some data
+desc_stats(1:10)</code></pre>
+<pre><code>## Mean = 5.5</code></pre>
+<p>Hopefully you noticed that we added the argument <code>x</code> to our function. Of course, we could have named the argument anything, but <code>x</code> (as is <code>y</code>) is a common letter to represent data.</p>
+<p>Let’s now add the median. We want to print the median on the next line, so we use the “” to tell R to go to a new line.</p>
+<pre class="r"><code>desc_stats &lt;- function(x) {
+  cat(&quot;Mean =&quot;, mean(x), &quot;\n&quot;)
+  cat(&quot;Median =&quot;, median(x))
+}
+
+desc_stats(1:10)</code></pre>
+<pre><code>## Mean = 5.5 
+## Median = 5.5</code></pre>
+<p>Maybe you want to include a couple metrics of spread. We just need to add a few lines to calculate and print these metrics.</p>
+<pre class="r"><code>desc_stats &lt;- function(x, center = TRUE, spread = TRUE) {
+  cat(&quot;Mean =&quot;, mean(x), &quot;\n&quot;)
+  cat(&quot;Median =&quot;, median(x), &quot;\n&quot;)
+  cat(&quot;Variance =&quot;, var(x), &quot;\n&quot;)
+  cat(&quot;Standard deviation =&quot;, sd(x))
+}
+desc_stats(1:10)</code></pre>
+<pre><code>## Mean = 5.5 
+## Median = 5.5 
+## Variance = 9.166667 
+## Standard deviation = 3.02765</code></pre>
+<h4>
+Adding more arguments
+</h4>
+<p>I am sure you can see how to add more descriptive stats to the function. So, I will now show you how you can add options for the user. We will add a new argument and slightly modify the printout. The new argument allows the user to select whether they want metrics of “location”, “spread”, or “both”. Notice that <code>results = “both”</code> provides a default value for this argument. So, if the user only provides the data, then the function will print out measures of location and spread by default. We use <code>if()</code> to execute the code base on what the user has selected. Notice that I use “” to tab the output. I also added the number of observations in the data to the bottom of the output.</p>
+<pre class="r"><code>desc_stats &lt;- function(x, results = &quot;both&quot;) {
+     
+  if(results == &quot;both&quot; | results == &quot;location&quot;) {
+    cat(&quot;Measures of location&quot;, &quot;\n&quot;)
+    cat(&quot;\t&quot;, &quot;Mean =&quot;, mean(x), &quot;\n&quot;)
+    cat(&quot;\t&quot;, &quot;Median =&quot;, median(x), &quot;\n \n&quot;)    
+  }
+
+  if(results == &quot;both&quot; | results == &quot;spread&quot;) {
+    cat(&quot;Measures of spread&quot;, &quot;\n&quot;)
+    cat(&quot;\t&quot;, &quot;Variance =&quot;, var(x), &quot;\n&quot;)
+    cat(&quot;\t&quot;, &quot;Standard deviation =&quot;, sd(x), &quot;\n \n&quot;)
+  }  
+  
+  cat(&quot;n =&quot;, length(x))
+}
+desc_stats(1:10)</code></pre>
+<pre><code>## Measures of location 
+##   Mean = 5.5 
+##   Median = 5.5 
+##  
+## Measures of spread 
+##   Variance = 9.166667 
+##   Standard deviation = 3.02765 
+##  
+## n = 10</code></pre>
+<pre class="r"><code>desc_stats(1:10, results = &quot;both&quot;)</code></pre>
+<pre><code>## Measures of location 
+##   Mean = 5.5 
+##   Median = 5.5 
+##  
+## Measures of spread 
+##   Variance = 9.166667 
+##   Standard deviation = 3.02765 
+##  
+## n = 10</code></pre>
+<pre class="r"><code>desc_stats(1:10, results = &quot;location&quot;) </code></pre>
+<pre><code>## Measures of location 
+##   Mean = 5.5 
+##   Median = 5.5 
+##  
+## n = 10</code></pre>
+<pre class="r"><code>desc_stats(1:10, results = &quot;spread&quot;) </code></pre>
+<pre><code>## Measures of spread 
+##   Variance = 9.166667 
+##   Standard deviation = 3.02765 
+##  
+## n = 10</code></pre>
+<p>This is looking pretty good. But… Let’s add a little more code to provide the user with a snarky response if they don’t provide numeric data for the argument <code>x</code>, or give an invalid value for the argument <code>results</code>.</p>
+<pre class="r"><code>desc_stats &lt;- function(x, results = &quot;both&quot;) {
+  if(!is.numeric(x)) stop(&quot;The data in x must be numeric. How do you expect me to calculate the mean or variance of a non-numeric value?&quot;)
+  
+  if(!(results %in% c(&quot;location&quot;, &quot;spread&quot;, &quot;both&quot;))) stop(&quot;Options for the results are: &#39;location&#39;, &#39;spread&#39;, or &#39;both&#39; -- and not whatever you put.&quot;)
+     
+  if(results == &quot;both&quot; | results == &quot;location&quot;) {
+    cat(&quot;Measures of location&quot;, &quot;\n&quot;)
+    cat(&quot;\t&quot;, &quot;Mean =&quot;, mean(x), &quot;\n&quot;)
+    cat(&quot;\t&quot;, &quot;Median =&quot;, median(x), &quot;\n \n&quot;)    
+  }
+
+  if(results == &quot;both&quot; | results == &quot;spread&quot;) {
+    cat(&quot;Measures of spread&quot;, &quot;\n&quot;)
+    cat(&quot;\t&quot;, &quot;Variance =&quot;, var(x), &quot;\n&quot;)
+    cat(&quot;\t&quot;, &quot;Standard deviation =&quot;, sd(x), &quot;\n \n&quot;)
+  }  
+  
+  cat(&quot;n =&quot;, length(x))
+}</code></pre>
+<pre class="r"><code>desc_stats(&quot;testing&quot;) #Give x a non-numeric object</code></pre>
+<pre><code>## Error in desc_stats(&quot;testing&quot;): The data in x must be numeric. How do you expect me to calculate the mean or variance of a non-numeric value?</code></pre>
+<pre class="r"><code>desc_stats(1:10, results = &quot;stats&quot;) #Give an invalid value for results</code></pre>
+<pre><code>## Error in desc_stats(1:10, results = &quot;stats&quot;): Options for the results are: &#39;location&#39;, &#39;spread&#39;, or &#39;both&#39; -- and not whatever you put.</code></pre>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

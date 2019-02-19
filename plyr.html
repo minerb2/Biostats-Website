@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+<br>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+  
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">
+        Biometrics (Biol 340)
+      </a>
+    </div>
+
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="weekly_labs.html">Weekly Labs</a></li>
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Intro to R
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="intro_R.html">Intro to R</a></li>
+            <li><a href="data_types.html">Data Types</a></li>
+            <li><a href="input_R.html">Inputting Data</a></li>
+            <li><a href="packages.html">Packages</a></li>
+            <li><a href="R_websites.html">Helpful Websites</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Basic Skills
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="des_stats.html">Descriptive Stats</a></li>
+            <li><a href="plyr.html">Plyr Package</a></li>
+            <li><a href="basic_prob.html">Basic Proability</a></li>
+            <li><a href="prob_dist.html">Probability Distributions</a></li>
+          </ul>
+        </li>
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Statistical Tests
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="chi_good_test.html">Chi-squared Goodness-of-fit Test</a></li>
+            <li><a href="chi_conti_test.html">Chi-squared Contingency Test</a></li>
+            <li><a href="t_test.html">t-Test</a></li>
+            <li><a href="anova.html">ANOVA</a></li>
+            <li><a href="reg_corr_test.html">Regression and Correlation</a></li>
+            <li><a href="logistic_test.html">Logistic Regression</a></li>
+          </ul>
+        </li>
+          
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Graphing
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="basic_graphing.html">Basic Graphing</a></li>
+            <li><a href="adv_graphing.html">Advanced Graphing</a></li>
+            <li><a href="ggplots.html">GGplot2</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+ 
+  </div>
+</nav>
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<h1>
+Plyr Package
+</h1>
+<p>The plyr package for R helps summarize data quickly. For example, have you ever tried to calculate the means for a bunch of different groups in Excel; what a pain in the ass. We have already learned the <samp>tapply()</samp> function, but it limits you to only one summary stat (e.g., the means for each group of interest). The plyr package shines when you want to summarize several different stats.</p>
+<h3>
+Install and Load plyr
+</h3>
+<p>Use the <samp>install.package()</samp> to install the package. Then use either the <samp>library()</samp> or <samp>requires()</samp> functions to load the package. Alternatively, in RStudio click on the Packages tab in the lower-right window, and then the Install button on the left-hand side just below the tabs. Once the package is installed, just check the box next to the plyr package. Remember you need to only install the package on a computer once, but need to load the package each time you restart R. Look at the page on packages for more information.</p>
+<pre class="r"><code>  #If you have admin access
+  install.packages(&quot;plyr&quot;, dependencies=T)
+  require(&quot;plyr&quot;)
+
+  #If you don&#39;t have admin access
+  #And install the package to your u drive
+  install.packages(&quot;plyr&quot;, lib=&quot;u:/&quot;, dependencies=T)
+  require(&quot;plyr&quot;, lib.loc=&quot;u:/&quot;)</code></pre>
+<h3>
+ddply
+</h3>
+<p>There many functions in this package, but I want to focus on the function <samp>ddply()</samp>. This function take a data.frame, summarizes it, and returns a data.frame to the user. There are other functions to summarize other data types, and you can even convert between data types. For example, the function <samp>laply()</samp> take a list, summarizes it, and returns an array.</p>
+<p>The function <samp>ddply()</samp> requires several arguments. The first is the data.frame that you want to summarize. The second is the columns that you want to summarize by. There is a bunch of data that R already installed on your computer, and we are going to just look at the <samp>iris</samp> data in R to see how this function works. If you want to see all the data available in R, use the function <samp>data()</samp> without any arguments. Here I load the the cars data and look at the structure of it.</p>
+<pre class="r"><code>  data(iris)
+  str(iris)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    150 obs. of  5 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+<p>So, let us first just ask what was the average and standard deviation of rbi per team.</p>
+<pre class="r"><code>sepal.length.species &lt;- ddply(iris, .(Species), summarise, 
+  mean.Sepal.Length = mean(Sepal.Length, na.rm = T),
+  sd.Sepal.Length = sd(Sepal.Length, na.rm = T)
+)
+sepal.length.species</code></pre>
+<pre><code>##      Species mean.Sepal.Length sd.Sepal.Length
+## 1     setosa             5.006       0.3524897
+## 2 versicolor             5.936       0.5161711
+## 3  virginica             6.588       0.6358796</code></pre>
+<p>I make up the names <samp>mean.Sepal.Length</samp> and <samp>sd.Sepal.Length</samp>. If I wanted to caculate the variance, then I could add another argument of change one of the last two arguments. Here I will just add another.</p>
+<pre class="r"><code>  sepal.length.species2 &lt;- ddply(iris, .(Species), summarise, 
+    mean.Sepal.Length = mean(Sepal.Length, na.rm = T),
+    sd.Sepal.Length = sd(Sepal.Length, na.rm = T),
+    var.Sepal.Length = var(Sepal.Length, na.rm = T)
+  )
+sepal.length.species2</code></pre>
+<pre><code>##      Species mean.Sepal.Length sd.Sepal.Length var.Sepal.Length
+## 1     setosa             5.006       0.3524897        0.1242490
+## 2 versicolor             5.936       0.5161711        0.2664327
+## 3  virginica             6.588       0.6358796        0.4043429</code></pre>
+<p>If there were more categorical variables in this data.frame, then we could summarize by them also. To show you what I mean, let’s add another factor to the iris data.frame.</p>
+<pre class="r"><code>iris2 &lt;- data.frame(iris, NewFactor = rep(c(&quot;Big&quot;, &quot;Small&quot;), length.out=iris))</code></pre>
+<pre><code>## Warning in rep(c(&quot;Big&quot;, &quot;Small&quot;), length.out = iris): first element used of
+## &#39;length.out&#39; argument</code></pre>
+<pre class="r"><code>head(iris2)</code></pre>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species NewFactor
+## 1          5.1         3.5          1.4         0.2  setosa       Big
+## 2          4.9         3.0          1.4         0.2  setosa     Small
+## 3          4.7         3.2          1.3         0.2  setosa       Big
+## 4          4.6         3.1          1.5         0.2  setosa     Small
+## 5          5.0         3.6          1.4         0.2  setosa       Big
+## 6          5.4         3.9          1.7         0.4  setosa     Small</code></pre>
+<p>Now let’s summarize by species and the new factor we just created.</p>
+<pre class="r"><code>  sepal.length.species.newfac &lt;- ddply(iris2, .(Species, NewFactor), summarise, 
+    mean.Sepal.Length = mean(Sepal.Length, na.rm = T),
+    sd.Sepal.Length = sd(Sepal.Length, na.rm = T)
+  )
+sepal.length.species.newfac</code></pre>
+<pre><code>##      Species NewFactor mean.Sepal.Length sd.Sepal.Length
+## 1     setosa       Big             5.024       0.3908111
+## 2     setosa     Small             4.988       0.3166491
+## 3 versicolor       Big             5.992       0.5559676
+## 4 versicolor     Small             5.880       0.4778424
+## 5  virginica       Big             6.504       0.6031031
+## 6  virginica     Small             6.672       0.6686554</code></pre>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+<br>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+  
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">
+        Biometrics (Biol 340)
+      </a>
+    </div>
+
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="weekly_labs.html">Weekly Labs</a></li>
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Intro to R
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="intro_R.html">Intro to R</a></li>
+            <li><a href="data_types.html">Data Types</a></li>
+            <li><a href="input_R.html">Inputting Data</a></li>
+            <li><a href="packages.html">Packages</a></li>
+            <li><a href="R_websites.html">Helpful Websites</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Basic Skills
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="des_stats.html">Descriptive Stats</a></li>
+            <li><a href="plyr.html">Plyr Package</a></li>
+            <li><a href="basic_prob.html">Basic Proability</a></li>
+            <li><a href="prob_dist.html">Probability Distributions</a></li>
+          </ul>
+        </li>
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Statistical Tests
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="chi_good_test.html">Chi-squared Goodness-of-fit Test</a></li>
+            <li><a href="chi_conti_test.html">Chi-squared Contingency Test</a></li>
+            <li><a href="t_test.html">t-Test</a></li>
+            <li><a href="anova.html">ANOVA</a></li>
+            <li><a href="reg_corr_test.html">Regression and Correlation</a></li>
+            <li><a href="logistic_test.html">Logistic Regression</a></li>
+          </ul>
+        </li>
+          
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Graphing
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="basic_graphing.html">Basic Graphing</a></li>
+            <li><a href="adv_graphing.html">Advanced Graphing</a></li>
+            <li><a href="ggplots.html">GGplot2</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+ 
+  </div>
+</nav>
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<h1>
+Chi-squared Goodness-of-Fit Test
+</h1>
+<p>The chi-squared goodness-of-fit test is used to test whether observed frequencies differ from expected frequencies. This statistical test is used when there are 2 or more categories for a categorical variable.</p>
+<h3>
+Null and Alternative Hypotheses
+</h3>
+<p>The chi-squared goodness-of-fit test allows researchers to determine whether samples from a population are likely, given the expected true proportions (which are converted to expected frequencies). The statistical hypotheses are:</p>
+<ul>
+<li>
+H<sub>0</sub>: The true proportion of each group of the sampled population equals P
+</li>
+<li>
+H<sub>A</sub>: The true proportion of any group from the sampled population does not equal P
+</li>
+</ul>
+<p>Often researchers test the null hypothesis that the true proportions of each group are all equal, but you can use true proportions that are not equal (as long as they all add to 1.0).</p>
+<h3>
+Data Format
+</h3>
+<p>The data are often entered in one of two forms. The first is just the category corresponding to each observation. In Excel, you would record each observation in a different row of a column. In R you can record the data with the function <samp>c()</samp>.</p>
+<pre class="r"><code>chisq.data &lt;- c(&quot;red&quot;, &quot;blue&quot;, &quot;red&quot;, &quot;red&quot;, &quot;orange&quot;, &quot;blue&quot;, &quot;red&quot;, &quot;orange&quot;)</code></pre>
+<p>The second form is more compact, and is easy to enter into R or calculate from the above form.</p>
+<pre class="r"><code>(chisq.data2 &lt;- c(red = 4, blue = 2, orange = 2))</code></pre>
+<pre><code>##    red   blue orange 
+##      4      2      2</code></pre>
+<pre class="r"><code>(chisq.data3 &lt;- table(chisq.data)) #Coverts the long form to the compact form</code></pre>
+<pre><code>## chisq.data
+##   blue orange    red 
+##      2      2      4</code></pre>
+<p>The function <samp>table()</samp> calculates the frequencies for each category in the vector.</p>
+<h3>
+Color polymorphism in sea stars
+</h3>
+<p>A common intertidal sea star has two general color morphs, and the authors (Harley et al 2006) collected data on the relative abundance of different color morphs of a common intertidal sea star. We will use their data to answer whether their data support the hypothesis that color is control by a single locus, two-allele dominant model. Specifically they wanted to test whether the proportions of the two colors morphs were consistent with a 3:1 ratio. Recall that a 3:1 phenotypic ratio is expected for a single locus with two alleles, in which one of the alleles is dominant over the other. Given that sea stars are diploid, that means that there are 4 possible combinations (but only three different genotypes, and only two phenotypes): stars can have two copies of the dominant allele (one from mom and one from dad), one of each allele (either the dominant from mom and the recessive from dad, or the dominant from dad and the recessive from mom), or two copies of the recessive allele (one from mom and one from dad).</p>
+<p>Purple stars are more numerous than orange stars, and so the authors hypothesized that the allele that results in the purple color is dominant, and the allele that codes for the orange color is recessive. The data they collected at Strawberry Hill, a site in Oregon, were 154 purple and 54 orange.</p>
+<pre class="r"><code>obs.freqs &lt;- c(purple = 154, orange = 54)</code></pre>
+<h3>
+By hand
+</h3>
+<h4>
+Test Statistic
+</h4>
+<p>The test statistic for the chi-squared goodness-of-fit is called the chi-squared value. It is calculated with the following equation. This test statistic just indicates how different the observed frequencies are from the expected frequencies.</p>
+<p><span class="math display">\[ \chi^2 = \Sigma_{i=1}^{g} \frac{(O_i-E_i)^2}{E_i} \]</span></p>
+<p>, where O are the observed values, E are the expected values, and g is the number of groups.</p>
+<div class="alert alert-warning">
+<p>You must use frequencies with this test statistic, not proportions or probablities. Remember it is easy to convert proportions and probablities to frequencies (n x p).</p>
+</div>
+<p>So, what are the expected values? Well, the authors expected a 3:1 ratio, or a proportion of 0.75 of purple stars and a proportion of 0.25 orange stars. To convert these values to frequencies, we just multiple each value by the total number of stars that authors sampled.</p>
+<pre class="r"><code>exp.props &lt;- c(purple = 0.75, orange = 0.25)
+(exp.freqs &lt;- sum(obs.freqs)*exp.props)</code></pre>
+<pre><code>## purple orange 
+##    156     52</code></pre>
+<p>You can now calculate the chi-squared value.</p>
+<pre class="r"><code>(chisq.val &lt;- sum(((obs.freqs - exp.freqs)^2)/exp.freqs))</code></pre>
+<pre><code>## [1] 0.1025641</code></pre>
+<h4>
+Chi-squared Distribution and P value
+</h4>
+<p>The null probability distribution appropriate for a chi-squared goodness-of-fit test is the chi-squared probability distribution, which is a continuous distribution. The parameter to describe the shape of this distribution is the degrees of freedom. The null distribution is therefore the chi-squared distribution with the correct degrees of freedom for your data, and it tells you the probability of &amp;ge chi-squared test statistic given that the null statistical hypothesis is true.</p>
+<p>All tests that use the chi-squared distribution are 1-tailed test, but 2-sided. In other words, we look up the P-value on the right tail of the distribution only, but the alternative hypothesis is stated as not the null (i.e., greater than or less than the null). Let’s first plot the PDF for the chi-squared distribution with different degrees of freedom, starting with 1 degree of freedom (typically the situation when you only have 2 groups). Then change the degrees of freedom and see how the shape changes.</p>
+<pre class="r"><code>curve(dchisq(x, df = 1), 0, 20, ylab = &quot;Density&quot;)
+#Now change the degrees of freddom
+curve(dchisq(x, df = 2), add = T, col = &quot;steelblue&quot;)
+curve(dchisq(x, df = 3), add = T, col = &quot;steelblue1&quot;)</code></pre>
+<p><img src="chi_good_test_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>In our example, we will use chi-squared distribution with 1 degree of freedom as the null distribution. So, let’s plot that distribution again and plot our chi-squared value and our critical value, which is the chi-squared value that corresponds to a probability of alpha = 0.05 (i.e., the chi-squared value in which 5% of the area is under the right tail).</p>
+<pre class="r"><code>curve(dchisq(x, df = 1), 0, 20, ylab = &quot;Density&quot;)
+#Add chi-squared value to graph
+abline(v = chisq.val, col = &quot;firebrick4&quot;)
+text(chisq.val, 0.1, &quot;Test stat&quot;, pos = 4, col = &quot;firebrick4&quot;)
+#Add critical value to graph
+abline(v = qchisq(0.95, df = 1), col = &quot;steelblue&quot;)
+text(qchisq(0.95, df = 1), 0.8, &quot;Critical value&quot;, pos = 4, col = &quot;steelblue&quot;)</code></pre>
+<p><img src="chi_good_test_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The P-value is easily calculated from the CDF of the Chi-squared distribution.</p>
+<pre class="r"><code>#Remember you want the right tail!
+1- pchisq(chisq.val, df = 1)</code></pre>
+<pre><code>## [1] 0.748774</code></pre>
+<p>Is this value greater or less than your alpha value? What do you conclude?</p>
+<h3>
+<samp>chisq.test()</samp>
+</h3>
+<p>Now let’s get R to do all the work for us. Look at the help file for the function <samp>chisq.test()</samp>. There are several arguments that are important to understand. Notice the argument <samp>correct</samp>. By default, R uses the Yates correction. In our example, we have a large sample size and thus don’t want to use it. The argument <samp>p</samp> allows us to change the expected probabilities for each group. In this case, we predicted that purple star have a probability of 0.75 and the orange has a probability of 0.25. So, we don’t want to use the default values, which are equal change for each group. The other arguments are not too important, but ask if you are interested in what they do.</p>
+<pre class="r"><code>chisq.test(obs.freqs, p = exp.props, correct = F)</code></pre>
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  obs.freqs
+## X-squared = 0.10256, df = 1, p-value = 0.7488</code></pre>
+<p>Did you get the same answer as above? You should have.</p>
+<h3>
+Presenting results
+</h3>
+<h4>
+Important information to include
+</h4>
+<p>We discussed in class the information to include in a manuscript. So, look over the Powerpoint slides.</p>
+<h4>
+Informative graphs
+</h4>
+<p>A bargraph is commonly used to display the data analyzed with a Chi-squared goodness-of-fit test. Below is the graph appropriate for the sea star example.</p>
+<pre class="r"><code>xVals &lt;- barplot(obs.freqs, ylim = c(0, 220), ylab = &quot;Frequency&quot;)
+#xVals now have the center of each bar
+xVals</code></pre>
+<pre><code>##      [,1]
+## [1,]  0.7
+## [2,]  1.9</code></pre>
+<pre class="r"><code>#I now play around with the values to get the lines right
+lines(c(xVals[1]-0.6, xVals[1]+0.6), rep(exp.freqs[1], 2), lty = 5)
+lines(c(xVals[2]-0.6, xVals[2]+0.6), rep(exp.freqs[2], 2), lty = 5)</code></pre>
+<p><img src="chi_good_test_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>That is it. You now should be able to analyze data with a chi-squared goodness-of-fit test.</p>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

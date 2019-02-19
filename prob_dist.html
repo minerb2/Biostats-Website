@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<link href="libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
+<script src="libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+<br>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+  
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">
+        Biometrics (Biol 340)
+      </a>
+    </div>
+
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="weekly_labs.html">Weekly Labs</a></li>
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Intro to R
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="intro_R.html">Intro to R</a></li>
+            <li><a href="data_types.html">Data Types</a></li>
+            <li><a href="input_R.html">Inputting Data</a></li>
+            <li><a href="packages.html">Packages</a></li>
+            <li><a href="R_websites.html">Helpful Websites</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Basic Skills
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="des_stats.html">Descriptive Stats</a></li>
+            <li><a href="plyr.html">Plyr Package</a></li>
+            <li><a href="basic_prob.html">Basic Proability</a></li>
+            <li><a href="prob_dist.html">Probability Distributions</a></li>
+          </ul>
+        </li>
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Statistical Tests
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="chi_good_test.html">Chi-squared Goodness-of-fit Test</a></li>
+            <li><a href="chi_conti_test.html">Chi-squared Contingency Test</a></li>
+            <li><a href="t_test.html">t-Test</a></li>
+            <li><a href="anova.html">ANOVA</a></li>
+            <li><a href="reg_corr_test.html">Regression and Correlation</a></li>
+            <li><a href="logistic_test.html">Logistic Regression</a></li>
+          </ul>
+        </li>
+          
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Graphing
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="basic_graphing.html">Basic Graphing</a></li>
+            <li><a href="adv_graphing.html">Advanced Graphing</a></li>
+            <li><a href="ggplots.html">GGplot2</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+ 
+  </div>
+</nav>
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<h1>
+Probability Distributions
+</h1>
+<p>In this lab, we will explore four commonly used probability distributions, and learn how to explore other distributions.</p>
+<ul>
+<li>
+Binomial (discrete)
+</li>
+<li>
+Poisson (discrete)
+</li>
+<li>
+Uniform (continuous)
+</li>
+<li>
+Normal (continuous)
+</li>
+</ul>
+<p>In lecture, you learned about several discrete distributions, such as the binomial and Poisson distributions, and several continuous distributions, such as the uniform and normal distributions. However, you might still be unclear about which parameters describe each distribution, and how these parameters affect the shape or location of the distribution. So, we are going to take a graphical approach to understand these distributions. First, we will look over the functions that represent the random variables in R. Second, we will calculate the probabilities or probability densities for each random variable. Lastly, we will graph the random variables, alter the parameters, predict how the graph is going to change, and then see whether we are correct.</p>
+<div class="alert alert-info" role="alert">
+<p>The terms random variable and probability distribution are often used as synonyms. A random variable is the equation used to calculate probabilities or densities, and a probability distribution is the graphical representation of the equation. Thus, both terms represent the same thing because both an equation or graph can be used to figure out a proability or density for a given x value.</p>
+</div>
+<h3>
+The R Manual
+</h3>
+<p>First let’s look at the different distributions in R. Open the pdf version of the R manual. Go to the “Help” menu, and then “R Help”. Now look in the lower, right corner of R Studio. You can also view “An Introduction to R” as a PDF by clicking <a href="http://cran.r-project.org/doc/manuals/R-intro.pdf" target="_blank">here</a>. Go to Chapter 8 Probability Distributions. A table lists all the distributions, the name of the function that describes that distribution, and the arguments of the function. Look up the binomial, Poisson, uniform, and normal distributions. Do the arguments make sense?</p>
+<p>Now here is the trick to get these functions to work in R. R provides several different outputs for each distribution, which you specify by adding either <samp>d, p, r,</samp> or <samp>q</samp> in front of the function for the distribution.</p>
+<dl class="dl-horizontal">
+<dt>
+<samp>d</samp>
+</dt>
+<dd>
+Is the probability density function (PDF).
+</dd>
+<dt>
+<smp>p</samp>
+</dt>
+<dd>
+Is the cummulative probability function (CDF).
+</dd>
+<dt>
+<samp>r</samp>
+</dt>
+<dd>
+Returns random values from the distribution.
+</dd>
+<dt>
+<samp>q</samp>
+</dt>
+<dd>
+Is the quantile function (i.e., the inverse of the CDF).
+</dd>
+</dl>
+<p>For example, if I wanted the density or to plot the PDF of a uniform distribution, then I would type <samp>dunif()</samp> with the correct arguments. If I wanted random values from the binomial distribution then I would type <samp>rbinom()</samp> with the correct arguments.</p>
+<h3>
+Probability Distributions
+</h3>
+<p>In R there are functions for many random variables. But to start, we are going to focus on the binomial and Poisson distributions.</p>
+<h4>
+Binomial distribution
+</h4>
+<p>Let us first work through an example by hand, and then see how much easier it is with R. We will look at the occurrence of meadow beauty, which is a flower, in towns in Massachusetts, and ask the question what is the probability that meadow beauty will occur in 10 out of 30 towns when the probability that meadow beauty is present is 0.2. Remember the binomial distribution can help you answer this question (because you know the probability of success, 0.2, and the number of trials, 30 towns).</p>
+<p>Plug in all the numbers into the equation for the binomial equation. Remember that <samp>X</samp> represents number of successes of interest, <samp>n</samp> is the number of trials, and <samp>p</samp> is the probability of success.</p>
+<p><span class="math display">\[
+P(X)=\frac{n!}{X!(n-X)!}p^X(1-p)^{n-X}
+\]</span></p>
+<p>You can use the function <samp>factorial()</samp> to calculate the factorials <span class="math inline">\(n!\)</span>, <span class="math inline">\(X!\)</span>, and <span class="math inline">\((n-X)!\)</span>.</p>
+<p>Be aware that the binomial coefficient can’t be calculated with <samp>factorial()</samp> when <span class="math inline">\(n\)</span> is large. For example, try your calculation with 350 towns. To solve this problem, you can replace the first half of the equation <span class="math inline">\(\frac{n!}{X!(n-X)!}\)</span> with <samp>choose(350,10)</samp>. Now did it work? It should have.</p>
+<p>We can now use the binomial equation that is built into R, which is the function <samp>dbinom()</samp>. We put <samp>d</samp> in front of <samp>binom</samp> because we want the probability density (i.e., the PDF). This function requires 3 arguments in the following order. The first is <span class="math inline">\(X\)</span>, the second is <span class="math inline">\(n\)</span>, and the last is <span class="math inline">\(p\)</span>. Did you get the same answer as above?</p>
+<pre class="r"><code>dbinom(10, 30, 0.2)</code></pre>
+<pre><code>## [1] 0.03547089</code></pre>
+<h4>
+Poisson distribution
+</h4>
+<p>Again let us first calculate an example by hand, and then use R to do the same calculation. We will look at the number of hemlock trees in a 5 meter-squared plot. A previous study found that on average there were 2.1 trees per plot. What is the proability of finding 6 trees in a plot?</p>
+<p>Plug in all the numbers into the equation for the Poisson distribution. Remember <span class="math inline">\(X\)</span> is the number of successes of interest, and <span class="math inline">\(\lambda\)</span> is the rate parameter, also called lambda (i.e., the mean and the variance of the distribution).</p>
+<p><span class="math display">\[
+P(X)=\frac{\lambda^X e^{-\lambda}}{X!}
+\]</span></p>
+<p>We can now use the Poisson equation that is built into R, which is the function <samp>dpois()</samp>. Again, we put <samp>d</samp> in front of <samp>pois</samp> because we want the probability density (i.e., the PDF). This function requires 2 arguments. The first is <span class="math inline">\(X\)</span>, and the second is <span class="math inline">\(\lambda\)</span>. Did you get the same answer as above? I hope so.</p>
+<pre class="r"><code>dpois(6, 2.1)</code></pre>
+<pre><code>## [1] 0.01458696</code></pre>
+<div class="alert alert-warning" role="alert">
+<p>You should always check with a simple example to make sure a program is doing what you expect.</p>
+</div>
+<h4>
+Plotting a distribution
+</h4>
+<p>It is often very helpful to plot a random variable, so you can visualize a probability distribution and how the parameters that describe a distribution affect its location and shape.</p>
+<p>Let’s start with the binomial example above. You already calculated the probability of finding meadow beauty in 10 of 30 towns. Now find the proability of all the other possibilities (i.e., 0 … 30). Think about how to create a vector of 0 to 30 counting by ones. Now think about which argument in the function <samp>dbinom()</samp> should equal this vector. If you cannot figure it out, then make sure to ask me.</p>
+<p>You are now all set to graph the distribution (when the number of trials is 30 and the probability of success is 0.2). In the example below, I create an object <samp>x</samp> to make my code easier to read and modify.</p>
+<pre class="r"><code>n &lt;- 30
+x &lt;- 0:n
+y &lt;- dbinom(x, size = n, prob = 0.2)
+plot(x, y, 
+  ylab = &quot;Probability&quot;, xlab = &quot;Number of towns&quot;, #Names for the y and x axes
+  col = &quot;darkorchid4&quot;, pch = 16 #Changes the symbol and color of the points
+)</code></pre>
+<p><img src="prob_dist_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Look and the graph and think carefully about what it means. You should be able to tell me approximately the probability for any number of towns, the most likely number of towns, and the number of towns that are very unlikely.</p>
+<p>Now, let’s graph the Poisson example. Calculate the probabilities of 0 … 20 trees in a plot when lambda is 2.1. There is no upper limit to the Poisson distribution, so 20 is just a number which I know is large enough to show the important part of the distribution for the given rate parameter. Now make a plot.</p>
+<div class="alert alert-warning" role="alert">
+<p>It is important to include both the <samp>x</samp> and <samp>y</samp> arguments for <samp>plot()</samp> because we want the x axis to start at zero, not 1.</p>
+</div>
+<p>Now, let’s change the parameters of binomial and Poisson distributions and see how they affect the graph. Let’s start with the binomial distribution. First, I will recreate the graph we made above. Second, I will add another binomial distribution with a different probability of success to the graph with the function <samp>points()</samp>.</p>
+<pre class="r"><code>n &lt;- 30
+x &lt;- 0:n
+y &lt;- dbinom(x, size = n, prob = 0.2)
+plot(x, y, 
+  ylab = &quot;Probability&quot;, xlab = &quot;Number of towns&quot;, #Names for the y and x axes
+  col = &quot;darkorchid4&quot;, pch = 16 #Changes the symbol and color of the points
+)
+y2 &lt;- dbinom(x, size = n, prob = 0.3)
+points(x, y2, col = &quot;yellowgreen&quot;, pch = 16)</code></pre>
+<p><img src="prob_dist_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>Add more binomial distributions with different probabilities of success. You can look up more names of colors with the function <samp>colors()</samp>, which requires no arguments.</p>
+<p>Now, plot the binomial distribution that represents the situation of 16 trials. Just like above, add more binomial distributions with different probabilities of success to the graph (plot whatever probabilties of success you like). Please show me your graph. How does the number of trials and probability of success affect the distribution?</p>
+<p>Now let’s explore the Poisson distribution. Replot the example for the Poisson distribution. Now add additional Poisson distributions with different rate parameters. How does the rate parameter affect the distribution?</p>
+<h4>
+Uniform distribution
+</h4>
+<p>The uniform distribution is a continuous distribution. So, we are going to plot it with a line, and not points. The function <samp>curve()</samp> is great for plotting continuous distributions. However, I will also show you how to use the function <samp>plot()</samp>. The uniform distribution requires two parameters, the minimum and maximum. We use the function <samp>dunif()</samp> for the PDF of the uniform distribution.</p>
+<pre class="r"><code>curve(dunif(x, min = 2, max = 6), from = -3, to = 11,
+  ylab = &quot;Density&quot;, xlab = &quot;x&quot;)</code></pre>
+<p><img src="prob_dist_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>The arguments <samp>from</samp> and <samp>to</samp> just tell R where to start and end the line. In other words, the left and right limit of the x axis. You can change the values and see how they affect the graph, but notice they do not affect the distribution.</p>
+<p>If you want to use the function <samp>plot()</samp>, then we need to plot a bunch of points and ask R to plot a line instead of points. I like the function <samp>curve()</samp> better for continuous distributions.</p>
+<pre class="r"><code>x &lt;- seq(-3, 11, by = 0.1)
+y &lt;- dunif(x, min = 2, max = 6)
+plot(x, y, type = &quot;l&quot;, #That is the letter l for line, not the number 1
+  ylab = &quot;Density&quot;, xlab = &quot;x&quot;)</code></pre>
+<p><img src="prob_dist_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>Just like in the binomial and Poisson examples, let’s graph additional uniform distributions with different values for the min and max. For the funtion <samp>curve()</samp>, you can add the argument <samp>add = T</samp> to add a line to an existing plot.</p>
+<pre class="r"><code>curve(dunif(x, min = 2, max = 6), from = -3, to = 11,
+  ylab = &quot;Density&quot;, xlab = &quot;x&quot;)
+curve(dunif(x, min = 1, max = 8), add = T, col = &quot;darkred&quot;)</code></pre>
+<p><img src="prob_dist_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Continue to add more uniform distributions with different min and max values. You should understand how the minimum and maximum affect the uniform distribution.</p>
+<h4>
+Normal distribution
+</h4>
+<p>The normal distribution is another continuous distribution. So, we will plot it with a line, and not points. The normal distribution requires two parameters, the mean and standard deviation. We use the function <samp>dnorm()</samp> for the PDF of the normal distribution.</p>
+<pre class="r"><code>curve(dnorm(x, mean = 10, sd = 3), from = 0, to = 20,
+  ylab = &quot;Density&quot;, xlab = &quot;x&quot;)</code></pre>
+<p><img src="prob_dist_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>Now add more normal distributions with different means and standard deviations. Pay close attention to how the mean and standard deviation affect the distribution.</p>
+<h3>
+Different representations of distributions
+</h3>
+<p>There are 3 common representations for a random variable. Typically people think of the probability density function when they visualize a distribution. However, we can represent a distribution with a cummulative density function or a quantile density function.</p>
+<h4>
+PDF
+</h4>
+<p>So far in this lab, we have created graphs of the PDF for four distributions. We put the letter d in front of the R name for each function, and then include the appropriate arguments. Here are two example, one of the discrete Poisson distribution and one of the continuous normal distribution.</p>
+<pre class="r"><code>#Poisson
+plot(0:10, dpois(0:10, 0.1), pch = 16, ylab = &quot;Probability&quot;)</code></pre>
+<p><img src="prob_dist_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<pre class="r"><code>#Normal
+curve(dnorm(x, 5, 1), 0, 10, ylab = &quot;Density&quot;)</code></pre>
+<p><img src="prob_dist_files/figure-html/unnamed-chunk-9-2.png" width="672" /></p>
+<p>Both of these graphs should look familar because they are similar to what we created in the previous sections.</p>
+<h4>
+CDF
+</h4>
+<p>The cummulative density function (CDF) represents the probability of getting a number equal or less than a particular value. For example, if we want to know the probability of flipping 0, 1, 2, or 3 heads when we flip a coin 8 times, then we can use the CDF to quickly get this answer. We put the letter <samp>p</samp> in front of the R name of a distribution. The CDF always gives you a probability, regardless of whether the distribution is discrete or continuous, and that is why you use the letter p.</p>
+<pre class="r"><code>pbinom(3, size = 8, prob = 0.5) </code></pre>
+<pre><code>## [1] 0.3632813</code></pre>
+<pre class="r"><code>sum(dbinom(0:3, size = 8, prob = 0.5)) #Same as above</code></pre>
+<pre><code>## [1] 0.3632813</code></pre>
+<p>You have already learned how to create plots for discrete and continuous distributions. So, use what you learned above to plot the CDF of a distribution. For example, below is a plot of the PDF in purple and CDF in green for the binomial distribution that represents flipping a fair coin 8 times.</p>
+<pre class="r"><code>x &lt;- 0:8
+plot(x, pbinom(x, size = 8, prob = 0.5), 
+  ylab = &quot;Probability&quot;, xlab = &quot;Number of heads&quot;,
+  col = &quot;darkorchid4&quot;, pch = 16)
+text(6, 0.8, &quot;CDF&quot;, col = &quot;darkorchid4&quot;)
+points(x, dbinom(x, size = 8, prob = 0.5), col = &quot;darkgreen&quot;, pch = 16)
+text(6, 0.3, &quot;PDF&quot;, col = &quot;darkgreen&quot;)</code></pre>
+<p><img src="prob_dist_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>Think about why the CDF approaches 1, and how the PDF and CDF are related.</p>
+<p>Now make a similar graph for the Poisson, uniform, and normal distributions, so you can compare the CDF and PDF.</p>
+<div class="alert alert-warning" role="alert">
+<p>It is very important that you understand what the PDF and CDF represent. In particular, the CDF is important when we calculate a p value.</p>
+</div>
+<h4>
+Quantile function
+</h4>
+<p>There is also a quantile function. It is easiest to think about the quantile function as the inverse of the CDF. For the CDF, x represent a given value and the CDF returns the probability of getting a number equal to or less than x. In other words, the x axis represent values of interest and the y value represents the proability. For the quantile function, x represents the probability and the quantile function returns the value associated with probability. We put the letter <samp>q</samp> if front of the R name of the distribution to get the quantile function. Here is a quick example to illustrate the what the quantile function of a distribution does.</p>
+<pre class="r"><code>pnorm(0, 0, 1) #Gives the probability of getting 0 or less from the standard normal distribution</code></pre>
+<pre><code>## [1] 0.5</code></pre>
+<pre class="r"><code>qnorm(0.5, 0, 1) #Gives the value associated with 0.5 proability from the standard normal distribution</code></pre>
+<pre><code>## [1] 0</code></pre>
+<p>Below is the quantile plot and CDF for a standard normal distribution.</p>
+<pre class="r"><code>#Quantile function
+curve(qnorm(x, 0, 1), 0, 1, col = &quot;darkred&quot;, main = &quot;Quantile function&quot;)</code></pre>
+<p><img src="prob_dist_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<pre class="r"><code>#CDF
+curve(pnorm(x, 0, 1), -2, 2, col = &quot;darkorange&quot;, main = &quot;CDF&quot;)</code></pre>
+<p><img src="prob_dist_files/figure-html/unnamed-chunk-13-2.png" width="672" /></p>
+<p>Look carefully at both the x and y axes for both graphs. You should understand why the x axis ranges from 0 to 1 for quantile function, and why the y axis ranges from 0 to 1 for the CDF.</p>
+<p>Now create plots of for the quantile function for the other distributions.</p>
+<h4>
+Random values
+</h4>
+<p>We can also easily pull random values from a given distribution. To do this we include the letter <samp>r</samp> in front of the R name of the distribution. The first argument in the function is the number of random variables that you want from the distribution. Let’s say I want 51 random values from a uniform distribution with a min of 1.23, and max of 5.</p>
+<pre class="r"><code>runif(51, min = 1.23, max = 5)</code></pre>
+<pre><code>##  [1] 4.219146 4.082555 1.745028 3.505015 3.913507 2.341414 4.128849
+##  [8] 3.529255 1.753689 4.201326 4.051425 4.652021 3.795526 4.907779
+## [15] 3.016087 4.918174 4.990532 4.405962 4.453079 2.502268 2.977325
+## [22] 2.382753 2.847169 1.658867 2.894690 4.213249 4.943151 1.978966
+## [29] 3.423556 3.282045 3.613823 4.502741 2.794189 2.270349 1.680033
+## [36] 2.477239 3.291339 1.918674 3.367236 3.899766 4.043571 4.332957
+## [43] 4.835122 4.677104 3.943501 2.174724 3.215837 1.251944 4.301820
+## [50] 2.310394 1.611589</code></pre>
+<p>How about 156 random values from a standard normal distribution?</p>
+<pre class="r"><code>rnorm(156) #The default values are mean = 0 and sd = 1, so I can leave out the mean and sd for a standard normal distribution</code></pre>
+<pre><code>##   [1]  0.234442873 -1.586638056 -0.805914209 -0.259542824 -0.140898913
+##   [6] -0.405703823 -0.400081666 -0.231783141 -1.506747166  0.432922454
+##  [11] -0.312058329 -0.417668740  2.127627342 -0.642404219  1.387429377
+##  [16]  0.273646060 -0.120445842  0.380613856  0.725220426  0.362425783
+##  [21] -0.463764650 -0.798393583 -0.991094136  1.234688381 -0.660084100
+##  [26] -0.077121989 -0.651462359  0.742199523  1.863629244  0.513617182
+##  [31] -0.435722709 -0.616485784  0.563023311 -0.906287762  1.851601436
+##  [36] -0.059645931 -1.654327052  0.605517635 -0.284899920  0.257621769
+##  [41]  0.204857095  0.385004778  0.889587386  0.409743180 -0.134958807
+##  [46] -0.593702456 -0.624576868  0.732608948 -0.073336832 -0.329510751
+##  [51]  1.487054551 -1.222521531 -0.402419246  0.033197523  0.680164779
+##  [56] -0.347969388 -0.857800750 -0.727925166 -0.992802618 -0.994797201
+##  [61] -0.747061667  0.592389115 -0.437403169 -0.933872518  0.305321911
+##  [66]  1.155879632  0.083544321 -0.754213885 -0.161431761 -1.112270435
+##  [71] -1.274710003  0.693725847 -1.633103576  1.242530668  1.390226023
+##  [76] -0.669362251 -0.483146314  0.606302827  0.090842142  0.972320594
+##  [81] -0.895473517 -0.172560112 -0.844217192 -0.507048157 -0.817255268
+##  [86]  0.580989179 -0.390372921  0.245663651  0.227182209 -0.037802835
+##  [91]  1.333405586 -0.901833509 -1.885505245 -1.044474669  1.490813287
+##  [96] -0.112380879  0.227372100  0.241988611 -0.726329970  0.640694155
+## [101]  0.193066264 -0.318241161 -1.189893165 -0.716055378  0.439054023
+## [106] -2.388629152 -1.191810766 -0.831694751  0.636732156 -0.033055162
+## [111] -0.485149788  0.226130953  0.246628906  1.800531489  0.644998197
+## [116]  0.783576954  0.611485613  0.586757200  0.500375632 -0.954753648
+## [121] -0.117195624  1.574689563 -1.190081239  0.141623657  0.076742205
+## [126]  0.160203154 -1.025018529  1.266816120 -1.691989582 -0.604059709
+## [131]  0.182256516 -1.494904060  0.582136925 -0.266626045  0.638351581
+## [136]  0.911453006  0.666875071  0.359370155 -0.369421887  0.492639939
+## [141] -2.290315215  0.188264186 -1.699225218 -0.958973878 -1.977282070
+## [146] -0.895035940  2.207144074  1.755561149 -0.622231524 -1.439391802
+## [151] -0.752286498 -1.161328926  0.502445107  0.604180151  0.004861206
+## [156]  0.772186054</code></pre>
+<p>How about 6 random values from the Poisson distribution with rate parameter of 16.3?</p>
+<pre class="r"><code>rpois(6, 16.3)</code></pre>
+<pre><code>## [1] 22 18 10 20 17 11</code></pre>
+<p>You get the idea.</p>
+<p>Pull 1000 values from a standard normal distribution and plot them with a histogram.</p>
+<h3>
+More practice
+</h3>
+<h4>
+Common calculations
+</h4>
+<p>You should be able to quickly calculate the probability density and the cummulative probability for the binomial, Poisson, uniform, and normal distributions.</p>
+<p>Let’s walk through a few examples.</p>
+<p>What is the density at 23 for a normal distribution with a mean of 34 and a standard deviation of 12? First, what is the R name of the function for a normal distribution? Second, what letter that you want to append to the beginning of the function? Lastly, what are the parameters needed for this function to work?</p>
+<pre class="r"><code>dnorm(23, mean = 34, sd = 12)</code></pre>
+<pre><code>## [1] 0.02184061</code></pre>
+<p>What is the probability of getting 5 or fewers eggs hatching out of 12, when the probability of hatching is 0.61?</p>
+<pre class="r"><code>pbinom(5, size = 12, p = 0.61)</code></pre>
+<pre><code>## [1] 0.1411446</code></pre>
+<p>The cumulative probability of 0.2 is associated with which value on a uniform distribution with a min of 6.12, and a max of 9.34.</p>
+<pre class="r"><code>qunif(0.5, min = 6.12, max = 9.34)</code></pre>
+<pre><code>## [1] 7.73</code></pre>
+<p>Like we saw above, you can provide the arguments with vectors of numbers and R will return the answers associated with each value in the vector. For example, say you want to know the proability of getting 0 out of 10 outcomes, 2 out of 10, and 5 out of 10 when the probability of success is 0.2. Of course you would use the binomial distribution because you know the number of trials and the probability of success.</p>
+<pre class="r"><code>dbinom(c(0,2,5), size = 10, p = 0.2)</code></pre>
+<pre><code>## [1] 0.10737418 0.30198989 0.02642412</code></pre>
+<p>Or if you wanted all the possible outcomes, you could do the following.</p>
+<pre class="r"><code>dbinom(0:10, size = 10, p = 0.2)</code></pre>
+<pre><code>##  [1] 0.1073741824 0.2684354560 0.3019898880 0.2013265920 0.0880803840
+##  [6] 0.0264241152 0.0055050240 0.0007864320 0.0000737280 0.0000040960
+## [11] 0.0000001024</code></pre>
+<p>Or you are interested in how the probability of finding two seedlings in a quadrat changes as the rate parameter increase for 1 to 20 counting by ones.</p>
+<pre class="r"><code>dpois(2, 1:20)</code></pre>
+<pre><code>##  [1] 1.839397e-01 2.706706e-01 2.240418e-01 1.465251e-01 8.422434e-02
+##  [6] 4.461754e-02 2.234111e-02 1.073480e-02 4.998097e-03 2.269996e-03
+## [11] 1.010453e-03 4.423833e-04 1.909978e-04 8.148981e-05 3.441401e-05
+## [16] 1.440450e-05 5.982210e-06 2.467257e-06 1.011305e-06 4.122307e-07</code></pre>
+<h4>
+Calculating the probability of a range of values
+</h4>
+<p>It is important to know how to get the probability of a range of values for a given probability distribution. Let’s start with an easy question. What is the probability of getting a value less that 4 for a normal distribution with a mean of 3.4 and a standard deviation of 5.1? I will first plot the PDF with a vertical line at 4 so we can see the area that we are after. You already know how to make the graph, and you can use the function <samp>abline()</samp> to plot a line on a graph.</p>
+<pre class="r"><code>curve(dnorm(x, 3.4, 5.1), -8.4, 14.4, ylab = &quot;Density&quot;, xlab = &quot;x&quot;)
+abline(v = 4)</code></pre>
+<p><img src="prob_dist_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p>Clearly the probability of getting a value less than 4 is greater than 0.5 because more than half the area under the curve is to the left of the line, but what is the exact value? Remember that the CDF will directly answer this question.</p>
+<pre class="r"><code>pnorm(4, 3.4, 5.1)</code></pre>
+<pre><code>## [1] 0.5468263</code></pre>
+<p>What if we want the value greater than 4? Remember that the total area under the PDF totals to one.</p>
+<pre class="r"><code>1-pnorm(4, 3.4, 5.1)</code></pre>
+<pre><code>## [1] 0.4531737</code></pre>
+<p>How about the probablity of a value greater than 3 but less than 4?</p>
+<pre class="r"><code>pnorm(4, 3.4, 5.1) - pnorm(3, 3.4, 5.1)</code></pre>
+<pre><code>## [1] 0.07808388</code></pre>
+<p>Now calculate the probabilities for the following questions.</p>
+<ul>
+<li>
+What is the probability of getting a value less than 2 for a uniform distribution with min of -12.1 and a max of 34.2?
+</li>
+<li>
+What is the probability of getting a value greater of 4 or greater for a Poisson distribution with a rate parameter of 1.2?
+</li>
+<li>
+What is the probability of getting a value less than 1.2 or greater than 3.7 for a normal distribution with a mean of 5 and a standard deviation of 1.9?
+</li>
+</ul>
+<h3>
+Understanding Distributions
+</h3>
+<p>You are now set to learn about different distributions with these functions. The goal is to predict how the graph will change when you change one or more parameters. Pick a distribution and plot it. Change the parameters that describe the distribution, and see how the plot changes. You should do this with both the PDF and CDF. When you feel very comfortable with a distribution, then switch to another. At a minimum, you should be able to produce the PDF and CDF for the binomial, Poisson, uniform, and normal distributions, and know the parameters associated with each. If you have time, explore the Student’s t, F, and chi-square.</p>
+<h3>
+Advanced Examples
+</h3>
+<p>Here are a few more advanced examples. You are welcome to ignore them.</p>
+<p>I want to create a graph that shows what happens when I change the mean of the normal distribution. I also love rainbows, so I want it to look like a rainbow.</p>
+<pre class="r"><code>mus &lt;- seq(0, 50, by = 5)
+#Create a color for each mu in mus
+rainbow.colors &lt;- rainbow(length(mus))
+
+curve(dnorm(x, 0, 2), -10, 60, ylab = &quot;Density&quot;, xlab = &quot;x&quot;)
+#Add a bunch of normal distributions to the plot, each with a different mean and color
+for(i in 1:length(mus)){
+  curve(dnorm(x, mus[i], 2), add = T, col = rainbow.colors[i])
+}</code></pre>
+<p><img src="prob_dist_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p>Or I could change the standard deviation and use heat colors.</p>
+<pre class="r"><code>sds &lt;- seq(1, 101, by = 5)
+#Create a color for each mu in mus
+heat.colors &lt;- heat.colors(length(mus))
+
+curve(dnorm(x, 0, 1), -30, 30)
+for(i in 1:length(mus)){
+  curve(dnorm(x, 0, sds[i]), add = T, col = heat.colors[i])
+}</code></pre>
+<p><img src="prob_dist_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

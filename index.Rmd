@@ -1,0 +1,7 @@
+
+<div class="jumbotron">
+  <h1>Biometrics</h1>
+  <h2>Biology 340</h2>
+  <p>This site is for students taking BIOL 340 or ESCI 340 Biometrics class at Western Washington Univerisity.</p>
+</div>
+
